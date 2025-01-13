@@ -1,4 +1,4 @@
-module libxml_2_0
+module github.com/luoliwoshang/llcppg-libxml
 
 go 1.21.12
 
