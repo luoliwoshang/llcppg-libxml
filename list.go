@@ -1,76 +1,109 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
 	"unsafe"
 )
 
-type X_XmlLink struct {
+type X_xmlLink struct {
 	Unused [8]uint8
 }
-type XmlLink X_XmlLink
-type XmlLinkPtr *XmlLink
+type Link X_xmlLink
+type LinkPtr *Link
 
-type X_XmlList struct {
+type X_xmlList struct {
 	Unused [8]uint8
 }
-type XmlList X_XmlList
-type XmlListPtr *XmlList
+type List X_xmlList
+type ListPtr *List
+
 // llgo:type C
-type XmlListDeallocator func(XmlLinkPtr)
+type ListDeallocator func(LinkPtr)
+
 // llgo:type C
-type XmlListDataCompare func(unsafe.Pointer, unsafe.Pointer) c.Int
+type ListDataCompare func(unsafe.Pointer, unsafe.Pointer) c.Int
+
 // llgo:type C
-type XmlListWalker func(unsafe.Pointer, unsafe.Pointer) c.Int
-//go:linkname XmlListCreate C.xmlListCreate
-func XmlListCreate(deallocator XmlListDeallocator, compare XmlListDataCompare) XmlListPtr
-//go:linkname XmlListDelete C.xmlListDelete
-func XmlListDelete(l XmlListPtr)
-//go:linkname XmlListSearch C.xmlListSearch
-func XmlListSearch(l XmlListPtr, data unsafe.Pointer) unsafe.Pointer
-//go:linkname XmlListReverseSearch C.xmlListReverseSearch
-func XmlListReverseSearch(l XmlListPtr, data unsafe.Pointer) unsafe.Pointer
-//go:linkname XmlListInsert C.xmlListInsert
-func XmlListInsert(l XmlListPtr, data unsafe.Pointer) c.Int
-//go:linkname XmlListAppend C.xmlListAppend
-func XmlListAppend(l XmlListPtr, data unsafe.Pointer) c.Int
-//go:linkname XmlListRemoveFirst C.xmlListRemoveFirst
-func XmlListRemoveFirst(l XmlListPtr, data unsafe.Pointer) c.Int
-//go:linkname XmlListRemoveLast C.xmlListRemoveLast
-func XmlListRemoveLast(l XmlListPtr, data unsafe.Pointer) c.Int
-//go:linkname XmlListRemoveAll C.xmlListRemoveAll
-func XmlListRemoveAll(l XmlListPtr, data unsafe.Pointer) c.Int
-//go:linkname XmlListClear C.xmlListClear
-func XmlListClear(l XmlListPtr)
-//go:linkname XmlListEmpty C.xmlListEmpty
-func XmlListEmpty(l XmlListPtr) c.Int
-//go:linkname XmlListFront C.xmlListFront
-func XmlListFront(l XmlListPtr) XmlLinkPtr
-//go:linkname XmlListEnd C.xmlListEnd
-func XmlListEnd(l XmlListPtr) XmlLinkPtr
-//go:linkname XmlListSize C.xmlListSize
-func XmlListSize(l XmlListPtr) c.Int
-//go:linkname XmlListPopFront C.xmlListPopFront
-func XmlListPopFront(l XmlListPtr)
-//go:linkname XmlListPopBack C.xmlListPopBack
-func XmlListPopBack(l XmlListPtr)
-//go:linkname XmlListPushFront C.xmlListPushFront
-func XmlListPushFront(l XmlListPtr, data unsafe.Pointer) c.Int
-//go:linkname XmlListPushBack C.xmlListPushBack
-func XmlListPushBack(l XmlListPtr, data unsafe.Pointer) c.Int
-//go:linkname XmlListReverse C.xmlListReverse
-func XmlListReverse(l XmlListPtr)
-//go:linkname XmlListSort C.xmlListSort
-func XmlListSort(l XmlListPtr)
-//go:linkname XmlListWalk C.xmlListWalk
-func XmlListWalk(l XmlListPtr, walker XmlListWalker, user unsafe.Pointer)
-//go:linkname XmlListReverseWalk C.xmlListReverseWalk
-func XmlListReverseWalk(l XmlListPtr, walker XmlListWalker, user unsafe.Pointer)
-//go:linkname XmlListMerge C.xmlListMerge
-func XmlListMerge(l1 XmlListPtr, l2 XmlListPtr)
-//go:linkname XmlListDup C.xmlListDup
-func XmlListDup(old XmlListPtr) XmlListPtr
-//go:linkname XmlListCopy C.xmlListCopy
-func XmlListCopy(cur XmlListPtr, old XmlListPtr) c.Int
-//go:linkname XmlLinkGetData C.xmlLinkGetData
-func XmlLinkGetData(lk XmlLinkPtr) unsafe.Pointer
+type ListWalker func(unsafe.Pointer, unsafe.Pointer) c.Int
+
+/* Creation/Deletion */
+//go:linkname ListCreate C.xmlListCreate
+func ListCreate(deallocator ListDeallocator, compare ListDataCompare) ListPtr
+
+//go:linkname ListDelete C.xmlListDelete
+func ListDelete(l ListPtr)
+
+/* Basic Operators */
+//go:linkname ListSearch C.xmlListSearch
+func ListSearch(l ListPtr, data unsafe.Pointer) unsafe.Pointer
+
+//go:linkname ListReverseSearch C.xmlListReverseSearch
+func ListReverseSearch(l ListPtr, data unsafe.Pointer) unsafe.Pointer
+
+//go:linkname ListInsert C.xmlListInsert
+func ListInsert(l ListPtr, data unsafe.Pointer) c.Int
+
+//go:linkname ListAppend C.xmlListAppend
+func ListAppend(l ListPtr, data unsafe.Pointer) c.Int
+
+//go:linkname ListRemoveFirst C.xmlListRemoveFirst
+func ListRemoveFirst(l ListPtr, data unsafe.Pointer) c.Int
+
+//go:linkname ListRemoveLast C.xmlListRemoveLast
+func ListRemoveLast(l ListPtr, data unsafe.Pointer) c.Int
+
+//go:linkname ListRemoveAll C.xmlListRemoveAll
+func ListRemoveAll(l ListPtr, data unsafe.Pointer) c.Int
+
+//go:linkname ListClear C.xmlListClear
+func ListClear(l ListPtr)
+
+//go:linkname ListEmpty C.xmlListEmpty
+func ListEmpty(l ListPtr) c.Int
+
+//go:linkname ListFront C.xmlListFront
+func ListFront(l ListPtr) LinkPtr
+
+//go:linkname ListEnd C.xmlListEnd
+func ListEnd(l ListPtr) LinkPtr
+
+//go:linkname ListSize C.xmlListSize
+func ListSize(l ListPtr) c.Int
+
+//go:linkname ListPopFront C.xmlListPopFront
+func ListPopFront(l ListPtr)
+
+//go:linkname ListPopBack C.xmlListPopBack
+func ListPopBack(l ListPtr)
+
+//go:linkname ListPushFront C.xmlListPushFront
+func ListPushFront(l ListPtr, data unsafe.Pointer) c.Int
+
+//go:linkname ListPushBack C.xmlListPushBack
+func ListPushBack(l ListPtr, data unsafe.Pointer) c.Int
+
+/* Advanced Operators */
+//go:linkname ListReverse C.xmlListReverse
+func ListReverse(l ListPtr)
+
+//go:linkname ListSort C.xmlListSort
+func ListSort(l ListPtr)
+
+//go:linkname ListWalk C.xmlListWalk
+func ListWalk(l ListPtr, walker ListWalker, user unsafe.Pointer)
+
+//go:linkname ListReverseWalk C.xmlListReverseWalk
+func ListReverseWalk(l ListPtr, walker ListWalker, user unsafe.Pointer)
+
+//go:linkname ListMerge C.xmlListMerge
+func ListMerge(l1 ListPtr, l2 ListPtr)
+
+//go:linkname ListDup C.xmlListDup
+func ListDup(old ListPtr) ListPtr
+
+//go:linkname ListCopy C.xmlListCopy
+func ListCopy(cur ListPtr, old ListPtr) c.Int
+
+/* Link operators */
+//go:linkname LinkGetData C.xmlLinkGetData
+func LinkGetData(lk LinkPtr) unsafe.Pointer

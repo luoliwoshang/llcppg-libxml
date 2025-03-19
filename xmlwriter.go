@@ -1,148 +1,324 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
-	_ "unsafe"
+	"unsafe"
 )
 
-type X_XmlTextWriter struct {
+type X_xmlTextWriter struct {
 	Unused [8]uint8
 }
-type XmlTextWriter X_XmlTextWriter
-type XmlTextWriterPtr *XmlTextWriter
-//go:linkname XmlNewTextWriter C.xmlNewTextWriter
-func XmlNewTextWriter(out XmlOutputBufferPtr) XmlTextWriterPtr
-//go:linkname XmlNewTextWriterFilename C.xmlNewTextWriterFilename
-func XmlNewTextWriterFilename(uri *int8, compression c.Int) XmlTextWriterPtr
-//go:linkname XmlNewTextWriterMemory C.xmlNewTextWriterMemory
-func XmlNewTextWriterMemory(buf XmlBufferPtr, compression c.Int) XmlTextWriterPtr
-//go:linkname XmlNewTextWriterPushParser C.xmlNewTextWriterPushParser
-func XmlNewTextWriterPushParser(ctxt XmlParserCtxtPtr, compression c.Int) XmlTextWriterPtr
-//go:linkname XmlNewTextWriterDoc C.xmlNewTextWriterDoc
-func XmlNewTextWriterDoc(doc *XmlDocPtr, compression c.Int) XmlTextWriterPtr
-//go:linkname XmlNewTextWriterTree C.xmlNewTextWriterTree
-func XmlNewTextWriterTree(doc XmlDocPtr, node XmlNodePtr, compression c.Int) XmlTextWriterPtr
-//go:linkname XmlFreeTextWriter C.xmlFreeTextWriter
-func XmlFreeTextWriter(writer XmlTextWriterPtr)
-//go:linkname XmlTextWriterStartDocument C.xmlTextWriterStartDocument
-func XmlTextWriterStartDocument(writer XmlTextWriterPtr, version *int8, encoding *int8, standalone *int8) c.Int
-//go:linkname XmlTextWriterEndDocument C.xmlTextWriterEndDocument
-func XmlTextWriterEndDocument(writer XmlTextWriterPtr) c.Int
-//go:linkname XmlTextWriterStartComment C.xmlTextWriterStartComment
-func XmlTextWriterStartComment(writer XmlTextWriterPtr) c.Int
-//go:linkname XmlTextWriterEndComment C.xmlTextWriterEndComment
-func XmlTextWriterEndComment(writer XmlTextWriterPtr) c.Int
-//go:linkname XmlTextWriterWriteFormatComment C.xmlTextWriterWriteFormatComment
-func XmlTextWriterWriteFormatComment(writer XmlTextWriterPtr, format *int8, __llgo_va_list ...interface{}) c.Int
-//go:linkname XmlTextWriterWriteComment C.xmlTextWriterWriteComment
-func XmlTextWriterWriteComment(writer XmlTextWriterPtr, content *XmlChar) c.Int
-//go:linkname XmlTextWriterStartElement C.xmlTextWriterStartElement
-func XmlTextWriterStartElement(writer XmlTextWriterPtr, name *XmlChar) c.Int
-//go:linkname XmlTextWriterStartElementNS C.xmlTextWriterStartElementNS
-func XmlTextWriterStartElementNS(writer XmlTextWriterPtr, prefix *XmlChar, name *XmlChar, namespaceURI *XmlChar) c.Int
-//go:linkname XmlTextWriterEndElement C.xmlTextWriterEndElement
-func XmlTextWriterEndElement(writer XmlTextWriterPtr) c.Int
-//go:linkname XmlTextWriterFullEndElement C.xmlTextWriterFullEndElement
-func XmlTextWriterFullEndElement(writer XmlTextWriterPtr) c.Int
-//go:linkname XmlTextWriterWriteFormatElement C.xmlTextWriterWriteFormatElement
-func XmlTextWriterWriteFormatElement(writer XmlTextWriterPtr, name *XmlChar, format *int8, __llgo_va_list ...interface{}) c.Int
-//go:linkname XmlTextWriterWriteElement C.xmlTextWriterWriteElement
-func XmlTextWriterWriteElement(writer XmlTextWriterPtr, name *XmlChar, content *XmlChar) c.Int
-//go:linkname XmlTextWriterWriteFormatElementNS C.xmlTextWriterWriteFormatElementNS
-func XmlTextWriterWriteFormatElementNS(writer XmlTextWriterPtr, prefix *XmlChar, name *XmlChar, namespaceURI *XmlChar, format *int8, __llgo_va_list ...interface{}) c.Int
-//go:linkname XmlTextWriterWriteElementNS C.xmlTextWriterWriteElementNS
-func XmlTextWriterWriteElementNS(writer XmlTextWriterPtr, prefix *XmlChar, name *XmlChar, namespaceURI *XmlChar, content *XmlChar) c.Int
-//go:linkname XmlTextWriterWriteFormatRaw C.xmlTextWriterWriteFormatRaw
-func XmlTextWriterWriteFormatRaw(writer XmlTextWriterPtr, format *int8, __llgo_va_list ...interface{}) c.Int
-//go:linkname XmlTextWriterWriteRawLen C.xmlTextWriterWriteRawLen
-func XmlTextWriterWriteRawLen(writer XmlTextWriterPtr, content *XmlChar, len c.Int) c.Int
-//go:linkname XmlTextWriterWriteRaw C.xmlTextWriterWriteRaw
-func XmlTextWriterWriteRaw(writer XmlTextWriterPtr, content *XmlChar) c.Int
-//go:linkname XmlTextWriterWriteFormatString C.xmlTextWriterWriteFormatString
-func XmlTextWriterWriteFormatString(writer XmlTextWriterPtr, format *int8, __llgo_va_list ...interface{}) c.Int
-//go:linkname XmlTextWriterWriteString C.xmlTextWriterWriteString
-func XmlTextWriterWriteString(writer XmlTextWriterPtr, content *XmlChar) c.Int
-//go:linkname XmlTextWriterWriteBase64 C.xmlTextWriterWriteBase64
-func XmlTextWriterWriteBase64(writer XmlTextWriterPtr, data *int8, start c.Int, len c.Int) c.Int
-//go:linkname XmlTextWriterWriteBinHex C.xmlTextWriterWriteBinHex
-func XmlTextWriterWriteBinHex(writer XmlTextWriterPtr, data *int8, start c.Int, len c.Int) c.Int
-//go:linkname XmlTextWriterStartAttribute C.xmlTextWriterStartAttribute
-func XmlTextWriterStartAttribute(writer XmlTextWriterPtr, name *XmlChar) c.Int
-//go:linkname XmlTextWriterStartAttributeNS C.xmlTextWriterStartAttributeNS
-func XmlTextWriterStartAttributeNS(writer XmlTextWriterPtr, prefix *XmlChar, name *XmlChar, namespaceURI *XmlChar) c.Int
-//go:linkname XmlTextWriterEndAttribute C.xmlTextWriterEndAttribute
-func XmlTextWriterEndAttribute(writer XmlTextWriterPtr) c.Int
-//go:linkname XmlTextWriterWriteFormatAttribute C.xmlTextWriterWriteFormatAttribute
-func XmlTextWriterWriteFormatAttribute(writer XmlTextWriterPtr, name *XmlChar, format *int8, __llgo_va_list ...interface{}) c.Int
-//go:linkname XmlTextWriterWriteAttribute C.xmlTextWriterWriteAttribute
-func XmlTextWriterWriteAttribute(writer XmlTextWriterPtr, name *XmlChar, content *XmlChar) c.Int
-//go:linkname XmlTextWriterWriteFormatAttributeNS C.xmlTextWriterWriteFormatAttributeNS
-func XmlTextWriterWriteFormatAttributeNS(writer XmlTextWriterPtr, prefix *XmlChar, name *XmlChar, namespaceURI *XmlChar, format *int8, __llgo_va_list ...interface{}) c.Int
-//go:linkname XmlTextWriterWriteAttributeNS C.xmlTextWriterWriteAttributeNS
-func XmlTextWriterWriteAttributeNS(writer XmlTextWriterPtr, prefix *XmlChar, name *XmlChar, namespaceURI *XmlChar, content *XmlChar) c.Int
-//go:linkname XmlTextWriterStartPI C.xmlTextWriterStartPI
-func XmlTextWriterStartPI(writer XmlTextWriterPtr, target *XmlChar) c.Int
-//go:linkname XmlTextWriterEndPI C.xmlTextWriterEndPI
-func XmlTextWriterEndPI(writer XmlTextWriterPtr) c.Int
-//go:linkname XmlTextWriterWriteFormatPI C.xmlTextWriterWriteFormatPI
-func XmlTextWriterWriteFormatPI(writer XmlTextWriterPtr, target *XmlChar, format *int8, __llgo_va_list ...interface{}) c.Int
-//go:linkname XmlTextWriterWritePI C.xmlTextWriterWritePI
-func XmlTextWriterWritePI(writer XmlTextWriterPtr, target *XmlChar, content *XmlChar) c.Int
-//go:linkname XmlTextWriterStartCDATA C.xmlTextWriterStartCDATA
-func XmlTextWriterStartCDATA(writer XmlTextWriterPtr) c.Int
-//go:linkname XmlTextWriterEndCDATA C.xmlTextWriterEndCDATA
-func XmlTextWriterEndCDATA(writer XmlTextWriterPtr) c.Int
-//go:linkname XmlTextWriterWriteFormatCDATA C.xmlTextWriterWriteFormatCDATA
-func XmlTextWriterWriteFormatCDATA(writer XmlTextWriterPtr, format *int8, __llgo_va_list ...interface{}) c.Int
-//go:linkname XmlTextWriterWriteCDATA C.xmlTextWriterWriteCDATA
-func XmlTextWriterWriteCDATA(writer XmlTextWriterPtr, content *XmlChar) c.Int
-//go:linkname XmlTextWriterStartDTD C.xmlTextWriterStartDTD
-func XmlTextWriterStartDTD(writer XmlTextWriterPtr, name *XmlChar, pubid *XmlChar, sysid *XmlChar) c.Int
-//go:linkname XmlTextWriterEndDTD C.xmlTextWriterEndDTD
-func XmlTextWriterEndDTD(writer XmlTextWriterPtr) c.Int
-//go:linkname XmlTextWriterWriteFormatDTD C.xmlTextWriterWriteFormatDTD
-func XmlTextWriterWriteFormatDTD(writer XmlTextWriterPtr, name *XmlChar, pubid *XmlChar, sysid *XmlChar, format *int8, __llgo_va_list ...interface{}) c.Int
-//go:linkname XmlTextWriterWriteDTD C.xmlTextWriterWriteDTD
-func XmlTextWriterWriteDTD(writer XmlTextWriterPtr, name *XmlChar, pubid *XmlChar, sysid *XmlChar, subset *XmlChar) c.Int
-//go:linkname XmlTextWriterStartDTDElement C.xmlTextWriterStartDTDElement
-func XmlTextWriterStartDTDElement(writer XmlTextWriterPtr, name *XmlChar) c.Int
-//go:linkname XmlTextWriterEndDTDElement C.xmlTextWriterEndDTDElement
-func XmlTextWriterEndDTDElement(writer XmlTextWriterPtr) c.Int
-//go:linkname XmlTextWriterWriteFormatDTDElement C.xmlTextWriterWriteFormatDTDElement
-func XmlTextWriterWriteFormatDTDElement(writer XmlTextWriterPtr, name *XmlChar, format *int8, __llgo_va_list ...interface{}) c.Int
-//go:linkname XmlTextWriterWriteDTDElement C.xmlTextWriterWriteDTDElement
-func XmlTextWriterWriteDTDElement(writer XmlTextWriterPtr, name *XmlChar, content *XmlChar) c.Int
-//go:linkname XmlTextWriterStartDTDAttlist C.xmlTextWriterStartDTDAttlist
-func XmlTextWriterStartDTDAttlist(writer XmlTextWriterPtr, name *XmlChar) c.Int
-//go:linkname XmlTextWriterEndDTDAttlist C.xmlTextWriterEndDTDAttlist
-func XmlTextWriterEndDTDAttlist(writer XmlTextWriterPtr) c.Int
-//go:linkname XmlTextWriterWriteFormatDTDAttlist C.xmlTextWriterWriteFormatDTDAttlist
-func XmlTextWriterWriteFormatDTDAttlist(writer XmlTextWriterPtr, name *XmlChar, format *int8, __llgo_va_list ...interface{}) c.Int
-//go:linkname XmlTextWriterWriteDTDAttlist C.xmlTextWriterWriteDTDAttlist
-func XmlTextWriterWriteDTDAttlist(writer XmlTextWriterPtr, name *XmlChar, content *XmlChar) c.Int
-//go:linkname XmlTextWriterStartDTDEntity C.xmlTextWriterStartDTDEntity
-func XmlTextWriterStartDTDEntity(writer XmlTextWriterPtr, pe c.Int, name *XmlChar) c.Int
-//go:linkname XmlTextWriterEndDTDEntity C.xmlTextWriterEndDTDEntity
-func XmlTextWriterEndDTDEntity(writer XmlTextWriterPtr) c.Int
-//go:linkname XmlTextWriterWriteFormatDTDInternalEntity C.xmlTextWriterWriteFormatDTDInternalEntity
-func XmlTextWriterWriteFormatDTDInternalEntity(writer XmlTextWriterPtr, pe c.Int, name *XmlChar, format *int8, __llgo_va_list ...interface{}) c.Int
-//go:linkname XmlTextWriterWriteDTDInternalEntity C.xmlTextWriterWriteDTDInternalEntity
-func XmlTextWriterWriteDTDInternalEntity(writer XmlTextWriterPtr, pe c.Int, name *XmlChar, content *XmlChar) c.Int
-//go:linkname XmlTextWriterWriteDTDExternalEntity C.xmlTextWriterWriteDTDExternalEntity
-func XmlTextWriterWriteDTDExternalEntity(writer XmlTextWriterPtr, pe c.Int, name *XmlChar, pubid *XmlChar, sysid *XmlChar, ndataid *XmlChar) c.Int
-//go:linkname XmlTextWriterWriteDTDExternalEntityContents C.xmlTextWriterWriteDTDExternalEntityContents
-func XmlTextWriterWriteDTDExternalEntityContents(writer XmlTextWriterPtr, pubid *XmlChar, sysid *XmlChar, ndataid *XmlChar) c.Int
-//go:linkname XmlTextWriterWriteDTDEntity C.xmlTextWriterWriteDTDEntity
-func XmlTextWriterWriteDTDEntity(writer XmlTextWriterPtr, pe c.Int, name *XmlChar, pubid *XmlChar, sysid *XmlChar, ndataid *XmlChar, content *XmlChar) c.Int
-//go:linkname XmlTextWriterWriteDTDNotation C.xmlTextWriterWriteDTDNotation
-func XmlTextWriterWriteDTDNotation(writer XmlTextWriterPtr, name *XmlChar, pubid *XmlChar, sysid *XmlChar) c.Int
-//go:linkname XmlTextWriterSetIndent C.xmlTextWriterSetIndent
-func XmlTextWriterSetIndent(writer XmlTextWriterPtr, indent c.Int) c.Int
-//go:linkname XmlTextWriterSetIndentString C.xmlTextWriterSetIndentString
-func XmlTextWriterSetIndentString(writer XmlTextWriterPtr, str *XmlChar) c.Int
-//go:linkname XmlTextWriterSetQuoteChar C.xmlTextWriterSetQuoteChar
-func XmlTextWriterSetQuoteChar(writer XmlTextWriterPtr, quotechar XmlChar) c.Int
-//go:linkname XmlTextWriterFlush C.xmlTextWriterFlush
-func XmlTextWriterFlush(writer XmlTextWriterPtr) c.Int
-//go:linkname XmlTextWriterClose C.xmlTextWriterClose
-func XmlTextWriterClose(writer XmlTextWriterPtr) c.Int
+type TextWriter X_xmlTextWriter
+type TextWriterPtr *TextWriter
+
+/*
+ * Constructors & Destructor
+ */
+//go:linkname NewTextWriter C.xmlNewTextWriter
+func NewTextWriter(out OutputBufferPtr) TextWriterPtr
+
+//go:linkname NewTextWriterFilename C.xmlNewTextWriterFilename
+func NewTextWriterFilename(uri *int8, compression c.Int) TextWriterPtr
+
+//go:linkname NewTextWriterMemory C.xmlNewTextWriterMemory
+func NewTextWriterMemory(buf BufferPtr, compression c.Int) TextWriterPtr
+
+//go:linkname NewTextWriterPushParser C.xmlNewTextWriterPushParser
+func NewTextWriterPushParser(ctxt ParserCtxtPtr, compression c.Int) TextWriterPtr
+
+//go:linkname NewTextWriterDoc C.xmlNewTextWriterDoc
+func NewTextWriterDoc(doc *DocPtr, compression c.Int) TextWriterPtr
+
+//go:linkname NewTextWriterTree C.xmlNewTextWriterTree
+func NewTextWriterTree(doc DocPtr, node NodePtr, compression c.Int) TextWriterPtr
+
+//go:linkname FreeTextWriter C.xmlFreeTextWriter
+func FreeTextWriter(writer TextWriterPtr)
+
+/*
+ * Document
+ */
+//go:linkname TextWriterStartDocument C.xmlTextWriterStartDocument
+func TextWriterStartDocument(writer TextWriterPtr, version *int8, encoding *int8, standalone *int8) c.Int
+
+//go:linkname TextWriterEndDocument C.xmlTextWriterEndDocument
+func TextWriterEndDocument(writer TextWriterPtr) c.Int
+
+/*
+ * Comments
+ */
+//go:linkname TextWriterStartComment C.xmlTextWriterStartComment
+func TextWriterStartComment(writer TextWriterPtr) c.Int
+
+//go:linkname TextWriterEndComment C.xmlTextWriterEndComment
+func TextWriterEndComment(writer TextWriterPtr) c.Int
+
+//go:linkname TextWriterWriteFormatComment C.xmlTextWriterWriteFormatComment
+func TextWriterWriteFormatComment(writer TextWriterPtr, format *int8, __llgo_va_list ...interface{}) c.Int
+
+//go:linkname TextWriterWriteVFormatComment C.xmlTextWriterWriteVFormatComment
+func TextWriterWriteVFormatComment(writer TextWriterPtr, format *int8, argptr unsafe.Pointer) c.Int
+
+//go:linkname TextWriterWriteComment C.xmlTextWriterWriteComment
+func TextWriterWriteComment(writer TextWriterPtr, content *Char) c.Int
+
+/*
+ * Elements
+ */
+//go:linkname TextWriterStartElement C.xmlTextWriterStartElement
+func TextWriterStartElement(writer TextWriterPtr, name *Char) c.Int
+
+//go:linkname TextWriterStartElementNS C.xmlTextWriterStartElementNS
+func TextWriterStartElementNS(writer TextWriterPtr, prefix *Char, name *Char, namespaceURI *Char) c.Int
+
+//go:linkname TextWriterEndElement C.xmlTextWriterEndElement
+func TextWriterEndElement(writer TextWriterPtr) c.Int
+
+//go:linkname TextWriterFullEndElement C.xmlTextWriterFullEndElement
+func TextWriterFullEndElement(writer TextWriterPtr) c.Int
+
+/*
+ * Elements conveniency functions
+ */
+//go:linkname TextWriterWriteFormatElement C.xmlTextWriterWriteFormatElement
+func TextWriterWriteFormatElement(writer TextWriterPtr, name *Char, format *int8, __llgo_va_list ...interface{}) c.Int
+
+//go:linkname TextWriterWriteVFormatElement C.xmlTextWriterWriteVFormatElement
+func TextWriterWriteVFormatElement(writer TextWriterPtr, name *Char, format *int8, argptr unsafe.Pointer) c.Int
+
+//go:linkname TextWriterWriteElement C.xmlTextWriterWriteElement
+func TextWriterWriteElement(writer TextWriterPtr, name *Char, content *Char) c.Int
+
+//go:linkname TextWriterWriteFormatElementNS C.xmlTextWriterWriteFormatElementNS
+func TextWriterWriteFormatElementNS(writer TextWriterPtr, prefix *Char, name *Char, namespaceURI *Char, format *int8, __llgo_va_list ...interface{}) c.Int
+
+//go:linkname TextWriterWriteVFormatElementNS C.xmlTextWriterWriteVFormatElementNS
+func TextWriterWriteVFormatElementNS(writer TextWriterPtr, prefix *Char, name *Char, namespaceURI *Char, format *int8, argptr unsafe.Pointer) c.Int
+
+//go:linkname TextWriterWriteElementNS C.xmlTextWriterWriteElementNS
+func TextWriterWriteElementNS(writer TextWriterPtr, prefix *Char, name *Char, namespaceURI *Char, content *Char) c.Int
+
+/*
+ * Text
+ */
+//go:linkname TextWriterWriteFormatRaw C.xmlTextWriterWriteFormatRaw
+func TextWriterWriteFormatRaw(writer TextWriterPtr, format *int8, __llgo_va_list ...interface{}) c.Int
+
+//go:linkname TextWriterWriteVFormatRaw C.xmlTextWriterWriteVFormatRaw
+func TextWriterWriteVFormatRaw(writer TextWriterPtr, format *int8, argptr unsafe.Pointer) c.Int
+
+//go:linkname TextWriterWriteRawLen C.xmlTextWriterWriteRawLen
+func TextWriterWriteRawLen(writer TextWriterPtr, content *Char, len c.Int) c.Int
+
+//go:linkname TextWriterWriteRaw C.xmlTextWriterWriteRaw
+func TextWriterWriteRaw(writer TextWriterPtr, content *Char) c.Int
+
+//go:linkname TextWriterWriteFormatString C.xmlTextWriterWriteFormatString
+func TextWriterWriteFormatString(writer TextWriterPtr, format *int8, __llgo_va_list ...interface{}) c.Int
+
+//go:linkname TextWriterWriteVFormatString C.xmlTextWriterWriteVFormatString
+func TextWriterWriteVFormatString(writer TextWriterPtr, format *int8, argptr unsafe.Pointer) c.Int
+
+//go:linkname TextWriterWriteString C.xmlTextWriterWriteString
+func TextWriterWriteString(writer TextWriterPtr, content *Char) c.Int
+
+//go:linkname TextWriterWriteBase64 C.xmlTextWriterWriteBase64
+func TextWriterWriteBase64(writer TextWriterPtr, data *int8, start c.Int, len c.Int) c.Int
+
+//go:linkname TextWriterWriteBinHex C.xmlTextWriterWriteBinHex
+func TextWriterWriteBinHex(writer TextWriterPtr, data *int8, start c.Int, len c.Int) c.Int
+
+/*
+ * Attributes
+ */
+//go:linkname TextWriterStartAttribute C.xmlTextWriterStartAttribute
+func TextWriterStartAttribute(writer TextWriterPtr, name *Char) c.Int
+
+//go:linkname TextWriterStartAttributeNS C.xmlTextWriterStartAttributeNS
+func TextWriterStartAttributeNS(writer TextWriterPtr, prefix *Char, name *Char, namespaceURI *Char) c.Int
+
+//go:linkname TextWriterEndAttribute C.xmlTextWriterEndAttribute
+func TextWriterEndAttribute(writer TextWriterPtr) c.Int
+
+/*
+ * Attributes conveniency functions
+ */
+//go:linkname TextWriterWriteFormatAttribute C.xmlTextWriterWriteFormatAttribute
+func TextWriterWriteFormatAttribute(writer TextWriterPtr, name *Char, format *int8, __llgo_va_list ...interface{}) c.Int
+
+//go:linkname TextWriterWriteVFormatAttribute C.xmlTextWriterWriteVFormatAttribute
+func TextWriterWriteVFormatAttribute(writer TextWriterPtr, name *Char, format *int8, argptr unsafe.Pointer) c.Int
+
+//go:linkname TextWriterWriteAttribute C.xmlTextWriterWriteAttribute
+func TextWriterWriteAttribute(writer TextWriterPtr, name *Char, content *Char) c.Int
+
+//go:linkname TextWriterWriteFormatAttributeNS C.xmlTextWriterWriteFormatAttributeNS
+func TextWriterWriteFormatAttributeNS(writer TextWriterPtr, prefix *Char, name *Char, namespaceURI *Char, format *int8, __llgo_va_list ...interface{}) c.Int
+
+//go:linkname TextWriterWriteVFormatAttributeNS C.xmlTextWriterWriteVFormatAttributeNS
+func TextWriterWriteVFormatAttributeNS(writer TextWriterPtr, prefix *Char, name *Char, namespaceURI *Char, format *int8, argptr unsafe.Pointer) c.Int
+
+//go:linkname TextWriterWriteAttributeNS C.xmlTextWriterWriteAttributeNS
+func TextWriterWriteAttributeNS(writer TextWriterPtr, prefix *Char, name *Char, namespaceURI *Char, content *Char) c.Int
+
+/*
+ * PI's
+ */
+//go:linkname TextWriterStartPI C.xmlTextWriterStartPI
+func TextWriterStartPI(writer TextWriterPtr, target *Char) c.Int
+
+//go:linkname TextWriterEndPI C.xmlTextWriterEndPI
+func TextWriterEndPI(writer TextWriterPtr) c.Int
+
+/*
+ * PI conveniency functions
+ */
+//go:linkname TextWriterWriteFormatPI C.xmlTextWriterWriteFormatPI
+func TextWriterWriteFormatPI(writer TextWriterPtr, target *Char, format *int8, __llgo_va_list ...interface{}) c.Int
+
+//go:linkname TextWriterWriteVFormatPI C.xmlTextWriterWriteVFormatPI
+func TextWriterWriteVFormatPI(writer TextWriterPtr, target *Char, format *int8, argptr unsafe.Pointer) c.Int
+
+//go:linkname TextWriterWritePI C.xmlTextWriterWritePI
+func TextWriterWritePI(writer TextWriterPtr, target *Char, content *Char) c.Int
+
+/*
+ * CDATA
+ */
+//go:linkname TextWriterStartCDATA C.xmlTextWriterStartCDATA
+func TextWriterStartCDATA(writer TextWriterPtr) c.Int
+
+//go:linkname TextWriterEndCDATA C.xmlTextWriterEndCDATA
+func TextWriterEndCDATA(writer TextWriterPtr) c.Int
+
+/*
+ * CDATA conveniency functions
+ */
+//go:linkname TextWriterWriteFormatCDATA C.xmlTextWriterWriteFormatCDATA
+func TextWriterWriteFormatCDATA(writer TextWriterPtr, format *int8, __llgo_va_list ...interface{}) c.Int
+
+//go:linkname TextWriterWriteVFormatCDATA C.xmlTextWriterWriteVFormatCDATA
+func TextWriterWriteVFormatCDATA(writer TextWriterPtr, format *int8, argptr unsafe.Pointer) c.Int
+
+//go:linkname TextWriterWriteCDATA C.xmlTextWriterWriteCDATA
+func TextWriterWriteCDATA(writer TextWriterPtr, content *Char) c.Int
+
+/*
+ * DTD
+ */
+//go:linkname TextWriterStartDTD C.xmlTextWriterStartDTD
+func TextWriterStartDTD(writer TextWriterPtr, name *Char, pubid *Char, sysid *Char) c.Int
+
+//go:linkname TextWriterEndDTD C.xmlTextWriterEndDTD
+func TextWriterEndDTD(writer TextWriterPtr) c.Int
+
+/*
+ * DTD conveniency functions
+ */
+//go:linkname TextWriterWriteFormatDTD C.xmlTextWriterWriteFormatDTD
+func TextWriterWriteFormatDTD(writer TextWriterPtr, name *Char, pubid *Char, sysid *Char, format *int8, __llgo_va_list ...interface{}) c.Int
+
+//go:linkname TextWriterWriteVFormatDTD C.xmlTextWriterWriteVFormatDTD
+func TextWriterWriteVFormatDTD(writer TextWriterPtr, name *Char, pubid *Char, sysid *Char, format *int8, argptr unsafe.Pointer) c.Int
+
+//go:linkname TextWriterWriteDTD C.xmlTextWriterWriteDTD
+func TextWriterWriteDTD(writer TextWriterPtr, name *Char, pubid *Char, sysid *Char, subset *Char) c.Int
+
+/*
+ * DTD element definition
+ */
+//go:linkname TextWriterStartDTDElement C.xmlTextWriterStartDTDElement
+func TextWriterStartDTDElement(writer TextWriterPtr, name *Char) c.Int
+
+//go:linkname TextWriterEndDTDElement C.xmlTextWriterEndDTDElement
+func TextWriterEndDTDElement(writer TextWriterPtr) c.Int
+
+/*
+ * DTD element definition conveniency functions
+ */
+//go:linkname TextWriterWriteFormatDTDElement C.xmlTextWriterWriteFormatDTDElement
+func TextWriterWriteFormatDTDElement(writer TextWriterPtr, name *Char, format *int8, __llgo_va_list ...interface{}) c.Int
+
+//go:linkname TextWriterWriteVFormatDTDElement C.xmlTextWriterWriteVFormatDTDElement
+func TextWriterWriteVFormatDTDElement(writer TextWriterPtr, name *Char, format *int8, argptr unsafe.Pointer) c.Int
+
+//go:linkname TextWriterWriteDTDElement C.xmlTextWriterWriteDTDElement
+func TextWriterWriteDTDElement(writer TextWriterPtr, name *Char, content *Char) c.Int
+
+/*
+ * DTD attribute list definition
+ */
+//go:linkname TextWriterStartDTDAttlist C.xmlTextWriterStartDTDAttlist
+func TextWriterStartDTDAttlist(writer TextWriterPtr, name *Char) c.Int
+
+//go:linkname TextWriterEndDTDAttlist C.xmlTextWriterEndDTDAttlist
+func TextWriterEndDTDAttlist(writer TextWriterPtr) c.Int
+
+/*
+ * DTD attribute list definition conveniency functions
+ */
+//go:linkname TextWriterWriteFormatDTDAttlist C.xmlTextWriterWriteFormatDTDAttlist
+func TextWriterWriteFormatDTDAttlist(writer TextWriterPtr, name *Char, format *int8, __llgo_va_list ...interface{}) c.Int
+
+//go:linkname TextWriterWriteVFormatDTDAttlist C.xmlTextWriterWriteVFormatDTDAttlist
+func TextWriterWriteVFormatDTDAttlist(writer TextWriterPtr, name *Char, format *int8, argptr unsafe.Pointer) c.Int
+
+//go:linkname TextWriterWriteDTDAttlist C.xmlTextWriterWriteDTDAttlist
+func TextWriterWriteDTDAttlist(writer TextWriterPtr, name *Char, content *Char) c.Int
+
+/*
+ * DTD entity definition
+ */
+//go:linkname TextWriterStartDTDEntity C.xmlTextWriterStartDTDEntity
+func TextWriterStartDTDEntity(writer TextWriterPtr, pe c.Int, name *Char) c.Int
+
+//go:linkname TextWriterEndDTDEntity C.xmlTextWriterEndDTDEntity
+func TextWriterEndDTDEntity(writer TextWriterPtr) c.Int
+
+/*
+ * DTD entity definition conveniency functions
+ */
+//go:linkname TextWriterWriteFormatDTDInternalEntity C.xmlTextWriterWriteFormatDTDInternalEntity
+func TextWriterWriteFormatDTDInternalEntity(writer TextWriterPtr, pe c.Int, name *Char, format *int8, __llgo_va_list ...interface{}) c.Int
+
+//go:linkname TextWriterWriteVFormatDTDInternalEntity C.xmlTextWriterWriteVFormatDTDInternalEntity
+func TextWriterWriteVFormatDTDInternalEntity(writer TextWriterPtr, pe c.Int, name *Char, format *int8, argptr unsafe.Pointer) c.Int
+
+//go:linkname TextWriterWriteDTDInternalEntity C.xmlTextWriterWriteDTDInternalEntity
+func TextWriterWriteDTDInternalEntity(writer TextWriterPtr, pe c.Int, name *Char, content *Char) c.Int
+
+//go:linkname TextWriterWriteDTDExternalEntity C.xmlTextWriterWriteDTDExternalEntity
+func TextWriterWriteDTDExternalEntity(writer TextWriterPtr, pe c.Int, name *Char, pubid *Char, sysid *Char, ndataid *Char) c.Int
+
+//go:linkname TextWriterWriteDTDExternalEntityContents C.xmlTextWriterWriteDTDExternalEntityContents
+func TextWriterWriteDTDExternalEntityContents(writer TextWriterPtr, pubid *Char, sysid *Char, ndataid *Char) c.Int
+
+//go:linkname TextWriterWriteDTDEntity C.xmlTextWriterWriteDTDEntity
+func TextWriterWriteDTDEntity(writer TextWriterPtr, pe c.Int, name *Char, pubid *Char, sysid *Char, ndataid *Char, content *Char) c.Int
+
+/*
+ * DTD notation definition
+ */
+//go:linkname TextWriterWriteDTDNotation C.xmlTextWriterWriteDTDNotation
+func TextWriterWriteDTDNotation(writer TextWriterPtr, name *Char, pubid *Char, sysid *Char) c.Int
+
+/*
+ * Indentation
+ */
+//go:linkname TextWriterSetIndent C.xmlTextWriterSetIndent
+func TextWriterSetIndent(writer TextWriterPtr, indent c.Int) c.Int
+
+//go:linkname TextWriterSetIndentString C.xmlTextWriterSetIndentString
+func TextWriterSetIndentString(writer TextWriterPtr, str *Char) c.Int
+
+//go:linkname TextWriterSetQuoteChar C.xmlTextWriterSetQuoteChar
+func TextWriterSetQuoteChar(writer TextWriterPtr, quotechar Char) c.Int
+
+/*
+ * misc
+ */
+//go:linkname TextWriterFlush C.xmlTextWriterFlush
+func TextWriterFlush(writer TextWriterPtr) c.Int
+
+//go:linkname TextWriterClose C.xmlTextWriterClose
+func TextWriterClose(writer TextWriterPtr) c.Int

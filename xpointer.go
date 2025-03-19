@@ -1,9 +1,14 @@
-package libxml_2_0
+package libxml2
 
 import _ "unsafe"
-//go:linkname XmlXPtrNewContext C.xmlXPtrNewContext
-func XmlXPtrNewContext(doc XmlDocPtr, here XmlNodePtr, origin XmlNodePtr) XmlXPathContextPtr
-// llgo:link (*XmlChar).XmlXPtrEval C.xmlXPtrEval
-func (recv_ *XmlChar) XmlXPtrEval(ctx XmlXPathContextPtr) XmlXPathObjectPtr {
+
+/*
+ * Functions.
+ */
+//go:linkname XPtrNewContext C.xmlXPtrNewContext
+func XPtrNewContext(doc DocPtr, here NodePtr, origin NodePtr) XPathContextPtr
+
+// llgo:link (*Char).XPtrEval C.xmlXPtrEval
+func (recv_ *Char) XPtrEval(ctx XPathContextPtr) XPathObjectPtr {
 	return nil
 }

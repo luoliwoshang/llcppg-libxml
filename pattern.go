@@ -1,62 +1,78 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
 	_ "unsafe"
 )
 
-type X_XmlPattern struct {
+type X_xmlPattern struct {
 	Unused [8]uint8
 }
-type XmlPattern X_XmlPattern
-type XmlPatternPtr *XmlPattern
-type XmlPatternFlags c.Int
+type Pattern X_xmlPattern
+type PatternPtr *Pattern
+type PatternFlags c.Int
 
 const (
-	XmlPatternFlagsXMLPATTERNDEFAULT XmlPatternFlags = 0
-	XmlPatternFlagsXMLPATTERNXPATH   XmlPatternFlags = 1
-	XmlPatternFlagsXMLPATTERNXSSEL   XmlPatternFlags = 2
-	XmlPatternFlagsXMLPATTERNXSFIELD XmlPatternFlags = 4
+	PATTERNDEFAULT PatternFlags = 0
+	PATTERNXPATH   PatternFlags = 1
+	PATTERNXSSEL   PatternFlags = 2
+	PATTERNXSFIELD PatternFlags = 4
 )
-//go:linkname XmlFreePattern C.xmlFreePattern
-func XmlFreePattern(comp XmlPatternPtr)
-//go:linkname XmlFreePatternList C.xmlFreePatternList
-func XmlFreePatternList(comp XmlPatternPtr)
-// llgo:link (*XmlChar).XmlPatterncompile C.xmlPatterncompile
-func (recv_ *XmlChar) XmlPatterncompile(dict *XmlDict, flags c.Int, namespaces **XmlChar) XmlPatternPtr {
+
+//go:linkname FreePattern C.xmlFreePattern
+func FreePattern(comp PatternPtr)
+
+//go:linkname FreePatternList C.xmlFreePatternList
+func FreePatternList(comp PatternPtr)
+
+// llgo:link (*Char).Patterncompile C.xmlPatterncompile
+func (recv_ *Char) Patterncompile(dict *Dict, flags c.Int, namespaces **Char) PatternPtr {
 	return nil
 }
-// llgo:link (*XmlChar).XmlPatternCompileSafe C.xmlPatternCompileSafe
-func (recv_ *XmlChar) XmlPatternCompileSafe(dict *XmlDict, flags c.Int, namespaces **XmlChar, patternOut *XmlPatternPtr) c.Int {
+
+// llgo:link (*Char).PatternCompileSafe C.xmlPatternCompileSafe
+func (recv_ *Char) PatternCompileSafe(dict *Dict, flags c.Int, namespaces **Char, patternOut *PatternPtr) c.Int {
 	return 0
 }
-//go:linkname XmlPatternMatch C.xmlPatternMatch
-func XmlPatternMatch(comp XmlPatternPtr, node XmlNodePtr) c.Int
 
-type X_XmlStreamCtxt struct {
+//go:linkname PatternMatch C.xmlPatternMatch
+func PatternMatch(comp PatternPtr, node NodePtr) c.Int
+
+type X_xmlStreamCtxt struct {
 	Unused [8]uint8
 }
-type XmlStreamCtxt X_XmlStreamCtxt
-type XmlStreamCtxtPtr *XmlStreamCtxt
-//go:linkname XmlPatternStreamable C.xmlPatternStreamable
-func XmlPatternStreamable(comp XmlPatternPtr) c.Int
-//go:linkname XmlPatternMaxDepth C.xmlPatternMaxDepth
-func XmlPatternMaxDepth(comp XmlPatternPtr) c.Int
-//go:linkname XmlPatternMinDepth C.xmlPatternMinDepth
-func XmlPatternMinDepth(comp XmlPatternPtr) c.Int
-//go:linkname XmlPatternFromRoot C.xmlPatternFromRoot
-func XmlPatternFromRoot(comp XmlPatternPtr) c.Int
-//go:linkname XmlPatternGetStreamCtxt C.xmlPatternGetStreamCtxt
-func XmlPatternGetStreamCtxt(comp XmlPatternPtr) XmlStreamCtxtPtr
-//go:linkname XmlFreeStreamCtxt C.xmlFreeStreamCtxt
-func XmlFreeStreamCtxt(stream XmlStreamCtxtPtr)
-//go:linkname XmlStreamPushNode C.xmlStreamPushNode
-func XmlStreamPushNode(stream XmlStreamCtxtPtr, name *XmlChar, ns *XmlChar, nodeType c.Int) c.Int
-//go:linkname XmlStreamPush C.xmlStreamPush
-func XmlStreamPush(stream XmlStreamCtxtPtr, name *XmlChar, ns *XmlChar) c.Int
-//go:linkname XmlStreamPushAttr C.xmlStreamPushAttr
-func XmlStreamPushAttr(stream XmlStreamCtxtPtr, name *XmlChar, ns *XmlChar) c.Int
-//go:linkname XmlStreamPop C.xmlStreamPop
-func XmlStreamPop(stream XmlStreamCtxtPtr) c.Int
-//go:linkname XmlStreamWantsAnyNode C.xmlStreamWantsAnyNode
-func XmlStreamWantsAnyNode(stream XmlStreamCtxtPtr) c.Int
+type StreamCtxt X_xmlStreamCtxt
+type StreamCtxtPtr *StreamCtxt
+
+//go:linkname PatternStreamable C.xmlPatternStreamable
+func PatternStreamable(comp PatternPtr) c.Int
+
+//go:linkname PatternMaxDepth C.xmlPatternMaxDepth
+func PatternMaxDepth(comp PatternPtr) c.Int
+
+//go:linkname PatternMinDepth C.xmlPatternMinDepth
+func PatternMinDepth(comp PatternPtr) c.Int
+
+//go:linkname PatternFromRoot C.xmlPatternFromRoot
+func PatternFromRoot(comp PatternPtr) c.Int
+
+//go:linkname PatternGetStreamCtxt C.xmlPatternGetStreamCtxt
+func PatternGetStreamCtxt(comp PatternPtr) StreamCtxtPtr
+
+//go:linkname FreeStreamCtxt C.xmlFreeStreamCtxt
+func FreeStreamCtxt(stream StreamCtxtPtr)
+
+//go:linkname StreamPushNode C.xmlStreamPushNode
+func StreamPushNode(stream StreamCtxtPtr, name *Char, ns *Char, nodeType c.Int) c.Int
+
+//go:linkname StreamPush C.xmlStreamPush
+func StreamPush(stream StreamCtxtPtr, name *Char, ns *Char) c.Int
+
+//go:linkname StreamPushAttr C.xmlStreamPushAttr
+func StreamPushAttr(stream StreamCtxtPtr, name *Char, ns *Char) c.Int
+
+//go:linkname StreamPop C.xmlStreamPop
+func StreamPop(stream StreamCtxtPtr) c.Int
+
+//go:linkname StreamWantsAnyNode C.xmlStreamWantsAnyNode
+func StreamWantsAnyNode(stream StreamCtxtPtr) c.Int

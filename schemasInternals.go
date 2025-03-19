@@ -1,355 +1,358 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
 	"unsafe"
 )
 
-const XMLSCHEMASANYATTRSKIP c.Int = 1
-const XMLSCHEMASANYATTRLAX c.Int = 2
-const XMLSCHEMASANYATTRSTRICT c.Int = 3
-const XMLSCHEMASANYSKIP c.Int = 1
-const XMLSCHEMASANYLAX c.Int = 2
-const XMLSCHEMASANYSTRICT c.Int = 3
-const XMLSCHEMASATTRUSEPROHIBITED c.Int = 0
-const XMLSCHEMASATTRUSEREQUIRED c.Int = 1
-const XMLSCHEMASATTRUSEOPTIONAL c.Int = 2
-const XMLSCHEMASFACETUNKNOWN c.Int = 0
-const XMLSCHEMASFACETPRESERVE c.Int = 1
-const XMLSCHEMASFACETREPLACE c.Int = 2
-const XMLSCHEMASFACETCOLLAPSE c.Int = 3
+const SCHEMAS_ANYATTR_SKIP = 1
+const SCHEMAS_ANYATTR_LAX = 2
+const SCHEMAS_ANYATTR_STRICT = 3
+const SCHEMAS_ANY_SKIP = 1
+const SCHEMAS_ANY_LAX = 2
+const SCHEMAS_ANY_STRICT = 3
+const SCHEMAS_ATTR_USE_PROHIBITED = 0
+const SCHEMAS_ATTR_USE_REQUIRED = 1
+const SCHEMAS_ATTR_USE_OPTIONAL = 2
+const SCHEMAS_FACET_UNKNOWN = 0
+const SCHEMAS_FACET_PRESERVE = 1
+const SCHEMAS_FACET_REPLACE = 2
+const SCHEMAS_FACET_COLLAPSE = 3
 
-type XmlSchemaValType c.Int
-
-const (
-	XmlSchemaValTypeXMLSCHEMASUNKNOWN       XmlSchemaValType = 0
-	XmlSchemaValTypeXMLSCHEMASSTRING        XmlSchemaValType = 1
-	XmlSchemaValTypeXMLSCHEMASNORMSTRING    XmlSchemaValType = 2
-	XmlSchemaValTypeXMLSCHEMASDECIMAL       XmlSchemaValType = 3
-	XmlSchemaValTypeXMLSCHEMASTIME          XmlSchemaValType = 4
-	XmlSchemaValTypeXMLSCHEMASGDAY          XmlSchemaValType = 5
-	XmlSchemaValTypeXMLSCHEMASGMONTH        XmlSchemaValType = 6
-	XmlSchemaValTypeXMLSCHEMASGMONTHDAY     XmlSchemaValType = 7
-	XmlSchemaValTypeXMLSCHEMASGYEAR         XmlSchemaValType = 8
-	XmlSchemaValTypeXMLSCHEMASGYEARMONTH    XmlSchemaValType = 9
-	XmlSchemaValTypeXMLSCHEMASDATE          XmlSchemaValType = 10
-	XmlSchemaValTypeXMLSCHEMASDATETIME      XmlSchemaValType = 11
-	XmlSchemaValTypeXMLSCHEMASDURATION      XmlSchemaValType = 12
-	XmlSchemaValTypeXMLSCHEMASFLOAT         XmlSchemaValType = 13
-	XmlSchemaValTypeXMLSCHEMASDOUBLE        XmlSchemaValType = 14
-	XmlSchemaValTypeXMLSCHEMASBOOLEAN       XmlSchemaValType = 15
-	XmlSchemaValTypeXMLSCHEMASTOKEN         XmlSchemaValType = 16
-	XmlSchemaValTypeXMLSCHEMASLANGUAGE      XmlSchemaValType = 17
-	XmlSchemaValTypeXMLSCHEMASNMTOKEN       XmlSchemaValType = 18
-	XmlSchemaValTypeXMLSCHEMASNMTOKENS      XmlSchemaValType = 19
-	XmlSchemaValTypeXMLSCHEMASNAME          XmlSchemaValType = 20
-	XmlSchemaValTypeXMLSCHEMASQNAME         XmlSchemaValType = 21
-	XmlSchemaValTypeXMLSCHEMASNCNAME        XmlSchemaValType = 22
-	XmlSchemaValTypeXMLSCHEMASID            XmlSchemaValType = 23
-	XmlSchemaValTypeXMLSCHEMASIDREF         XmlSchemaValType = 24
-	XmlSchemaValTypeXMLSCHEMASIDREFS        XmlSchemaValType = 25
-	XmlSchemaValTypeXMLSCHEMASENTITY        XmlSchemaValType = 26
-	XmlSchemaValTypeXMLSCHEMASENTITIES      XmlSchemaValType = 27
-	XmlSchemaValTypeXMLSCHEMASNOTATION      XmlSchemaValType = 28
-	XmlSchemaValTypeXMLSCHEMASANYURI        XmlSchemaValType = 29
-	XmlSchemaValTypeXMLSCHEMASINTEGER       XmlSchemaValType = 30
-	XmlSchemaValTypeXMLSCHEMASNPINTEGER     XmlSchemaValType = 31
-	XmlSchemaValTypeXMLSCHEMASNINTEGER      XmlSchemaValType = 32
-	XmlSchemaValTypeXMLSCHEMASNNINTEGER     XmlSchemaValType = 33
-	XmlSchemaValTypeXMLSCHEMASPINTEGER      XmlSchemaValType = 34
-	XmlSchemaValTypeXMLSCHEMASINT           XmlSchemaValType = 35
-	XmlSchemaValTypeXMLSCHEMASUINT          XmlSchemaValType = 36
-	XmlSchemaValTypeXMLSCHEMASLONG          XmlSchemaValType = 37
-	XmlSchemaValTypeXMLSCHEMASULONG         XmlSchemaValType = 38
-	XmlSchemaValTypeXMLSCHEMASSHORT         XmlSchemaValType = 39
-	XmlSchemaValTypeXMLSCHEMASUSHORT        XmlSchemaValType = 40
-	XmlSchemaValTypeXMLSCHEMASBYTE          XmlSchemaValType = 41
-	XmlSchemaValTypeXMLSCHEMASUBYTE         XmlSchemaValType = 42
-	XmlSchemaValTypeXMLSCHEMASHEXBINARY     XmlSchemaValType = 43
-	XmlSchemaValTypeXMLSCHEMASBASE64BINARY  XmlSchemaValType = 44
-	XmlSchemaValTypeXMLSCHEMASANYTYPE       XmlSchemaValType = 45
-	XmlSchemaValTypeXMLSCHEMASANYSIMPLETYPE XmlSchemaValType = 46
-)
-
-type XmlSchemaTypeType c.Int
+type SchemaValType c.Int
 
 const (
-	XmlSchemaTypeTypeXMLSCHEMATYPEBASIC           XmlSchemaTypeType = 1
-	XmlSchemaTypeTypeXMLSCHEMATYPEANY             XmlSchemaTypeType = 2
-	XmlSchemaTypeTypeXMLSCHEMATYPEFACET           XmlSchemaTypeType = 3
-	XmlSchemaTypeTypeXMLSCHEMATYPESIMPLE          XmlSchemaTypeType = 4
-	XmlSchemaTypeTypeXMLSCHEMATYPECOMPLEX         XmlSchemaTypeType = 5
-	XmlSchemaTypeTypeXMLSCHEMATYPESEQUENCE        XmlSchemaTypeType = 6
-	XmlSchemaTypeTypeXMLSCHEMATYPECHOICE          XmlSchemaTypeType = 7
-	XmlSchemaTypeTypeXMLSCHEMATYPEALL             XmlSchemaTypeType = 8
-	XmlSchemaTypeTypeXMLSCHEMATYPESIMPLECONTENT   XmlSchemaTypeType = 9
-	XmlSchemaTypeTypeXMLSCHEMATYPECOMPLEXCONTENT  XmlSchemaTypeType = 10
-	XmlSchemaTypeTypeXMLSCHEMATYPEUR              XmlSchemaTypeType = 11
-	XmlSchemaTypeTypeXMLSCHEMATYPERESTRICTION     XmlSchemaTypeType = 12
-	XmlSchemaTypeTypeXMLSCHEMATYPEEXTENSION       XmlSchemaTypeType = 13
-	XmlSchemaTypeTypeXMLSCHEMATYPEELEMENT         XmlSchemaTypeType = 14
-	XmlSchemaTypeTypeXMLSCHEMATYPEATTRIBUTE       XmlSchemaTypeType = 15
-	XmlSchemaTypeTypeXMLSCHEMATYPEATTRIBUTEGROUP  XmlSchemaTypeType = 16
-	XmlSchemaTypeTypeXMLSCHEMATYPEGROUP           XmlSchemaTypeType = 17
-	XmlSchemaTypeTypeXMLSCHEMATYPENOTATION        XmlSchemaTypeType = 18
-	XmlSchemaTypeTypeXMLSCHEMATYPELIST            XmlSchemaTypeType = 19
-	XmlSchemaTypeTypeXMLSCHEMATYPEUNION           XmlSchemaTypeType = 20
-	XmlSchemaTypeTypeXMLSCHEMATYPEANYATTRIBUTE    XmlSchemaTypeType = 21
-	XmlSchemaTypeTypeXMLSCHEMATYPEIDCUNIQUE       XmlSchemaTypeType = 22
-	XmlSchemaTypeTypeXMLSCHEMATYPEIDCKEY          XmlSchemaTypeType = 23
-	XmlSchemaTypeTypeXMLSCHEMATYPEIDCKEYREF       XmlSchemaTypeType = 24
-	XmlSchemaTypeTypeXMLSCHEMATYPEPARTICLE        XmlSchemaTypeType = 25
-	XmlSchemaTypeTypeXMLSCHEMATYPEATTRIBUTEUSE    XmlSchemaTypeType = 26
-	XmlSchemaTypeTypeXMLSCHEMAFACETMININCLUSIVE   XmlSchemaTypeType = 1000
-	XmlSchemaTypeTypeXMLSCHEMAFACETMINEXCLUSIVE   XmlSchemaTypeType = 1001
-	XmlSchemaTypeTypeXMLSCHEMAFACETMAXINCLUSIVE   XmlSchemaTypeType = 1002
-	XmlSchemaTypeTypeXMLSCHEMAFACETMAXEXCLUSIVE   XmlSchemaTypeType = 1003
-	XmlSchemaTypeTypeXMLSCHEMAFACETTOTALDIGITS    XmlSchemaTypeType = 1004
-	XmlSchemaTypeTypeXMLSCHEMAFACETFRACTIONDIGITS XmlSchemaTypeType = 1005
-	XmlSchemaTypeTypeXMLSCHEMAFACETPATTERN        XmlSchemaTypeType = 1006
-	XmlSchemaTypeTypeXMLSCHEMAFACETENUMERATION    XmlSchemaTypeType = 1007
-	XmlSchemaTypeTypeXMLSCHEMAFACETWHITESPACE     XmlSchemaTypeType = 1008
-	XmlSchemaTypeTypeXMLSCHEMAFACETLENGTH         XmlSchemaTypeType = 1009
-	XmlSchemaTypeTypeXMLSCHEMAFACETMAXLENGTH      XmlSchemaTypeType = 1010
-	XmlSchemaTypeTypeXMLSCHEMAFACETMINLENGTH      XmlSchemaTypeType = 1011
-	XmlSchemaTypeTypeXMLSCHEMAEXTRAQNAMEREF       XmlSchemaTypeType = 2000
-	XmlSchemaTypeTypeXMLSCHEMAEXTRAATTRUSEPROHIB  XmlSchemaTypeType = 2001
+	SCHEMASUNKNOWN       SchemaValType = 0
+	SCHEMASSTRING        SchemaValType = 1
+	SCHEMASNORMSTRING    SchemaValType = 2
+	SCHEMASDECIMAL       SchemaValType = 3
+	SCHEMASTIME          SchemaValType = 4
+	SCHEMASGDAY          SchemaValType = 5
+	SCHEMASGMONTH        SchemaValType = 6
+	SCHEMASGMONTHDAY     SchemaValType = 7
+	SCHEMASGYEAR         SchemaValType = 8
+	SCHEMASGYEARMONTH    SchemaValType = 9
+	SCHEMASDATE          SchemaValType = 10
+	SCHEMASDATETIME      SchemaValType = 11
+	SCHEMASDURATION      SchemaValType = 12
+	SCHEMASFLOAT         SchemaValType = 13
+	SCHEMASDOUBLE        SchemaValType = 14
+	SCHEMASBOOLEAN       SchemaValType = 15
+	SCHEMASTOKEN         SchemaValType = 16
+	SCHEMASLANGUAGE      SchemaValType = 17
+	SCHEMASNMTOKEN       SchemaValType = 18
+	SCHEMASNMTOKENS      SchemaValType = 19
+	SCHEMASNAME          SchemaValType = 20
+	SCHEMASQNAME         SchemaValType = 21
+	SCHEMASNCNAME        SchemaValType = 22
+	SCHEMASID            SchemaValType = 23
+	SCHEMASIDREF         SchemaValType = 24
+	SCHEMASIDREFS        SchemaValType = 25
+	SCHEMASENTITY        SchemaValType = 26
+	SCHEMASENTITIES      SchemaValType = 27
+	SCHEMASNOTATION      SchemaValType = 28
+	SCHEMASANYURI        SchemaValType = 29
+	SCHEMASINTEGER       SchemaValType = 30
+	SCHEMASNPINTEGER     SchemaValType = 31
+	SCHEMASNINTEGER      SchemaValType = 32
+	SCHEMASNNINTEGER     SchemaValType = 33
+	SCHEMASPINTEGER      SchemaValType = 34
+	SCHEMASINT           SchemaValType = 35
+	SCHEMASUINT          SchemaValType = 36
+	SCHEMASLONG          SchemaValType = 37
+	SCHEMASULONG         SchemaValType = 38
+	SCHEMASSHORT         SchemaValType = 39
+	SCHEMASUSHORT        SchemaValType = 40
+	SCHEMASBYTE          SchemaValType = 41
+	SCHEMASUBYTE         SchemaValType = 42
+	SCHEMASHEXBINARY     SchemaValType = 43
+	SCHEMASBASE64BINARY  SchemaValType = 44
+	SCHEMASANYTYPE       SchemaValType = 45
+	SCHEMASANYSIMPLETYPE SchemaValType = 46
 )
 
-type XmlSchemaContentType c.Int
+type SchemaTypeType c.Int
 
 const (
-	XmlSchemaContentTypeXMLSCHEMACONTENTUNKNOWN         XmlSchemaContentType = 0
-	XmlSchemaContentTypeXMLSCHEMACONTENTEMPTY           XmlSchemaContentType = 1
-	XmlSchemaContentTypeXMLSCHEMACONTENTELEMENTS        XmlSchemaContentType = 2
-	XmlSchemaContentTypeXMLSCHEMACONTENTMIXED           XmlSchemaContentType = 3
-	XmlSchemaContentTypeXMLSCHEMACONTENTSIMPLE          XmlSchemaContentType = 4
-	XmlSchemaContentTypeXMLSCHEMACONTENTMIXEDORELEMENTS XmlSchemaContentType = 5
-	XmlSchemaContentTypeXMLSCHEMACONTENTBASIC           XmlSchemaContentType = 6
-	XmlSchemaContentTypeXMLSCHEMACONTENTANY             XmlSchemaContentType = 7
+	SCHEMATYPEBASIC           SchemaTypeType = 1
+	SCHEMATYPEANY             SchemaTypeType = 2
+	SCHEMATYPEFACET           SchemaTypeType = 3
+	SCHEMATYPESIMPLE          SchemaTypeType = 4
+	SCHEMATYPECOMPLEX         SchemaTypeType = 5
+	SCHEMATYPESEQUENCE        SchemaTypeType = 6
+	SCHEMATYPECHOICE          SchemaTypeType = 7
+	SCHEMATYPEALL             SchemaTypeType = 8
+	SCHEMATYPESIMPLECONTENT   SchemaTypeType = 9
+	SCHEMATYPECOMPLEXCONTENT  SchemaTypeType = 10
+	SCHEMATYPEUR              SchemaTypeType = 11
+	SCHEMATYPERESTRICTION     SchemaTypeType = 12
+	SCHEMATYPEEXTENSION       SchemaTypeType = 13
+	SCHEMATYPEELEMENT         SchemaTypeType = 14
+	SCHEMATYPEATTRIBUTE       SchemaTypeType = 15
+	SCHEMATYPEATTRIBUTEGROUP  SchemaTypeType = 16
+	SCHEMATYPEGROUP           SchemaTypeType = 17
+	SCHEMATYPENOTATION        SchemaTypeType = 18
+	SCHEMATYPELIST            SchemaTypeType = 19
+	SCHEMATYPEUNION           SchemaTypeType = 20
+	SCHEMATYPEANYATTRIBUTE    SchemaTypeType = 21
+	SCHEMATYPEIDCUNIQUE       SchemaTypeType = 22
+	SCHEMATYPEIDCKEY          SchemaTypeType = 23
+	SCHEMATYPEIDCKEYREF       SchemaTypeType = 24
+	SCHEMATYPEPARTICLE        SchemaTypeType = 25
+	SCHEMATYPEATTRIBUTEUSE    SchemaTypeType = 26
+	SCHEMAFACETMININCLUSIVE   SchemaTypeType = 1000
+	SCHEMAFACETMINEXCLUSIVE   SchemaTypeType = 1001
+	SCHEMAFACETMAXINCLUSIVE   SchemaTypeType = 1002
+	SCHEMAFACETMAXEXCLUSIVE   SchemaTypeType = 1003
+	SCHEMAFACETTOTALDIGITS    SchemaTypeType = 1004
+	SCHEMAFACETFRACTIONDIGITS SchemaTypeType = 1005
+	SCHEMAFACETPATTERN        SchemaTypeType = 1006
+	SCHEMAFACETENUMERATION    SchemaTypeType = 1007
+	SCHEMAFACETWHITESPACE     SchemaTypeType = 1008
+	SCHEMAFACETLENGTH         SchemaTypeType = 1009
+	SCHEMAFACETMAXLENGTH      SchemaTypeType = 1010
+	SCHEMAFACETMINLENGTH      SchemaTypeType = 1011
+	SCHEMAEXTRAQNAMEREF       SchemaTypeType = 2000
+	SCHEMAEXTRAATTRUSEPROHIB  SchemaTypeType = 2001
 )
 
-type X_XmlSchemaVal struct {
+type SchemaContentType c.Int
+
+const (
+	SCHEMACONTENTUNKNOWN         SchemaContentType = 0
+	SCHEMACONTENTEMPTY           SchemaContentType = 1
+	SCHEMACONTENTELEMENTS        SchemaContentType = 2
+	SCHEMACONTENTMIXED           SchemaContentType = 3
+	SCHEMACONTENTSIMPLE          SchemaContentType = 4
+	SCHEMACONTENTMIXEDORELEMENTS SchemaContentType = 5
+	SCHEMACONTENTBASIC           SchemaContentType = 6
+	SCHEMACONTENTANY             SchemaContentType = 7
+)
+
+type X_xmlSchemaVal struct {
 	Unused [8]uint8
 }
-type XmlSchemaVal X_XmlSchemaVal
-type XmlSchemaValPtr *XmlSchemaVal
+type SchemaVal X_xmlSchemaVal
+type SchemaValPtr *SchemaVal
 
-type X_XmlSchemaType struct {
-	Type              XmlSchemaTypeType
-	Next              *X_XmlSchemaType
-	Name              *XmlChar
-	Id                *XmlChar
-	Ref               *XmlChar
-	RefNs             *XmlChar
-	Annot             XmlSchemaAnnotPtr
-	Subtypes          XmlSchemaTypePtr
-	Attributes        XmlSchemaAttributePtr
-	Node              XmlNodePtr
+type X_xmlSchemaType struct {
+	Type              SchemaTypeType
+	Next              *X_xmlSchemaType
+	Name              *Char
+	Id                *Char
+	Ref               *Char
+	RefNs             *Char
+	Annot             SchemaAnnotPtr
+	Subtypes          SchemaTypePtr
+	Attributes        SchemaAttributePtr
+	Node              NodePtr
 	MinOccurs         c.Int
 	MaxOccurs         c.Int
 	Flags             c.Int
-	ContentType       XmlSchemaContentType
-	Base              *XmlChar
-	BaseNs            *XmlChar
-	BaseType          XmlSchemaTypePtr
-	Facets            XmlSchemaFacetPtr
-	Redef             *X_XmlSchemaType
+	ContentType       SchemaContentType
+	Base              *Char
+	BaseNs            *Char
+	BaseType          SchemaTypePtr
+	Facets            SchemaFacetPtr
+	Redef             *X_xmlSchemaType
 	Recurse           c.Int
-	AttributeUses     *XmlSchemaAttributeLinkPtr
-	AttributeWildcard XmlSchemaWildcardPtr
+	AttributeUses     *SchemaAttributeLinkPtr
+	AttributeWildcard SchemaWildcardPtr
 	BuiltInType       c.Int
-	MemberTypes       XmlSchemaTypeLinkPtr
-	FacetSet          XmlSchemaFacetLinkPtr
-	RefPrefix         *XmlChar
-	ContentTypeDef    XmlSchemaTypePtr
-	ContModel         XmlRegexpPtr
-	TargetNamespace   *XmlChar
+	MemberTypes       SchemaTypeLinkPtr
+	FacetSet          SchemaFacetLinkPtr
+	RefPrefix         *Char
+	ContentTypeDef    SchemaTypePtr
+	ContModel         RegexpPtr
+	TargetNamespace   *Char
 	AttrUses          unsafe.Pointer
 }
-type XmlSchemaType X_XmlSchemaType
-type XmlSchemaTypePtr *XmlSchemaType
+type SchemaType X_xmlSchemaType
+type SchemaTypePtr *SchemaType
 
-type X_XmlSchemaFacet struct {
-	Type       XmlSchemaTypeType
-	Next       *X_XmlSchemaFacet
-	Value      *XmlChar
-	Id         *XmlChar
-	Annot      XmlSchemaAnnotPtr
-	Node       XmlNodePtr
+type X_xmlSchemaFacet struct {
+	Type       SchemaTypeType
+	Next       *X_xmlSchemaFacet
+	Value      *Char
+	Id         *Char
+	Annot      SchemaAnnotPtr
+	Node       NodePtr
 	Fixed      c.Int
 	Whitespace c.Int
-	Val        XmlSchemaValPtr
-	Regexp     XmlRegexpPtr
+	Val        SchemaValPtr
+	Regexp     RegexpPtr
 }
-type XmlSchemaFacet X_XmlSchemaFacet
-type XmlSchemaFacetPtr *XmlSchemaFacet
+type SchemaFacet X_xmlSchemaFacet
+type SchemaFacetPtr *SchemaFacet
 
-type X_XmlSchemaAnnot struct {
-	Next    *X_XmlSchemaAnnot
-	Content XmlNodePtr
+type X_xmlSchemaAnnot struct {
+	Next    *X_xmlSchemaAnnot
+	Content NodePtr
 }
-type XmlSchemaAnnot X_XmlSchemaAnnot
-type XmlSchemaAnnotPtr *XmlSchemaAnnot
+type SchemaAnnot X_xmlSchemaAnnot
+type SchemaAnnotPtr *SchemaAnnot
 
-type X_XmlSchemaAttribute struct {
-	Type            XmlSchemaTypeType
-	Next            *X_XmlSchemaAttribute
-	Name            *XmlChar
-	Id              *XmlChar
-	Ref             *XmlChar
-	RefNs           *XmlChar
-	TypeName        *XmlChar
-	TypeNs          *XmlChar
-	Annot           XmlSchemaAnnotPtr
-	Base            XmlSchemaTypePtr
+type X_xmlSchemaAttribute struct {
+	Type            SchemaTypeType
+	Next            *X_xmlSchemaAttribute
+	Name            *Char
+	Id              *Char
+	Ref             *Char
+	RefNs           *Char
+	TypeName        *Char
+	TypeNs          *Char
+	Annot           SchemaAnnotPtr
+	Base            SchemaTypePtr
 	Occurs          c.Int
-	DefValue        *XmlChar
-	Subtypes        XmlSchemaTypePtr
-	Node            XmlNodePtr
-	TargetNamespace *XmlChar
+	DefValue        *Char
+	Subtypes        SchemaTypePtr
+	Node            NodePtr
+	TargetNamespace *Char
 	Flags           c.Int
-	RefPrefix       *XmlChar
-	DefVal          XmlSchemaValPtr
-	RefDecl         XmlSchemaAttributePtr
+	RefPrefix       *Char
+	DefVal          SchemaValPtr
+	RefDecl         SchemaAttributePtr
 }
-type XmlSchemaAttribute X_XmlSchemaAttribute
-type XmlSchemaAttributePtr *XmlSchemaAttribute
+type SchemaAttribute X_xmlSchemaAttribute
+type SchemaAttributePtr *SchemaAttribute
 
-type X_XmlSchemaAttributeLink struct {
-	Next *X_XmlSchemaAttributeLink
-	Attr *X_XmlSchemaAttribute
+type X_xmlSchemaAttributeLink struct {
+	Next *X_xmlSchemaAttributeLink
+	Attr *X_xmlSchemaAttribute
 }
-type XmlSchemaAttributeLink X_XmlSchemaAttributeLink
-type XmlSchemaAttributeLinkPtr *XmlSchemaAttributeLink
+type SchemaAttributeLink X_xmlSchemaAttributeLink
+type SchemaAttributeLinkPtr *SchemaAttributeLink
 
-type X_XmlSchemaWildcardNs struct {
-	Next  *X_XmlSchemaWildcardNs
-	Value *XmlChar
+type X_xmlSchemaWildcardNs struct {
+	Next  *X_xmlSchemaWildcardNs
+	Value *Char
 }
-type XmlSchemaWildcardNs X_XmlSchemaWildcardNs
-type XmlSchemaWildcardNsPtr *XmlSchemaWildcardNs
+type SchemaWildcardNs X_xmlSchemaWildcardNs
+type SchemaWildcardNsPtr *SchemaWildcardNs
 
-type X_XmlSchemaWildcard struct {
-	Type            XmlSchemaTypeType
-	Id              *XmlChar
-	Annot           XmlSchemaAnnotPtr
-	Node            XmlNodePtr
+type X_xmlSchemaWildcard struct {
+	Type            SchemaTypeType
+	Id              *Char
+	Annot           SchemaAnnotPtr
+	Node            NodePtr
 	MinOccurs       c.Int
 	MaxOccurs       c.Int
 	ProcessContents c.Int
 	Any             c.Int
-	NsSet           XmlSchemaWildcardNsPtr
-	NegNsSet        XmlSchemaWildcardNsPtr
+	NsSet           SchemaWildcardNsPtr
+	NegNsSet        SchemaWildcardNsPtr
 	Flags           c.Int
 }
-type XmlSchemaWildcard X_XmlSchemaWildcard
-type XmlSchemaWildcardPtr *XmlSchemaWildcard
+type SchemaWildcard X_xmlSchemaWildcard
+type SchemaWildcardPtr *SchemaWildcard
 
-type X_XmlSchemaAttributeGroup struct {
-	Type              XmlSchemaTypeType
-	Next              *X_XmlSchemaAttribute
-	Name              *XmlChar
-	Id                *XmlChar
-	Ref               *XmlChar
-	RefNs             *XmlChar
-	Annot             XmlSchemaAnnotPtr
-	Attributes        XmlSchemaAttributePtr
-	Node              XmlNodePtr
+type X_xmlSchemaAttributeGroup struct {
+	Type              SchemaTypeType
+	Next              *X_xmlSchemaAttribute
+	Name              *Char
+	Id                *Char
+	Ref               *Char
+	RefNs             *Char
+	Annot             SchemaAnnotPtr
+	Attributes        SchemaAttributePtr
+	Node              NodePtr
 	Flags             c.Int
-	AttributeWildcard XmlSchemaWildcardPtr
-	RefPrefix         *XmlChar
-	RefItem           XmlSchemaAttributeGroupPtr
-	TargetNamespace   *XmlChar
+	AttributeWildcard SchemaWildcardPtr
+	RefPrefix         *Char
+	RefItem           SchemaAttributeGroupPtr
+	TargetNamespace   *Char
 	AttrUses          unsafe.Pointer
 }
-type XmlSchemaAttributeGroup X_XmlSchemaAttributeGroup
-type XmlSchemaAttributeGroupPtr *XmlSchemaAttributeGroup
+type SchemaAttributeGroup X_xmlSchemaAttributeGroup
+type SchemaAttributeGroupPtr *SchemaAttributeGroup
 
-type X_XmlSchemaTypeLink struct {
-	Next *X_XmlSchemaTypeLink
-	Type XmlSchemaTypePtr
+type X_xmlSchemaTypeLink struct {
+	Next *X_xmlSchemaTypeLink
+	Type SchemaTypePtr
 }
-type XmlSchemaTypeLink X_XmlSchemaTypeLink
-type XmlSchemaTypeLinkPtr *XmlSchemaTypeLink
+type SchemaTypeLink X_xmlSchemaTypeLink
+type SchemaTypeLinkPtr *SchemaTypeLink
 
-type X_XmlSchemaFacetLink struct {
-	Next  *X_XmlSchemaFacetLink
-	Facet XmlSchemaFacetPtr
+type X_xmlSchemaFacetLink struct {
+	Next  *X_xmlSchemaFacetLink
+	Facet SchemaFacetPtr
 }
-type XmlSchemaFacetLink X_XmlSchemaFacetLink
-type XmlSchemaFacetLinkPtr *XmlSchemaFacetLink
+type SchemaFacetLink X_xmlSchemaFacetLink
+type SchemaFacetLinkPtr *SchemaFacetLink
 
-type X_XmlSchemaElement struct {
-	Type            XmlSchemaTypeType
-	Next            *X_XmlSchemaType
-	Name            *XmlChar
-	Id              *XmlChar
-	Ref             *XmlChar
-	RefNs           *XmlChar
-	Annot           XmlSchemaAnnotPtr
-	Subtypes        XmlSchemaTypePtr
-	Attributes      XmlSchemaAttributePtr
-	Node            XmlNodePtr
+type X_xmlSchemaElement struct {
+	Type            SchemaTypeType
+	Next            *X_xmlSchemaType
+	Name            *Char
+	Id              *Char
+	Ref             *Char
+	RefNs           *Char
+	Annot           SchemaAnnotPtr
+	Subtypes        SchemaTypePtr
+	Attributes      SchemaAttributePtr
+	Node            NodePtr
 	MinOccurs       c.Int
 	MaxOccurs       c.Int
 	Flags           c.Int
-	TargetNamespace *XmlChar
-	NamedType       *XmlChar
-	NamedTypeNs     *XmlChar
-	SubstGroup      *XmlChar
-	SubstGroupNs    *XmlChar
-	Scope           *XmlChar
-	Value           *XmlChar
-	RefDecl         *X_XmlSchemaElement
-	ContModel       XmlRegexpPtr
-	ContentType     XmlSchemaContentType
-	RefPrefix       *XmlChar
-	DefVal          XmlSchemaValPtr
+	TargetNamespace *Char
+	NamedType       *Char
+	NamedTypeNs     *Char
+	SubstGroup      *Char
+	SubstGroupNs    *Char
+	Scope           *Char
+	Value           *Char
+	RefDecl         *X_xmlSchemaElement
+	ContModel       RegexpPtr
+	ContentType     SchemaContentType
+	RefPrefix       *Char
+	DefVal          SchemaValPtr
 	Idcs            unsafe.Pointer
 }
-type XmlSchemaElement X_XmlSchemaElement
-type XmlSchemaElementPtr *XmlSchemaElement
+type SchemaElement X_xmlSchemaElement
+type SchemaElementPtr *SchemaElement
 
-type X_XmlSchemaNotation struct {
-	Type            XmlSchemaTypeType
-	Name            *XmlChar
-	Annot           XmlSchemaAnnotPtr
-	Identifier      *XmlChar
-	TargetNamespace *XmlChar
+type X_xmlSchemaNotation struct {
+	Type            SchemaTypeType
+	Name            *Char
+	Annot           SchemaAnnotPtr
+	Identifier      *Char
+	TargetNamespace *Char
 }
-type XmlSchemaNotation X_XmlSchemaNotation
-type XmlSchemaNotationPtr *XmlSchemaNotation
+type SchemaNotation X_xmlSchemaNotation
+type SchemaNotationPtr *SchemaNotation
+
 /**
  * _xmlSchema:
  *
  * A Schemas definition
  */
 
-type X_XmlSchema struct {
-	Name            *XmlChar
-	TargetNamespace *XmlChar
-	Version         *XmlChar
-	Id              *XmlChar
-	Doc             XmlDocPtr
-	Annot           XmlSchemaAnnotPtr
+type X_xmlSchema struct {
+	Name            *Char
+	TargetNamespace *Char
+	Version         *Char
+	Id              *Char
+	Doc             DocPtr
+	Annot           SchemaAnnotPtr
 	Flags           c.Int
-	TypeDecl        XmlHashTablePtr
-	AttrDecl        XmlHashTablePtr
-	AttrgrpDecl     XmlHashTablePtr
-	ElemDecl        XmlHashTablePtr
-	NotaDecl        XmlHashTablePtr
-	SchemasImports  XmlHashTablePtr
-	X_Private       unsafe.Pointer
-	GroupDecl       XmlHashTablePtr
-	Dict            XmlDictPtr
+	TypeDecl        HashTablePtr
+	AttrDecl        HashTablePtr
+	AttrgrpDecl     HashTablePtr
+	ElemDecl        HashTablePtr
+	NotaDecl        HashTablePtr
+	SchemasImports  HashTablePtr
+	X_private       unsafe.Pointer
+	GroupDecl       HashTablePtr
+	Dict            DictPtr
 	Includes        unsafe.Pointer
 	Preserve        c.Int
 	Counter         c.Int
-	IdcDef          XmlHashTablePtr
+	IdcDef          HashTablePtr
 	Volatiles       unsafe.Pointer
 }
-//go:linkname XmlSchemaFreeType C.xmlSchemaFreeType
-func XmlSchemaFreeType(type_ XmlSchemaTypePtr)
-//go:linkname XmlSchemaFreeWildcard C.xmlSchemaFreeWildcard
-func XmlSchemaFreeWildcard(wildcard XmlSchemaWildcardPtr)
+
+//go:linkname SchemaFreeType C.xmlSchemaFreeType
+func SchemaFreeType(type_ SchemaTypePtr)
+
+//go:linkname SchemaFreeWildcard C.xmlSchemaFreeWildcard
+func SchemaFreeWildcard(wildcard SchemaWildcardPtr)

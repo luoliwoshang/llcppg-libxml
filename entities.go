@@ -1,64 +1,86 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
 	_ "unsafe"
 )
 
-type XmlEntityType c.Int
+type EntityType c.Int
 
 const (
-	XmlEntityTypeXMLINTERNALGENERALENTITY         XmlEntityType = 1
-	XmlEntityTypeXMLEXTERNALGENERALPARSEDENTITY   XmlEntityType = 2
-	XmlEntityTypeXMLEXTERNALGENERALUNPARSEDENTITY XmlEntityType = 3
-	XmlEntityTypeXMLINTERNALPARAMETERENTITY       XmlEntityType = 4
-	XmlEntityTypeXMLEXTERNALPARAMETERENTITY       XmlEntityType = 5
-	XmlEntityTypeXMLINTERNALPREDEFINEDENTITY      XmlEntityType = 6
+	INTERNALGENERALENTITY         EntityType = 1
+	EXTERNALGENERALPARSEDENTITY   EntityType = 2
+	EXTERNALGENERALUNPARSEDENTITY EntityType = 3
+	INTERNALPARAMETERENTITY       EntityType = 4
+	EXTERNALPARAMETERENTITY       EntityType = 5
+	INTERNALPREDEFINEDENTITY      EntityType = 6
 )
 
-type XmlEntitiesTable X_XmlHashTable
-type XmlEntitiesTablePtr *XmlEntitiesTable
-//go:linkname XmlInitializePredefinedEntities C.xmlInitializePredefinedEntities
-func XmlInitializePredefinedEntities()
-//go:linkname XmlNewEntity C.xmlNewEntity
-func XmlNewEntity(doc XmlDocPtr, name *XmlChar, type_ c.Int, ExternalID *XmlChar, SystemID *XmlChar, content *XmlChar) XmlEntityPtr
-//go:linkname XmlFreeEntity C.xmlFreeEntity
-func XmlFreeEntity(entity XmlEntityPtr)
-//go:linkname XmlAddEntity C.xmlAddEntity
-func XmlAddEntity(doc XmlDocPtr, extSubset c.Int, name *XmlChar, type_ c.Int, ExternalID *XmlChar, SystemID *XmlChar, content *XmlChar, out *XmlEntityPtr) c.Int
-//go:linkname XmlAddDocEntity C.xmlAddDocEntity
-func XmlAddDocEntity(doc XmlDocPtr, name *XmlChar, type_ c.Int, ExternalID *XmlChar, SystemID *XmlChar, content *XmlChar) XmlEntityPtr
-//go:linkname XmlAddDtdEntity C.xmlAddDtdEntity
-func XmlAddDtdEntity(doc XmlDocPtr, name *XmlChar, type_ c.Int, ExternalID *XmlChar, SystemID *XmlChar, content *XmlChar) XmlEntityPtr
-// llgo:link (*XmlChar).XmlGetPredefinedEntity C.xmlGetPredefinedEntity
-func (recv_ *XmlChar) XmlGetPredefinedEntity() XmlEntityPtr {
+type EntitiesTable X_xmlHashTable
+type EntitiesTablePtr *EntitiesTable
+
+/*
+ * External functions:
+ */
+//go:linkname InitializePredefinedEntities C.xmlInitializePredefinedEntities
+func InitializePredefinedEntities()
+
+//go:linkname NewEntity C.xmlNewEntity
+func NewEntity(doc DocPtr, name *Char, type_ c.Int, ExternalID *Char, SystemID *Char, content *Char) EntityPtr
+
+//go:linkname FreeEntity C.xmlFreeEntity
+func FreeEntity(entity EntityPtr)
+
+//go:linkname AddEntity C.xmlAddEntity
+func AddEntity(doc DocPtr, extSubset c.Int, name *Char, type_ c.Int, ExternalID *Char, SystemID *Char, content *Char, out *EntityPtr) c.Int
+
+//go:linkname AddDocEntity C.xmlAddDocEntity
+func AddDocEntity(doc DocPtr, name *Char, type_ c.Int, ExternalID *Char, SystemID *Char, content *Char) EntityPtr
+
+//go:linkname AddDtdEntity C.xmlAddDtdEntity
+func AddDtdEntity(doc DocPtr, name *Char, type_ c.Int, ExternalID *Char, SystemID *Char, content *Char) EntityPtr
+
+// llgo:link (*Char).GetPredefinedEntity C.xmlGetPredefinedEntity
+func (recv_ *Char) GetPredefinedEntity() EntityPtr {
 	return nil
 }
-// llgo:link (*XmlDoc).XmlGetDocEntity C.xmlGetDocEntity
-func (recv_ *XmlDoc) XmlGetDocEntity(name *XmlChar) XmlEntityPtr {
+
+// llgo:link (*Doc).GetDocEntity C.xmlGetDocEntity
+func (recv_ *Doc) GetDocEntity(name *Char) EntityPtr {
 	return nil
 }
-//go:linkname XmlGetDtdEntity C.xmlGetDtdEntity
-func XmlGetDtdEntity(doc XmlDocPtr, name *XmlChar) XmlEntityPtr
-//go:linkname XmlGetParameterEntity C.xmlGetParameterEntity
-func XmlGetParameterEntity(doc XmlDocPtr, name *XmlChar) XmlEntityPtr
-//go:linkname XmlEncodeEntities C.xmlEncodeEntities
-func XmlEncodeEntities(doc XmlDocPtr, input *XmlChar) *XmlChar
-//go:linkname XmlEncodeEntitiesReentrant C.xmlEncodeEntitiesReentrant
-func XmlEncodeEntitiesReentrant(doc XmlDocPtr, input *XmlChar) *XmlChar
-// llgo:link (*XmlDoc).XmlEncodeSpecialChars C.xmlEncodeSpecialChars
-func (recv_ *XmlDoc) XmlEncodeSpecialChars(input *XmlChar) *XmlChar {
+
+//go:linkname GetDtdEntity C.xmlGetDtdEntity
+func GetDtdEntity(doc DocPtr, name *Char) EntityPtr
+
+//go:linkname GetParameterEntity C.xmlGetParameterEntity
+func GetParameterEntity(doc DocPtr, name *Char) EntityPtr
+
+//go:linkname EncodeEntities C.xmlEncodeEntities
+func EncodeEntities(doc DocPtr, input *Char) *Char
+
+//go:linkname EncodeEntitiesReentrant C.xmlEncodeEntitiesReentrant
+func EncodeEntitiesReentrant(doc DocPtr, input *Char) *Char
+
+// llgo:link (*Doc).EncodeSpecialChars C.xmlEncodeSpecialChars
+func (recv_ *Doc) EncodeSpecialChars(input *Char) *Char {
 	return nil
 }
-//go:linkname XmlCreateEntitiesTable C.xmlCreateEntitiesTable
-func XmlCreateEntitiesTable() XmlEntitiesTablePtr
-//go:linkname XmlCopyEntitiesTable C.xmlCopyEntitiesTable
-func XmlCopyEntitiesTable(table XmlEntitiesTablePtr) XmlEntitiesTablePtr
-//go:linkname XmlFreeEntitiesTable C.xmlFreeEntitiesTable
-func XmlFreeEntitiesTable(table XmlEntitiesTablePtr)
-//go:linkname XmlDumpEntitiesTable C.xmlDumpEntitiesTable
-func XmlDumpEntitiesTable(buf XmlBufferPtr, table XmlEntitiesTablePtr)
-//go:linkname XmlDumpEntityDecl C.xmlDumpEntityDecl
-func XmlDumpEntityDecl(buf XmlBufferPtr, ent XmlEntityPtr)
-//go:linkname XmlCleanupPredefinedEntities C.xmlCleanupPredefinedEntities
-func XmlCleanupPredefinedEntities()
+
+//go:linkname CreateEntitiesTable C.xmlCreateEntitiesTable
+func CreateEntitiesTable() EntitiesTablePtr
+
+//go:linkname CopyEntitiesTable C.xmlCopyEntitiesTable
+func CopyEntitiesTable(table EntitiesTablePtr) EntitiesTablePtr
+
+//go:linkname FreeEntitiesTable C.xmlFreeEntitiesTable
+func FreeEntitiesTable(table EntitiesTablePtr)
+
+//go:linkname DumpEntitiesTable C.xmlDumpEntitiesTable
+func DumpEntitiesTable(buf BufferPtr, table EntitiesTablePtr)
+
+//go:linkname DumpEntityDecl C.xmlDumpEntityDecl
+func DumpEntityDecl(buf BufferPtr, ent EntityPtr)
+
+//go:linkname CleanupPredefinedEntities C.xmlCleanupPredefinedEntities
+func CleanupPredefinedEntities()

@@ -1,50 +1,59 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
 	_ "unsafe"
 )
 
-type X_XmlChSRange struct {
+type X_xmlChSRange struct {
 	Low  uint16
 	High uint16
 }
-type XmlChSRange X_XmlChSRange
-type XmlChSRangePtr *XmlChSRange
+type ChSRange X_xmlChSRange
+type ChSRangePtr *ChSRange
 
-type X_XmlChLRange struct {
+type X_xmlChLRange struct {
 	Low  c.Uint
 	High c.Uint
 }
-type XmlChLRange X_XmlChLRange
-type XmlChLRangePtr *XmlChLRange
+type ChLRange X_xmlChLRange
+type ChLRangePtr *ChLRange
 
-type X_XmlChRangeGroup struct {
+type X_xmlChRangeGroup struct {
 	NbShortRange c.Int
 	NbLongRange  c.Int
-	ShortRange   *XmlChSRange
-	LongRange    *XmlChLRange
+	ShortRange   *ChSRange
+	LongRange    *ChLRange
 }
-type XmlChRangeGroup X_XmlChRangeGroup
-type XmlChRangeGroupPtr *XmlChRangeGroup
+type ChRangeGroup X_xmlChRangeGroup
+type ChRangeGroupPtr *ChRangeGroup
+
 /**
  * Range checking routine
  */
-//go:linkname XmlCharInRange C.xmlCharInRange
-func XmlCharInRange(val c.Uint, group *XmlChRangeGroup) c.Int
-//go:linkname XmlIsBaseChar C.xmlIsBaseChar
-func XmlIsBaseChar(ch c.Uint) c.Int
-//go:linkname XmlIsBlank C.xmlIsBlank
-func XmlIsBlank(ch c.Uint) c.Int
-//go:linkname XmlIsChar C.xmlIsChar
-func XmlIsChar(ch c.Uint) c.Int
-//go:linkname XmlIsCombining C.xmlIsCombining
-func XmlIsCombining(ch c.Uint) c.Int
-//go:linkname XmlIsDigit C.xmlIsDigit
-func XmlIsDigit(ch c.Uint) c.Int
-//go:linkname XmlIsExtender C.xmlIsExtender
-func XmlIsExtender(ch c.Uint) c.Int
-//go:linkname XmlIsIdeographic C.xmlIsIdeographic
-func XmlIsIdeographic(ch c.Uint) c.Int
-//go:linkname XmlIsPubidChar C.xmlIsPubidChar
-func XmlIsPubidChar(ch c.Uint) c.Int
+//go:linkname CharInRange C.xmlCharInRange
+func CharInRange(val c.Uint, group *ChRangeGroup) c.Int
+
+//go:linkname IsBaseChar C.xmlIsBaseChar
+func IsBaseChar(ch c.Uint) c.Int
+
+//go:linkname IsBlank C.xmlIsBlank
+func IsBlank(ch c.Uint) c.Int
+
+//go:linkname IsChar C.xmlIsChar
+func IsChar(ch c.Uint) c.Int
+
+//go:linkname IsCombining C.xmlIsCombining
+func IsCombining(ch c.Uint) c.Int
+
+//go:linkname IsDigit C.xmlIsDigit
+func IsDigit(ch c.Uint) c.Int
+
+//go:linkname IsExtender C.xmlIsExtender
+func IsExtender(ch c.Uint) c.Int
+
+//go:linkname IsIdeographic C.xmlIsIdeographic
+func IsIdeographic(ch c.Uint) c.Int
+
+//go:linkname IsPubidChar C.xmlIsPubidChar
+func IsPubidChar(ch c.Uint) c.Int

@@ -1,246 +1,360 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
 	"unsafe"
 )
 
-type XmlParserSeverities c.Int
+type ParserSeverities c.Int
 
 const (
-	XmlParserSeveritiesXMLPARSERSEVERITYVALIDITYWARNING XmlParserSeverities = 1
-	XmlParserSeveritiesXMLPARSERSEVERITYVALIDITYERROR   XmlParserSeverities = 2
-	XmlParserSeveritiesXMLPARSERSEVERITYWARNING         XmlParserSeverities = 3
-	XmlParserSeveritiesXMLPARSERSEVERITYERROR           XmlParserSeverities = 4
+	PARSERSEVERITYVALIDITYWARNING ParserSeverities = 1
+	PARSERSEVERITYVALIDITYERROR   ParserSeverities = 2
+	PARSERSEVERITYWARNING         ParserSeverities = 3
+	PARSERSEVERITYERROR           ParserSeverities = 4
 )
 
-type XmlTextReaderMode c.Int
+type TextReaderMode c.Int
 
 const (
-	XmlTextReaderModeXMLTEXTREADERMODEINITIAL     XmlTextReaderMode = 0
-	XmlTextReaderModeXMLTEXTREADERMODEINTERACTIVE XmlTextReaderMode = 1
-	XmlTextReaderModeXMLTEXTREADERMODEERROR       XmlTextReaderMode = 2
-	XmlTextReaderModeXMLTEXTREADERMODEEOF         XmlTextReaderMode = 3
-	XmlTextReaderModeXMLTEXTREADERMODECLOSED      XmlTextReaderMode = 4
-	XmlTextReaderModeXMLTEXTREADERMODEREADING     XmlTextReaderMode = 5
+	TEXTREADERMODEINITIAL     TextReaderMode = 0
+	TEXTREADERMODEINTERACTIVE TextReaderMode = 1
+	TEXTREADERMODEERROR       TextReaderMode = 2
+	TEXTREADERMODEEOF         TextReaderMode = 3
+	TEXTREADERMODECLOSED      TextReaderMode = 4
+	TEXTREADERMODEREADING     TextReaderMode = 5
 )
 
-type XmlParserProperties c.Int
+type ParserProperties c.Int
 
 const (
-	XmlParserPropertiesXMLPARSERLOADDTD       XmlParserProperties = 1
-	XmlParserPropertiesXMLPARSERDEFAULTATTRS  XmlParserProperties = 2
-	XmlParserPropertiesXMLPARSERVALIDATE      XmlParserProperties = 3
-	XmlParserPropertiesXMLPARSERSUBSTENTITIES XmlParserProperties = 4
+	PARSERLOADDTD       ParserProperties = 1
+	PARSERDEFAULTATTRS  ParserProperties = 2
+	PARSERVALIDATE      ParserProperties = 3
+	PARSERSUBSTENTITIES ParserProperties = 4
 )
 
-type XmlReaderTypes c.Int
+type ReaderTypes c.Int
 
 const (
-	XmlReaderTypesXMLREADERTYPENONE                  XmlReaderTypes = 0
-	XmlReaderTypesXMLREADERTYPEELEMENT               XmlReaderTypes = 1
-	XmlReaderTypesXMLREADERTYPEATTRIBUTE             XmlReaderTypes = 2
-	XmlReaderTypesXMLREADERTYPETEXT                  XmlReaderTypes = 3
-	XmlReaderTypesXMLREADERTYPECDATA                 XmlReaderTypes = 4
-	XmlReaderTypesXMLREADERTYPEENTITYREFERENCE       XmlReaderTypes = 5
-	XmlReaderTypesXMLREADERTYPEENTITY                XmlReaderTypes = 6
-	XmlReaderTypesXMLREADERTYPEPROCESSINGINSTRUCTION XmlReaderTypes = 7
-	XmlReaderTypesXMLREADERTYPECOMMENT               XmlReaderTypes = 8
-	XmlReaderTypesXMLREADERTYPEDOCUMENT              XmlReaderTypes = 9
-	XmlReaderTypesXMLREADERTYPEDOCUMENTTYPE          XmlReaderTypes = 10
-	XmlReaderTypesXMLREADERTYPEDOCUMENTFRAGMENT      XmlReaderTypes = 11
-	XmlReaderTypesXMLREADERTYPENOTATION              XmlReaderTypes = 12
-	XmlReaderTypesXMLREADERTYPEWHITESPACE            XmlReaderTypes = 13
-	XmlReaderTypesXMLREADERTYPESIGNIFICANTWHITESPACE XmlReaderTypes = 14
-	XmlReaderTypesXMLREADERTYPEENDELEMENT            XmlReaderTypes = 15
-	XmlReaderTypesXMLREADERTYPEENDENTITY             XmlReaderTypes = 16
-	XmlReaderTypesXMLREADERTYPEXMLDECLARATION        XmlReaderTypes = 17
+	READERTYPENONE                  ReaderTypes = 0
+	READERTYPEELEMENT               ReaderTypes = 1
+	READERTYPEATTRIBUTE             ReaderTypes = 2
+	READERTYPETEXT                  ReaderTypes = 3
+	READERTYPECDATA                 ReaderTypes = 4
+	READERTYPEENTITYREFERENCE       ReaderTypes = 5
+	READERTYPEENTITY                ReaderTypes = 6
+	READERTYPEPROCESSINGINSTRUCTION ReaderTypes = 7
+	READERTYPECOMMENT               ReaderTypes = 8
+	READERTYPEDOCUMENT              ReaderTypes = 9
+	READERTYPEDOCUMENTTYPE          ReaderTypes = 10
+	READERTYPEDOCUMENTFRAGMENT      ReaderTypes = 11
+	READERTYPENOTATION              ReaderTypes = 12
+	READERTYPEWHITESPACE            ReaderTypes = 13
+	READERTYPESIGNIFICANTWHITESPACE ReaderTypes = 14
+	READERTYPEENDELEMENT            ReaderTypes = 15
+	READERTYPEENDENTITY             ReaderTypes = 16
+	READERTYPEXMLDECLARATION        ReaderTypes = 17
 )
 
-type X_XmlTextReader struct {
+type X_xmlTextReader struct {
 	Unused [8]uint8
 }
-type XmlTextReader X_XmlTextReader
-type XmlTextReaderPtr *XmlTextReader
-//go:linkname XmlNewTextReader C.xmlNewTextReader
-func XmlNewTextReader(input XmlParserInputBufferPtr, URI *int8) XmlTextReaderPtr
-//go:linkname XmlNewTextReaderFilename C.xmlNewTextReaderFilename
-func XmlNewTextReaderFilename(URI *int8) XmlTextReaderPtr
-//go:linkname XmlFreeTextReader C.xmlFreeTextReader
-func XmlFreeTextReader(reader XmlTextReaderPtr)
-//go:linkname XmlTextReaderSetup C.xmlTextReaderSetup
-func XmlTextReaderSetup(reader XmlTextReaderPtr, input XmlParserInputBufferPtr, URL *int8, encoding *int8, options c.Int) c.Int
-//go:linkname XmlTextReaderSetMaxAmplification C.xmlTextReaderSetMaxAmplification
-func XmlTextReaderSetMaxAmplification(reader XmlTextReaderPtr, maxAmpl c.Uint)
-//go:linkname XmlTextReaderGetLastError C.xmlTextReaderGetLastError
-func XmlTextReaderGetLastError(reader XmlTextReaderPtr) *XmlError
-//go:linkname XmlTextReaderRead C.xmlTextReaderRead
-func XmlTextReaderRead(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderReadInnerXml C.xmlTextReaderReadInnerXml
-func XmlTextReaderReadInnerXml(reader XmlTextReaderPtr) *XmlChar
-//go:linkname XmlTextReaderReadOuterXml C.xmlTextReaderReadOuterXml
-func XmlTextReaderReadOuterXml(reader XmlTextReaderPtr) *XmlChar
-//go:linkname XmlTextReaderReadString C.xmlTextReaderReadString
-func XmlTextReaderReadString(reader XmlTextReaderPtr) *XmlChar
-//go:linkname XmlTextReaderReadAttributeValue C.xmlTextReaderReadAttributeValue
-func XmlTextReaderReadAttributeValue(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderAttributeCount C.xmlTextReaderAttributeCount
-func XmlTextReaderAttributeCount(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderDepth C.xmlTextReaderDepth
-func XmlTextReaderDepth(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderHasAttributes C.xmlTextReaderHasAttributes
-func XmlTextReaderHasAttributes(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderHasValue C.xmlTextReaderHasValue
-func XmlTextReaderHasValue(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderIsDefault C.xmlTextReaderIsDefault
-func XmlTextReaderIsDefault(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderIsEmptyElement C.xmlTextReaderIsEmptyElement
-func XmlTextReaderIsEmptyElement(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderNodeType C.xmlTextReaderNodeType
-func XmlTextReaderNodeType(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderQuoteChar C.xmlTextReaderQuoteChar
-func XmlTextReaderQuoteChar(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderReadState C.xmlTextReaderReadState
-func XmlTextReaderReadState(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderIsNamespaceDecl C.xmlTextReaderIsNamespaceDecl
-func XmlTextReaderIsNamespaceDecl(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderConstBaseUri C.xmlTextReaderConstBaseUri
-func XmlTextReaderConstBaseUri(reader XmlTextReaderPtr) *XmlChar
-//go:linkname XmlTextReaderConstLocalName C.xmlTextReaderConstLocalName
-func XmlTextReaderConstLocalName(reader XmlTextReaderPtr) *XmlChar
-//go:linkname XmlTextReaderConstName C.xmlTextReaderConstName
-func XmlTextReaderConstName(reader XmlTextReaderPtr) *XmlChar
-//go:linkname XmlTextReaderConstNamespaceUri C.xmlTextReaderConstNamespaceUri
-func XmlTextReaderConstNamespaceUri(reader XmlTextReaderPtr) *XmlChar
-//go:linkname XmlTextReaderConstPrefix C.xmlTextReaderConstPrefix
-func XmlTextReaderConstPrefix(reader XmlTextReaderPtr) *XmlChar
-//go:linkname XmlTextReaderConstXmlLang C.xmlTextReaderConstXmlLang
-func XmlTextReaderConstXmlLang(reader XmlTextReaderPtr) *XmlChar
-//go:linkname XmlTextReaderConstString C.xmlTextReaderConstString
-func XmlTextReaderConstString(reader XmlTextReaderPtr, str *XmlChar) *XmlChar
-//go:linkname XmlTextReaderConstValue C.xmlTextReaderConstValue
-func XmlTextReaderConstValue(reader XmlTextReaderPtr) *XmlChar
-//go:linkname XmlTextReaderBaseUri C.xmlTextReaderBaseUri
-func XmlTextReaderBaseUri(reader XmlTextReaderPtr) *XmlChar
-//go:linkname XmlTextReaderLocalName C.xmlTextReaderLocalName
-func XmlTextReaderLocalName(reader XmlTextReaderPtr) *XmlChar
-//go:linkname XmlTextReaderName C.xmlTextReaderName
-func XmlTextReaderName(reader XmlTextReaderPtr) *XmlChar
-//go:linkname XmlTextReaderNamespaceUri C.xmlTextReaderNamespaceUri
-func XmlTextReaderNamespaceUri(reader XmlTextReaderPtr) *XmlChar
-//go:linkname XmlTextReaderPrefix C.xmlTextReaderPrefix
-func XmlTextReaderPrefix(reader XmlTextReaderPtr) *XmlChar
-//go:linkname XmlTextReaderXmlLang C.xmlTextReaderXmlLang
-func XmlTextReaderXmlLang(reader XmlTextReaderPtr) *XmlChar
-//go:linkname XmlTextReaderValue C.xmlTextReaderValue
-func XmlTextReaderValue(reader XmlTextReaderPtr) *XmlChar
-//go:linkname XmlTextReaderClose C.xmlTextReaderClose
-func XmlTextReaderClose(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderGetAttributeNo C.xmlTextReaderGetAttributeNo
-func XmlTextReaderGetAttributeNo(reader XmlTextReaderPtr, no c.Int) *XmlChar
-//go:linkname XmlTextReaderGetAttribute C.xmlTextReaderGetAttribute
-func XmlTextReaderGetAttribute(reader XmlTextReaderPtr, name *XmlChar) *XmlChar
-//go:linkname XmlTextReaderGetAttributeNs C.xmlTextReaderGetAttributeNs
-func XmlTextReaderGetAttributeNs(reader XmlTextReaderPtr, localName *XmlChar, namespaceURI *XmlChar) *XmlChar
-//go:linkname XmlTextReaderGetRemainder C.xmlTextReaderGetRemainder
-func XmlTextReaderGetRemainder(reader XmlTextReaderPtr) XmlParserInputBufferPtr
-//go:linkname XmlTextReaderLookupNamespace C.xmlTextReaderLookupNamespace
-func XmlTextReaderLookupNamespace(reader XmlTextReaderPtr, prefix *XmlChar) *XmlChar
-//go:linkname XmlTextReaderMoveToAttributeNo C.xmlTextReaderMoveToAttributeNo
-func XmlTextReaderMoveToAttributeNo(reader XmlTextReaderPtr, no c.Int) c.Int
-//go:linkname XmlTextReaderMoveToAttribute C.xmlTextReaderMoveToAttribute
-func XmlTextReaderMoveToAttribute(reader XmlTextReaderPtr, name *XmlChar) c.Int
-//go:linkname XmlTextReaderMoveToAttributeNs C.xmlTextReaderMoveToAttributeNs
-func XmlTextReaderMoveToAttributeNs(reader XmlTextReaderPtr, localName *XmlChar, namespaceURI *XmlChar) c.Int
-//go:linkname XmlTextReaderMoveToFirstAttribute C.xmlTextReaderMoveToFirstAttribute
-func XmlTextReaderMoveToFirstAttribute(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderMoveToNextAttribute C.xmlTextReaderMoveToNextAttribute
-func XmlTextReaderMoveToNextAttribute(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderMoveToElement C.xmlTextReaderMoveToElement
-func XmlTextReaderMoveToElement(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderNormalization C.xmlTextReaderNormalization
-func XmlTextReaderNormalization(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderConstEncoding C.xmlTextReaderConstEncoding
-func XmlTextReaderConstEncoding(reader XmlTextReaderPtr) *XmlChar
-//go:linkname XmlTextReaderSetParserProp C.xmlTextReaderSetParserProp
-func XmlTextReaderSetParserProp(reader XmlTextReaderPtr, prop c.Int, value c.Int) c.Int
-//go:linkname XmlTextReaderGetParserProp C.xmlTextReaderGetParserProp
-func XmlTextReaderGetParserProp(reader XmlTextReaderPtr, prop c.Int) c.Int
-//go:linkname XmlTextReaderCurrentNode C.xmlTextReaderCurrentNode
-func XmlTextReaderCurrentNode(reader XmlTextReaderPtr) XmlNodePtr
-//go:linkname XmlTextReaderGetParserLineNumber C.xmlTextReaderGetParserLineNumber
-func XmlTextReaderGetParserLineNumber(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderGetParserColumnNumber C.xmlTextReaderGetParserColumnNumber
-func XmlTextReaderGetParserColumnNumber(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderPreserve C.xmlTextReaderPreserve
-func XmlTextReaderPreserve(reader XmlTextReaderPtr) XmlNodePtr
-//go:linkname XmlTextReaderPreservePattern C.xmlTextReaderPreservePattern
-func XmlTextReaderPreservePattern(reader XmlTextReaderPtr, pattern *XmlChar, namespaces **XmlChar) c.Int
-//go:linkname XmlTextReaderCurrentDoc C.xmlTextReaderCurrentDoc
-func XmlTextReaderCurrentDoc(reader XmlTextReaderPtr) XmlDocPtr
-//go:linkname XmlTextReaderExpand C.xmlTextReaderExpand
-func XmlTextReaderExpand(reader XmlTextReaderPtr) XmlNodePtr
-//go:linkname XmlTextReaderNext C.xmlTextReaderNext
-func XmlTextReaderNext(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderNextSibling C.xmlTextReaderNextSibling
-func XmlTextReaderNextSibling(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderIsValid C.xmlTextReaderIsValid
-func XmlTextReaderIsValid(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderRelaxNGValidate C.xmlTextReaderRelaxNGValidate
-func XmlTextReaderRelaxNGValidate(reader XmlTextReaderPtr, rng *int8) c.Int
-//go:linkname XmlTextReaderRelaxNGValidateCtxt C.xmlTextReaderRelaxNGValidateCtxt
-func XmlTextReaderRelaxNGValidateCtxt(reader XmlTextReaderPtr, ctxt XmlRelaxNGValidCtxtPtr, options c.Int) c.Int
-//go:linkname XmlTextReaderRelaxNGSetSchema C.xmlTextReaderRelaxNGSetSchema
-func XmlTextReaderRelaxNGSetSchema(reader XmlTextReaderPtr, schema XmlRelaxNGPtr) c.Int
-//go:linkname XmlTextReaderSchemaValidate C.xmlTextReaderSchemaValidate
-func XmlTextReaderSchemaValidate(reader XmlTextReaderPtr, xsd *int8) c.Int
-//go:linkname XmlTextReaderSchemaValidateCtxt C.xmlTextReaderSchemaValidateCtxt
-func XmlTextReaderSchemaValidateCtxt(reader XmlTextReaderPtr, ctxt XmlSchemaValidCtxtPtr, options c.Int) c.Int
-//go:linkname XmlTextReaderSetSchema C.xmlTextReaderSetSchema
-func XmlTextReaderSetSchema(reader XmlTextReaderPtr, schema XmlSchemaPtr) c.Int
-//go:linkname XmlTextReaderConstXmlVersion C.xmlTextReaderConstXmlVersion
-func XmlTextReaderConstXmlVersion(reader XmlTextReaderPtr) *XmlChar
-//go:linkname XmlTextReaderStandalone C.xmlTextReaderStandalone
-func XmlTextReaderStandalone(reader XmlTextReaderPtr) c.Int
-//go:linkname XmlTextReaderByteConsumed C.xmlTextReaderByteConsumed
-func XmlTextReaderByteConsumed(reader XmlTextReaderPtr) c.Long
-//go:linkname XmlReaderWalker C.xmlReaderWalker
-func XmlReaderWalker(doc XmlDocPtr) XmlTextReaderPtr
-// llgo:link (*XmlChar).XmlReaderForDoc C.xmlReaderForDoc
-func (recv_ *XmlChar) XmlReaderForDoc(URL *int8, encoding *int8, options c.Int) XmlTextReaderPtr {
+type TextReader X_xmlTextReader
+type TextReaderPtr *TextReader
+
+/*
+ * Constructors & Destructor
+ */
+//go:linkname NewTextReader C.xmlNewTextReader
+func NewTextReader(input ParserInputBufferPtr, URI *int8) TextReaderPtr
+
+//go:linkname NewTextReaderFilename C.xmlNewTextReaderFilename
+func NewTextReaderFilename(URI *int8) TextReaderPtr
+
+//go:linkname FreeTextReader C.xmlFreeTextReader
+func FreeTextReader(reader TextReaderPtr)
+
+//go:linkname TextReaderSetup C.xmlTextReaderSetup
+func TextReaderSetup(reader TextReaderPtr, input ParserInputBufferPtr, URL *int8, encoding *int8, options c.Int) c.Int
+
+//go:linkname TextReaderSetMaxAmplification C.xmlTextReaderSetMaxAmplification
+func TextReaderSetMaxAmplification(reader TextReaderPtr, maxAmpl c.Uint)
+
+//go:linkname TextReaderGetLastError C.xmlTextReaderGetLastError
+func TextReaderGetLastError(reader TextReaderPtr) *Error
+
+/*
+ * Iterators
+ */
+//go:linkname TextReaderRead C.xmlTextReaderRead
+func TextReaderRead(reader TextReaderPtr) c.Int
+
+//go:linkname TextReaderReadInnerXml C.xmlTextReaderReadInnerXml
+func TextReaderReadInnerXml(reader TextReaderPtr) *Char
+
+//go:linkname TextReaderReadOuterXml C.xmlTextReaderReadOuterXml
+func TextReaderReadOuterXml(reader TextReaderPtr) *Char
+
+//go:linkname TextReaderReadString C.xmlTextReaderReadString
+func TextReaderReadString(reader TextReaderPtr) *Char
+
+//go:linkname TextReaderReadAttributeValue C.xmlTextReaderReadAttributeValue
+func TextReaderReadAttributeValue(reader TextReaderPtr) c.Int
+
+/*
+ * Attributes of the node
+ */
+//go:linkname TextReaderAttributeCount C.xmlTextReaderAttributeCount
+func TextReaderAttributeCount(reader TextReaderPtr) c.Int
+
+//go:linkname TextReaderDepth C.xmlTextReaderDepth
+func TextReaderDepth(reader TextReaderPtr) c.Int
+
+//go:linkname TextReaderHasAttributes C.xmlTextReaderHasAttributes
+func TextReaderHasAttributes(reader TextReaderPtr) c.Int
+
+//go:linkname TextReaderHasValue C.xmlTextReaderHasValue
+func TextReaderHasValue(reader TextReaderPtr) c.Int
+
+//go:linkname TextReaderIsDefault C.xmlTextReaderIsDefault
+func TextReaderIsDefault(reader TextReaderPtr) c.Int
+
+//go:linkname TextReaderIsEmptyElement C.xmlTextReaderIsEmptyElement
+func TextReaderIsEmptyElement(reader TextReaderPtr) c.Int
+
+//go:linkname TextReaderNodeType C.xmlTextReaderNodeType
+func TextReaderNodeType(reader TextReaderPtr) c.Int
+
+//go:linkname TextReaderQuoteChar C.xmlTextReaderQuoteChar
+func TextReaderQuoteChar(reader TextReaderPtr) c.Int
+
+//go:linkname TextReaderReadState C.xmlTextReaderReadState
+func TextReaderReadState(reader TextReaderPtr) c.Int
+
+//go:linkname TextReaderIsNamespaceDecl C.xmlTextReaderIsNamespaceDecl
+func TextReaderIsNamespaceDecl(reader TextReaderPtr) c.Int
+
+//go:linkname TextReaderConstBaseUri C.xmlTextReaderConstBaseUri
+func TextReaderConstBaseUri(reader TextReaderPtr) *Char
+
+//go:linkname TextReaderConstLocalName C.xmlTextReaderConstLocalName
+func TextReaderConstLocalName(reader TextReaderPtr) *Char
+
+//go:linkname TextReaderConstName C.xmlTextReaderConstName
+func TextReaderConstName(reader TextReaderPtr) *Char
+
+//go:linkname TextReaderConstNamespaceUri C.xmlTextReaderConstNamespaceUri
+func TextReaderConstNamespaceUri(reader TextReaderPtr) *Char
+
+//go:linkname TextReaderConstPrefix C.xmlTextReaderConstPrefix
+func TextReaderConstPrefix(reader TextReaderPtr) *Char
+
+//go:linkname TextReaderConstXmlLang C.xmlTextReaderConstXmlLang
+func TextReaderConstXmlLang(reader TextReaderPtr) *Char
+
+//go:linkname TextReaderConstString C.xmlTextReaderConstString
+func TextReaderConstString(reader TextReaderPtr, str *Char) *Char
+
+//go:linkname TextReaderConstValue C.xmlTextReaderConstValue
+func TextReaderConstValue(reader TextReaderPtr) *Char
+
+/*
+ * use the Const version of the routine for
+ * better performance and simpler code
+ */
+//go:linkname TextReaderBaseUri C.xmlTextReaderBaseUri
+func TextReaderBaseUri(reader TextReaderPtr) *Char
+
+//go:linkname TextReaderLocalName C.xmlTextReaderLocalName
+func TextReaderLocalName(reader TextReaderPtr) *Char
+
+//go:linkname TextReaderName C.xmlTextReaderName
+func TextReaderName(reader TextReaderPtr) *Char
+
+//go:linkname TextReaderNamespaceUri C.xmlTextReaderNamespaceUri
+func TextReaderNamespaceUri(reader TextReaderPtr) *Char
+
+//go:linkname TextReaderPrefix C.xmlTextReaderPrefix
+func TextReaderPrefix(reader TextReaderPtr) *Char
+
+//go:linkname TextReaderXmlLang C.xmlTextReaderXmlLang
+func TextReaderXmlLang(reader TextReaderPtr) *Char
+
+//go:linkname TextReaderValue C.xmlTextReaderValue
+func TextReaderValue(reader TextReaderPtr) *Char
+
+/*
+ * Methods of the XmlTextReader
+ */
+//go:linkname TextReaderClose C.xmlTextReaderClose
+func TextReaderClose(reader TextReaderPtr) c.Int
+
+//go:linkname TextReaderGetAttributeNo C.xmlTextReaderGetAttributeNo
+func TextReaderGetAttributeNo(reader TextReaderPtr, no c.Int) *Char
+
+//go:linkname TextReaderGetAttribute C.xmlTextReaderGetAttribute
+func TextReaderGetAttribute(reader TextReaderPtr, name *Char) *Char
+
+//go:linkname TextReaderGetAttributeNs C.xmlTextReaderGetAttributeNs
+func TextReaderGetAttributeNs(reader TextReaderPtr, localName *Char, namespaceURI *Char) *Char
+
+//go:linkname TextReaderGetRemainder C.xmlTextReaderGetRemainder
+func TextReaderGetRemainder(reader TextReaderPtr) ParserInputBufferPtr
+
+//go:linkname TextReaderLookupNamespace C.xmlTextReaderLookupNamespace
+func TextReaderLookupNamespace(reader TextReaderPtr, prefix *Char) *Char
+
+//go:linkname TextReaderMoveToAttributeNo C.xmlTextReaderMoveToAttributeNo
+func TextReaderMoveToAttributeNo(reader TextReaderPtr, no c.Int) c.Int
+
+//go:linkname TextReaderMoveToAttribute C.xmlTextReaderMoveToAttribute
+func TextReaderMoveToAttribute(reader TextReaderPtr, name *Char) c.Int
+
+//go:linkname TextReaderMoveToAttributeNs C.xmlTextReaderMoveToAttributeNs
+func TextReaderMoveToAttributeNs(reader TextReaderPtr, localName *Char, namespaceURI *Char) c.Int
+
+//go:linkname TextReaderMoveToFirstAttribute C.xmlTextReaderMoveToFirstAttribute
+func TextReaderMoveToFirstAttribute(reader TextReaderPtr) c.Int
+
+//go:linkname TextReaderMoveToNextAttribute C.xmlTextReaderMoveToNextAttribute
+func TextReaderMoveToNextAttribute(reader TextReaderPtr) c.Int
+
+//go:linkname TextReaderMoveToElement C.xmlTextReaderMoveToElement
+func TextReaderMoveToElement(reader TextReaderPtr) c.Int
+
+//go:linkname TextReaderNormalization C.xmlTextReaderNormalization
+func TextReaderNormalization(reader TextReaderPtr) c.Int
+
+//go:linkname TextReaderConstEncoding C.xmlTextReaderConstEncoding
+func TextReaderConstEncoding(reader TextReaderPtr) *Char
+
+/*
+ * Extensions
+ */
+//go:linkname TextReaderSetParserProp C.xmlTextReaderSetParserProp
+func TextReaderSetParserProp(reader TextReaderPtr, prop c.Int, value c.Int) c.Int
+
+//go:linkname TextReaderGetParserProp C.xmlTextReaderGetParserProp
+func TextReaderGetParserProp(reader TextReaderPtr, prop c.Int) c.Int
+
+//go:linkname TextReaderCurrentNode C.xmlTextReaderCurrentNode
+func TextReaderCurrentNode(reader TextReaderPtr) NodePtr
+
+//go:linkname TextReaderGetParserLineNumber C.xmlTextReaderGetParserLineNumber
+func TextReaderGetParserLineNumber(reader TextReaderPtr) c.Int
+
+//go:linkname TextReaderGetParserColumnNumber C.xmlTextReaderGetParserColumnNumber
+func TextReaderGetParserColumnNumber(reader TextReaderPtr) c.Int
+
+//go:linkname TextReaderPreserve C.xmlTextReaderPreserve
+func TextReaderPreserve(reader TextReaderPtr) NodePtr
+
+//go:linkname TextReaderPreservePattern C.xmlTextReaderPreservePattern
+func TextReaderPreservePattern(reader TextReaderPtr, pattern *Char, namespaces **Char) c.Int
+
+//go:linkname TextReaderCurrentDoc C.xmlTextReaderCurrentDoc
+func TextReaderCurrentDoc(reader TextReaderPtr) DocPtr
+
+//go:linkname TextReaderExpand C.xmlTextReaderExpand
+func TextReaderExpand(reader TextReaderPtr) NodePtr
+
+//go:linkname TextReaderNext C.xmlTextReaderNext
+func TextReaderNext(reader TextReaderPtr) c.Int
+
+//go:linkname TextReaderNextSibling C.xmlTextReaderNextSibling
+func TextReaderNextSibling(reader TextReaderPtr) c.Int
+
+//go:linkname TextReaderIsValid C.xmlTextReaderIsValid
+func TextReaderIsValid(reader TextReaderPtr) c.Int
+
+//go:linkname TextReaderRelaxNGValidate C.xmlTextReaderRelaxNGValidate
+func TextReaderRelaxNGValidate(reader TextReaderPtr, rng *int8) c.Int
+
+//go:linkname TextReaderRelaxNGValidateCtxt C.xmlTextReaderRelaxNGValidateCtxt
+func TextReaderRelaxNGValidateCtxt(reader TextReaderPtr, ctxt RelaxNGValidCtxtPtr, options c.Int) c.Int
+
+//go:linkname TextReaderRelaxNGSetSchema C.xmlTextReaderRelaxNGSetSchema
+func TextReaderRelaxNGSetSchema(reader TextReaderPtr, schema RelaxNGPtr) c.Int
+
+//go:linkname TextReaderSchemaValidate C.xmlTextReaderSchemaValidate
+func TextReaderSchemaValidate(reader TextReaderPtr, xsd *int8) c.Int
+
+//go:linkname TextReaderSchemaValidateCtxt C.xmlTextReaderSchemaValidateCtxt
+func TextReaderSchemaValidateCtxt(reader TextReaderPtr, ctxt SchemaValidCtxtPtr, options c.Int) c.Int
+
+//go:linkname TextReaderSetSchema C.xmlTextReaderSetSchema
+func TextReaderSetSchema(reader TextReaderPtr, schema SchemaPtr) c.Int
+
+//go:linkname TextReaderConstXmlVersion C.xmlTextReaderConstXmlVersion
+func TextReaderConstXmlVersion(reader TextReaderPtr) *Char
+
+//go:linkname TextReaderStandalone C.xmlTextReaderStandalone
+func TextReaderStandalone(reader TextReaderPtr) c.Int
+
+/*
+ * Index lookup
+ */
+//go:linkname TextReaderByteConsumed C.xmlTextReaderByteConsumed
+func TextReaderByteConsumed(reader TextReaderPtr) c.Long
+
+/*
+ * New more complete APIs for simpler creation and reuse of readers
+ */
+//go:linkname ReaderWalker C.xmlReaderWalker
+func ReaderWalker(doc DocPtr) TextReaderPtr
+
+// llgo:link (*Char).ReaderForDoc C.xmlReaderForDoc
+func (recv_ *Char) ReaderForDoc(URL *int8, encoding *int8, options c.Int) TextReaderPtr {
 	return nil
 }
-//go:linkname XmlReaderForFile C.xmlReaderForFile
-func XmlReaderForFile(filename *int8, encoding *int8, options c.Int) XmlTextReaderPtr
-//go:linkname XmlReaderForMemory C.xmlReaderForMemory
-func XmlReaderForMemory(buffer *int8, size c.Int, URL *int8, encoding *int8, options c.Int) XmlTextReaderPtr
-//go:linkname XmlReaderForFd C.xmlReaderForFd
-func XmlReaderForFd(fd c.Int, URL *int8, encoding *int8, options c.Int) XmlTextReaderPtr
-//go:linkname XmlReaderForIO C.xmlReaderForIO
-func XmlReaderForIO(ioread XmlInputReadCallback, ioclose XmlInputCloseCallback, ioctx unsafe.Pointer, URL *int8, encoding *int8, options c.Int) XmlTextReaderPtr
-//go:linkname XmlReaderNewWalker C.xmlReaderNewWalker
-func XmlReaderNewWalker(reader XmlTextReaderPtr, doc XmlDocPtr) c.Int
-//go:linkname XmlReaderNewDoc C.xmlReaderNewDoc
-func XmlReaderNewDoc(reader XmlTextReaderPtr, cur *XmlChar, URL *int8, encoding *int8, options c.Int) c.Int
-//go:linkname XmlReaderNewFile C.xmlReaderNewFile
-func XmlReaderNewFile(reader XmlTextReaderPtr, filename *int8, encoding *int8, options c.Int) c.Int
-//go:linkname XmlReaderNewMemory C.xmlReaderNewMemory
-func XmlReaderNewMemory(reader XmlTextReaderPtr, buffer *int8, size c.Int, URL *int8, encoding *int8, options c.Int) c.Int
-//go:linkname XmlReaderNewFd C.xmlReaderNewFd
-func XmlReaderNewFd(reader XmlTextReaderPtr, fd c.Int, URL *int8, encoding *int8, options c.Int) c.Int
-//go:linkname XmlReaderNewIO C.xmlReaderNewIO
-func XmlReaderNewIO(reader XmlTextReaderPtr, ioread XmlInputReadCallback, ioclose XmlInputCloseCallback, ioctx unsafe.Pointer, URL *int8, encoding *int8, options c.Int) c.Int
 
-type XmlTextReaderLocatorPtr unsafe.Pointer
+//go:linkname ReaderForFile C.xmlReaderForFile
+func ReaderForFile(filename *int8, encoding *int8, options c.Int) TextReaderPtr
+
+//go:linkname ReaderForMemory C.xmlReaderForMemory
+func ReaderForMemory(buffer *int8, size c.Int, URL *int8, encoding *int8, options c.Int) TextReaderPtr
+
+//go:linkname ReaderForFd C.xmlReaderForFd
+func ReaderForFd(fd c.Int, URL *int8, encoding *int8, options c.Int) TextReaderPtr
+
+//go:linkname ReaderForIO C.xmlReaderForIO
+func ReaderForIO(ioread InputReadCallback, ioclose InputCloseCallback, ioctx unsafe.Pointer, URL *int8, encoding *int8, options c.Int) TextReaderPtr
+
+//go:linkname ReaderNewWalker C.xmlReaderNewWalker
+func ReaderNewWalker(reader TextReaderPtr, doc DocPtr) c.Int
+
+//go:linkname ReaderNewDoc C.xmlReaderNewDoc
+func ReaderNewDoc(reader TextReaderPtr, cur *Char, URL *int8, encoding *int8, options c.Int) c.Int
+
+//go:linkname ReaderNewFile C.xmlReaderNewFile
+func ReaderNewFile(reader TextReaderPtr, filename *int8, encoding *int8, options c.Int) c.Int
+
+//go:linkname ReaderNewMemory C.xmlReaderNewMemory
+func ReaderNewMemory(reader TextReaderPtr, buffer *int8, size c.Int, URL *int8, encoding *int8, options c.Int) c.Int
+
+//go:linkname ReaderNewFd C.xmlReaderNewFd
+func ReaderNewFd(reader TextReaderPtr, fd c.Int, URL *int8, encoding *int8, options c.Int) c.Int
+
+//go:linkname ReaderNewIO C.xmlReaderNewIO
+func ReaderNewIO(reader TextReaderPtr, ioread InputReadCallback, ioclose InputCloseCallback, ioctx unsafe.Pointer, URL *int8, encoding *int8, options c.Int) c.Int
+
+type TextReaderLocatorPtr unsafe.Pointer
+
 // llgo:type C
-type XmlTextReaderErrorFunc func(unsafe.Pointer, *int8, XmlParserSeverities, XmlTextReaderLocatorPtr)
-//go:linkname XmlTextReaderLocatorLineNumber C.xmlTextReaderLocatorLineNumber
-func XmlTextReaderLocatorLineNumber(locator XmlTextReaderLocatorPtr) c.Int
-//go:linkname XmlTextReaderLocatorBaseURI C.xmlTextReaderLocatorBaseURI
-func XmlTextReaderLocatorBaseURI(locator XmlTextReaderLocatorPtr) *XmlChar
-//go:linkname XmlTextReaderSetErrorHandler C.xmlTextReaderSetErrorHandler
-func XmlTextReaderSetErrorHandler(reader XmlTextReaderPtr, f XmlTextReaderErrorFunc, arg unsafe.Pointer)
-//go:linkname XmlTextReaderSetStructuredErrorHandler C.xmlTextReaderSetStructuredErrorHandler
-func XmlTextReaderSetStructuredErrorHandler(reader XmlTextReaderPtr, f XmlStructuredErrorFunc, arg unsafe.Pointer)
-//go:linkname XmlTextReaderGetErrorHandler C.xmlTextReaderGetErrorHandler
-func XmlTextReaderGetErrorHandler(reader XmlTextReaderPtr, f XmlTextReaderErrorFunc, arg *unsafe.Pointer)
+type TextReaderErrorFunc func(unsafe.Pointer, *int8, ParserSeverities, TextReaderLocatorPtr)
+
+//go:linkname TextReaderLocatorLineNumber C.xmlTextReaderLocatorLineNumber
+func TextReaderLocatorLineNumber(locator TextReaderLocatorPtr) c.Int
+
+//go:linkname TextReaderLocatorBaseURI C.xmlTextReaderLocatorBaseURI
+func TextReaderLocatorBaseURI(locator TextReaderLocatorPtr) *Char
+
+//go:linkname TextReaderSetErrorHandler C.xmlTextReaderSetErrorHandler
+func TextReaderSetErrorHandler(reader TextReaderPtr, f TextReaderErrorFunc, arg unsafe.Pointer)
+
+//go:linkname TextReaderSetStructuredErrorHandler C.xmlTextReaderSetStructuredErrorHandler
+func TextReaderSetStructuredErrorHandler(reader TextReaderPtr, f StructuredErrorFunc, arg unsafe.Pointer)
+
+//go:linkname TextReaderGetErrorHandler C.xmlTextReaderGetErrorHandler
+func TextReaderGetErrorHandler(reader TextReaderPtr, f TextReaderErrorFunc, arg *unsafe.Pointer)
