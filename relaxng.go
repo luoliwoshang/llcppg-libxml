@@ -1,4 +1,4 @@
-package libxml2
+package libxml
 
 import (
 	"github.com/goplus/llgo/c"
