@@ -1,12 +1,9 @@
-package libxml_2_0
+package libxml2
 
-import (
-	"github.com/goplus/llgo/c"
-	_ "unsafe"
-)
+import _ "unsafe"
 
-const LIBXMLDOTTEDVERSION string = "2.13.5"
-const LIBXMLVERSION c.Int = 21305
-const LIBXMLVERSIONSTRING string = "21305"
-const LIBXMLVERSIONEXTRA string = ""
-const LIBXMLMODULEEXTENSION string = ".so"
+const LIBXML_DOTTED_VERSION = "2.13.6"
+const LIBXML_VERSION = 21306
+const LIBXML_VERSION_STRING = "21306"
+const LIBXML_VERSION_EXTRA = ""
+const LIBXML_MODULE_EXTENSION = ".so"

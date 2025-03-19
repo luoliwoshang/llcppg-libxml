@@ -1,116 +1,153 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
-	_ "unsafe"
+	"unsafe"
 )
 
-type XmlChar int8
-// llgo:link (*XmlChar).XmlStrdup C.xmlStrdup
-func (recv_ *XmlChar) XmlStrdup() *XmlChar {
+type Char int8
+
+/*
+ * xmlChar handling
+ */
+// llgo:link (*Char).Strdup C.xmlStrdup
+func (recv_ *Char) Strdup() *Char {
 	return nil
 }
-// llgo:link (*XmlChar).XmlStrndup C.xmlStrndup
-func (recv_ *XmlChar) XmlStrndup(len c.Int) *XmlChar {
+
+// llgo:link (*Char).Strndup C.xmlStrndup
+func (recv_ *Char) Strndup(len c.Int) *Char {
 	return nil
 }
-//go:linkname XmlCharStrndup C.xmlCharStrndup
-func XmlCharStrndup(cur *int8, len c.Int) *XmlChar
-//go:linkname XmlCharStrdup C.xmlCharStrdup
-func XmlCharStrdup(cur *int8) *XmlChar
-// llgo:link (*XmlChar).XmlStrsub C.xmlStrsub
-func (recv_ *XmlChar) XmlStrsub(start c.Int, len c.Int) *XmlChar {
+
+//go:linkname CharStrndup C.xmlCharStrndup
+func CharStrndup(cur *int8, len c.Int) *Char
+
+//go:linkname CharStrdup C.xmlCharStrdup
+func CharStrdup(cur *int8) *Char
+
+// llgo:link (*Char).Strsub C.xmlStrsub
+func (recv_ *Char) Strsub(start c.Int, len c.Int) *Char {
 	return nil
 }
-// llgo:link (*XmlChar).XmlStrchr C.xmlStrchr
-func (recv_ *XmlChar) XmlStrchr(val XmlChar) *XmlChar {
+
+// llgo:link (*Char).Strchr C.xmlStrchr
+func (recv_ *Char) Strchr(val Char) *Char {
 	return nil
 }
-// llgo:link (*XmlChar).XmlStrstr C.xmlStrstr
-func (recv_ *XmlChar) XmlStrstr(val *XmlChar) *XmlChar {
+
+// llgo:link (*Char).Strstr C.xmlStrstr
+func (recv_ *Char) Strstr(val *Char) *Char {
 	return nil
 }
-// llgo:link (*XmlChar).XmlStrcasestr C.xmlStrcasestr
-func (recv_ *XmlChar) XmlStrcasestr(val *XmlChar) *XmlChar {
+
+// llgo:link (*Char).Strcasestr C.xmlStrcasestr
+func (recv_ *Char) Strcasestr(val *Char) *Char {
 	return nil
 }
-// llgo:link (*XmlChar).XmlStrcmp C.xmlStrcmp
-func (recv_ *XmlChar) XmlStrcmp(str2 *XmlChar) c.Int {
+
+// llgo:link (*Char).Strcmp C.xmlStrcmp
+func (recv_ *Char) Strcmp(str2 *Char) c.Int {
 	return 0
 }
-// llgo:link (*XmlChar).XmlStrncmp C.xmlStrncmp
-func (recv_ *XmlChar) XmlStrncmp(str2 *XmlChar, len c.Int) c.Int {
+
+// llgo:link (*Char).Strncmp C.xmlStrncmp
+func (recv_ *Char) Strncmp(str2 *Char, len c.Int) c.Int {
 	return 0
 }
-// llgo:link (*XmlChar).XmlStrcasecmp C.xmlStrcasecmp
-func (recv_ *XmlChar) XmlStrcasecmp(str2 *XmlChar) c.Int {
+
+// llgo:link (*Char).Strcasecmp C.xmlStrcasecmp
+func (recv_ *Char) Strcasecmp(str2 *Char) c.Int {
 	return 0
 }
-// llgo:link (*XmlChar).XmlStrncasecmp C.xmlStrncasecmp
-func (recv_ *XmlChar) XmlStrncasecmp(str2 *XmlChar, len c.Int) c.Int {
+
+// llgo:link (*Char).Strncasecmp C.xmlStrncasecmp
+func (recv_ *Char) Strncasecmp(str2 *Char, len c.Int) c.Int {
 	return 0
 }
-// llgo:link (*XmlChar).XmlStrEqual C.xmlStrEqual
-func (recv_ *XmlChar) XmlStrEqual(str2 *XmlChar) c.Int {
+
+// llgo:link (*Char).StrEqual C.xmlStrEqual
+func (recv_ *Char) StrEqual(str2 *Char) c.Int {
 	return 0
 }
-// llgo:link (*XmlChar).XmlStrQEqual C.xmlStrQEqual
-func (recv_ *XmlChar) XmlStrQEqual(name *XmlChar, str *XmlChar) c.Int {
+
+// llgo:link (*Char).StrQEqual C.xmlStrQEqual
+func (recv_ *Char) StrQEqual(name *Char, str *Char) c.Int {
 	return 0
 }
-// llgo:link (*XmlChar).XmlStrlen C.xmlStrlen
-func (recv_ *XmlChar) XmlStrlen() c.Int {
+
+// llgo:link (*Char).Strlen C.xmlStrlen
+func (recv_ *Char) Strlen() c.Int {
 	return 0
 }
-// llgo:link (*XmlChar).XmlStrcat C.xmlStrcat
-func (recv_ *XmlChar) XmlStrcat(add *XmlChar) *XmlChar {
+
+// llgo:link (*Char).Strcat C.xmlStrcat
+func (recv_ *Char) Strcat(add *Char) *Char {
 	return nil
 }
-// llgo:link (*XmlChar).XmlStrncat C.xmlStrncat
-func (recv_ *XmlChar) XmlStrncat(add *XmlChar, len c.Int) *XmlChar {
+
+// llgo:link (*Char).Strncat C.xmlStrncat
+func (recv_ *Char) Strncat(add *Char, len c.Int) *Char {
 	return nil
 }
-// llgo:link (*XmlChar).XmlStrncatNew C.xmlStrncatNew
-func (recv_ *XmlChar) XmlStrncatNew(str2 *XmlChar, len c.Int) *XmlChar {
+
+// llgo:link (*Char).StrncatNew C.xmlStrncatNew
+func (recv_ *Char) StrncatNew(str2 *Char, len c.Int) *Char {
 	return nil
 }
-// llgo:link (*XmlChar).XmlStrPrintf C.xmlStrPrintf
-func (recv_ *XmlChar) XmlStrPrintf(len c.Int, msg *int8, __llgo_va_list ...interface{}) c.Int {
+
+// llgo:link (*Char).StrPrintf C.xmlStrPrintf
+func (recv_ *Char) StrPrintf(len c.Int, msg *int8, __llgo_va_list ...interface{}) c.Int {
 	return 0
 }
-//go:linkname XmlGetUTF8Char C.xmlGetUTF8Char
-func XmlGetUTF8Char(utf *int8, len *c.Int) c.Int
-//go:linkname XmlCheckUTF8 C.xmlCheckUTF8
-func XmlCheckUTF8(utf *int8) c.Int
-// llgo:link (*XmlChar).XmlUTF8Strsize C.xmlUTF8Strsize
-func (recv_ *XmlChar) XmlUTF8Strsize(len c.Int) c.Int {
+
+// llgo:link (*Char).StrVPrintf C.xmlStrVPrintf
+func (recv_ *Char) StrVPrintf(len c.Int, msg *int8, ap unsafe.Pointer) c.Int {
 	return 0
 }
-// llgo:link (*XmlChar).XmlUTF8Strndup C.xmlUTF8Strndup
-func (recv_ *XmlChar) XmlUTF8Strndup(len c.Int) *XmlChar {
+
+//go:linkname GetUTF8Char C.xmlGetUTF8Char
+func GetUTF8Char(utf *int8, len *c.Int) c.Int
+
+//go:linkname CheckUTF8 C.xmlCheckUTF8
+func CheckUTF8(utf *int8) c.Int
+
+// llgo:link (*Char).UTF8Strsize C.xmlUTF8Strsize
+func (recv_ *Char) UTF8Strsize(len c.Int) c.Int {
+	return 0
+}
+
+// llgo:link (*Char).UTF8Strndup C.xmlUTF8Strndup
+func (recv_ *Char) UTF8Strndup(len c.Int) *Char {
 	return nil
 }
-// llgo:link (*XmlChar).XmlUTF8Strpos C.xmlUTF8Strpos
-func (recv_ *XmlChar) XmlUTF8Strpos(pos c.Int) *XmlChar {
+
+// llgo:link (*Char).UTF8Strpos C.xmlUTF8Strpos
+func (recv_ *Char) UTF8Strpos(pos c.Int) *Char {
 	return nil
 }
-// llgo:link (*XmlChar).XmlUTF8Strloc C.xmlUTF8Strloc
-func (recv_ *XmlChar) XmlUTF8Strloc(utfchar *XmlChar) c.Int {
+
+// llgo:link (*Char).UTF8Strloc C.xmlUTF8Strloc
+func (recv_ *Char) UTF8Strloc(utfchar *Char) c.Int {
 	return 0
 }
-// llgo:link (*XmlChar).XmlUTF8Strsub C.xmlUTF8Strsub
-func (recv_ *XmlChar) XmlUTF8Strsub(start c.Int, len c.Int) *XmlChar {
+
+// llgo:link (*Char).UTF8Strsub C.xmlUTF8Strsub
+func (recv_ *Char) UTF8Strsub(start c.Int, len c.Int) *Char {
 	return nil
 }
-// llgo:link (*XmlChar).XmlUTF8Strlen C.xmlUTF8Strlen
-func (recv_ *XmlChar) XmlUTF8Strlen() c.Int {
+
+// llgo:link (*Char).UTF8Strlen C.xmlUTF8Strlen
+func (recv_ *Char) UTF8Strlen() c.Int {
 	return 0
 }
-// llgo:link (*XmlChar).XmlUTF8Size C.xmlUTF8Size
-func (recv_ *XmlChar) XmlUTF8Size() c.Int {
+
+// llgo:link (*Char).UTF8Size C.xmlUTF8Size
+func (recv_ *Char) UTF8Size() c.Int {
 	return 0
 }
-// llgo:link (*XmlChar).XmlUTF8Charcmp C.xmlUTF8Charcmp
-func (recv_ *XmlChar) XmlUTF8Charcmp(utf2 *XmlChar) c.Int {
+
+// llgo:link (*Char).UTF8Charcmp C.xmlUTF8Charcmp
+func (recv_ *Char) UTF8Charcmp(utf2 *Char) c.Int {
 	return 0
 }

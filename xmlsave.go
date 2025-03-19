@@ -1,53 +1,67 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
 	"unsafe"
 )
 
-type XmlSaveOption c.Int
+type SaveOption c.Int
 
 const (
-	XmlSaveOptionXMLSAVEFORMAT   XmlSaveOption = 1
-	XmlSaveOptionXMLSAVENODECL   XmlSaveOption = 2
-	XmlSaveOptionXMLSAVENOEMPTY  XmlSaveOption = 4
-	XmlSaveOptionXMLSAVENOXHTML  XmlSaveOption = 8
-	XmlSaveOptionXMLSAVEXHTML    XmlSaveOption = 16
-	XmlSaveOptionXMLSAVEASXML    XmlSaveOption = 32
-	XmlSaveOptionXMLSAVEASHTML   XmlSaveOption = 64
-	XmlSaveOptionXMLSAVEWSNONSIG XmlSaveOption = 128
+	SAVEFORMAT   SaveOption = 1
+	SAVENODECL   SaveOption = 2
+	SAVENOEMPTY  SaveOption = 4
+	SAVENOXHTML  SaveOption = 8
+	SAVEXHTML    SaveOption = 16
+	SAVEASXML    SaveOption = 32
+	SAVEASHTML   SaveOption = 64
+	SAVEWSNONSIG SaveOption = 128
 )
 
-type X_XmlSaveCtxt struct {
+type X_xmlSaveCtxt struct {
 	Unused [8]uint8
 }
-type XmlSaveCtxt X_XmlSaveCtxt
-type XmlSaveCtxtPtr *XmlSaveCtxt
-//go:linkname XmlSaveToFd C.xmlSaveToFd
-func XmlSaveToFd(fd c.Int, encoding *int8, options c.Int) XmlSaveCtxtPtr
-//go:linkname XmlSaveToFilename C.xmlSaveToFilename
-func XmlSaveToFilename(filename *int8, encoding *int8, options c.Int) XmlSaveCtxtPtr
-//go:linkname XmlSaveToBuffer C.xmlSaveToBuffer
-func XmlSaveToBuffer(buffer XmlBufferPtr, encoding *int8, options c.Int) XmlSaveCtxtPtr
-//go:linkname XmlSaveToIO C.xmlSaveToIO
-func XmlSaveToIO(iowrite XmlOutputWriteCallback, ioclose XmlOutputCloseCallback, ioctx unsafe.Pointer, encoding *int8, options c.Int) XmlSaveCtxtPtr
-//go:linkname XmlSaveDoc C.xmlSaveDoc
-func XmlSaveDoc(ctxt XmlSaveCtxtPtr, doc XmlDocPtr) c.Long
-//go:linkname XmlSaveTree C.xmlSaveTree
-func XmlSaveTree(ctxt XmlSaveCtxtPtr, node XmlNodePtr) c.Long
-//go:linkname XmlSaveFlush C.xmlSaveFlush
-func XmlSaveFlush(ctxt XmlSaveCtxtPtr) c.Int
-//go:linkname XmlSaveClose C.xmlSaveClose
-func XmlSaveClose(ctxt XmlSaveCtxtPtr) c.Int
-//go:linkname XmlSaveFinish C.xmlSaveFinish
-func XmlSaveFinish(ctxt XmlSaveCtxtPtr) c.Int
-//go:linkname XmlSaveSetEscape C.xmlSaveSetEscape
-func XmlSaveSetEscape(ctxt XmlSaveCtxtPtr, escape XmlCharEncodingOutputFunc) c.Int
-//go:linkname XmlSaveSetAttrEscape C.xmlSaveSetAttrEscape
-func XmlSaveSetAttrEscape(ctxt XmlSaveCtxtPtr, escape XmlCharEncodingOutputFunc) c.Int
-//go:linkname XmlThrDefIndentTreeOutput C.xmlThrDefIndentTreeOutput
-func XmlThrDefIndentTreeOutput(v c.Int) c.Int
-//go:linkname XmlThrDefTreeIndentString C.xmlThrDefTreeIndentString
-func XmlThrDefTreeIndentString(v *int8) *int8
-//go:linkname XmlThrDefSaveNoEmptyTags C.xmlThrDefSaveNoEmptyTags
-func XmlThrDefSaveNoEmptyTags(v c.Int) c.Int
+type SaveCtxt X_xmlSaveCtxt
+type SaveCtxtPtr *SaveCtxt
+
+//go:linkname SaveToFd C.xmlSaveToFd
+func SaveToFd(fd c.Int, encoding *int8, options c.Int) SaveCtxtPtr
+
+//go:linkname SaveToFilename C.xmlSaveToFilename
+func SaveToFilename(filename *int8, encoding *int8, options c.Int) SaveCtxtPtr
+
+//go:linkname SaveToBuffer C.xmlSaveToBuffer
+func SaveToBuffer(buffer BufferPtr, encoding *int8, options c.Int) SaveCtxtPtr
+
+//go:linkname SaveToIO C.xmlSaveToIO
+func SaveToIO(iowrite OutputWriteCallback, ioclose OutputCloseCallback, ioctx unsafe.Pointer, encoding *int8, options c.Int) SaveCtxtPtr
+
+//go:linkname SaveDoc C.xmlSaveDoc
+func SaveDoc(ctxt SaveCtxtPtr, doc DocPtr) c.Long
+
+//go:linkname SaveTree C.xmlSaveTree
+func SaveTree(ctxt SaveCtxtPtr, node NodePtr) c.Long
+
+//go:linkname SaveFlush C.xmlSaveFlush
+func SaveFlush(ctxt SaveCtxtPtr) c.Int
+
+//go:linkname SaveClose C.xmlSaveClose
+func SaveClose(ctxt SaveCtxtPtr) c.Int
+
+//go:linkname SaveFinish C.xmlSaveFinish
+func SaveFinish(ctxt SaveCtxtPtr) c.Int
+
+//go:linkname SaveSetEscape C.xmlSaveSetEscape
+func SaveSetEscape(ctxt SaveCtxtPtr, escape CharEncodingOutputFunc) c.Int
+
+//go:linkname SaveSetAttrEscape C.xmlSaveSetAttrEscape
+func SaveSetAttrEscape(ctxt SaveCtxtPtr, escape CharEncodingOutputFunc) c.Int
+
+//go:linkname ThrDefIndentTreeOutput C.xmlThrDefIndentTreeOutput
+func ThrDefIndentTreeOutput(v c.Int) c.Int
+
+//go:linkname ThrDefTreeIndentString C.xmlThrDefTreeIndentString
+func ThrDefTreeIndentString(v *int8) *int8
+
+//go:linkname ThrDefSaveNoEmptyTags C.xmlThrDefSaveNoEmptyTags
+func ThrDefSaveNoEmptyTags(v c.Int) c.Int

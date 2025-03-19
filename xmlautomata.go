@@ -1,56 +1,78 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
 	"unsafe"
 )
 
-type X_XmlAutomata struct {
+type X_xmlAutomata struct {
 	Unused [8]uint8
 }
-type XmlAutomata X_XmlAutomata
-type XmlAutomataPtr *XmlAutomata
+type Automata X_xmlAutomata
+type AutomataPtr *Automata
 
-type X_XmlAutomataState struct {
+type X_xmlAutomataState struct {
 	Unused [8]uint8
 }
-type XmlAutomataState X_XmlAutomataState
-type XmlAutomataStatePtr *XmlAutomataState
-//go:linkname XmlNewAutomata C.xmlNewAutomata
-func XmlNewAutomata() XmlAutomataPtr
-//go:linkname XmlFreeAutomata C.xmlFreeAutomata
-func XmlFreeAutomata(am XmlAutomataPtr)
-//go:linkname XmlAutomataGetInitState C.xmlAutomataGetInitState
-func XmlAutomataGetInitState(am XmlAutomataPtr) XmlAutomataStatePtr
-//go:linkname XmlAutomataSetFinalState C.xmlAutomataSetFinalState
-func XmlAutomataSetFinalState(am XmlAutomataPtr, state XmlAutomataStatePtr) c.Int
-//go:linkname XmlAutomataNewState C.xmlAutomataNewState
-func XmlAutomataNewState(am XmlAutomataPtr) XmlAutomataStatePtr
-//go:linkname XmlAutomataNewTransition C.xmlAutomataNewTransition
-func XmlAutomataNewTransition(am XmlAutomataPtr, from XmlAutomataStatePtr, to XmlAutomataStatePtr, token *XmlChar, data unsafe.Pointer) XmlAutomataStatePtr
-//go:linkname XmlAutomataNewTransition2 C.xmlAutomataNewTransition2
-func XmlAutomataNewTransition2(am XmlAutomataPtr, from XmlAutomataStatePtr, to XmlAutomataStatePtr, token *XmlChar, token2 *XmlChar, data unsafe.Pointer) XmlAutomataStatePtr
-//go:linkname XmlAutomataNewNegTrans C.xmlAutomataNewNegTrans
-func XmlAutomataNewNegTrans(am XmlAutomataPtr, from XmlAutomataStatePtr, to XmlAutomataStatePtr, token *XmlChar, token2 *XmlChar, data unsafe.Pointer) XmlAutomataStatePtr
-//go:linkname XmlAutomataNewCountTrans C.xmlAutomataNewCountTrans
-func XmlAutomataNewCountTrans(am XmlAutomataPtr, from XmlAutomataStatePtr, to XmlAutomataStatePtr, token *XmlChar, min c.Int, max c.Int, data unsafe.Pointer) XmlAutomataStatePtr
-//go:linkname XmlAutomataNewCountTrans2 C.xmlAutomataNewCountTrans2
-func XmlAutomataNewCountTrans2(am XmlAutomataPtr, from XmlAutomataStatePtr, to XmlAutomataStatePtr, token *XmlChar, token2 *XmlChar, min c.Int, max c.Int, data unsafe.Pointer) XmlAutomataStatePtr
-//go:linkname XmlAutomataNewOnceTrans C.xmlAutomataNewOnceTrans
-func XmlAutomataNewOnceTrans(am XmlAutomataPtr, from XmlAutomataStatePtr, to XmlAutomataStatePtr, token *XmlChar, min c.Int, max c.Int, data unsafe.Pointer) XmlAutomataStatePtr
-//go:linkname XmlAutomataNewOnceTrans2 C.xmlAutomataNewOnceTrans2
-func XmlAutomataNewOnceTrans2(am XmlAutomataPtr, from XmlAutomataStatePtr, to XmlAutomataStatePtr, token *XmlChar, token2 *XmlChar, min c.Int, max c.Int, data unsafe.Pointer) XmlAutomataStatePtr
-//go:linkname XmlAutomataNewAllTrans C.xmlAutomataNewAllTrans
-func XmlAutomataNewAllTrans(am XmlAutomataPtr, from XmlAutomataStatePtr, to XmlAutomataStatePtr, lax c.Int) XmlAutomataStatePtr
-//go:linkname XmlAutomataNewEpsilon C.xmlAutomataNewEpsilon
-func XmlAutomataNewEpsilon(am XmlAutomataPtr, from XmlAutomataStatePtr, to XmlAutomataStatePtr) XmlAutomataStatePtr
-//go:linkname XmlAutomataNewCountedTrans C.xmlAutomataNewCountedTrans
-func XmlAutomataNewCountedTrans(am XmlAutomataPtr, from XmlAutomataStatePtr, to XmlAutomataStatePtr, counter c.Int) XmlAutomataStatePtr
-//go:linkname XmlAutomataNewCounterTrans C.xmlAutomataNewCounterTrans
-func XmlAutomataNewCounterTrans(am XmlAutomataPtr, from XmlAutomataStatePtr, to XmlAutomataStatePtr, counter c.Int) XmlAutomataStatePtr
-//go:linkname XmlAutomataNewCounter C.xmlAutomataNewCounter
-func XmlAutomataNewCounter(am XmlAutomataPtr, min c.Int, max c.Int) c.Int
-//go:linkname XmlAutomataCompile C.xmlAutomataCompile
-func XmlAutomataCompile(am XmlAutomataPtr) *X_XmlRegexp
-//go:linkname XmlAutomataIsDeterminist C.xmlAutomataIsDeterminist
-func XmlAutomataIsDeterminist(am XmlAutomataPtr) c.Int
+type AutomataState X_xmlAutomataState
+type AutomataStatePtr *AutomataState
+
+/*
+ * Building API
+ */
+//go:linkname NewAutomata C.xmlNewAutomata
+func NewAutomata() AutomataPtr
+
+//go:linkname FreeAutomata C.xmlFreeAutomata
+func FreeAutomata(am AutomataPtr)
+
+//go:linkname AutomataGetInitState C.xmlAutomataGetInitState
+func AutomataGetInitState(am AutomataPtr) AutomataStatePtr
+
+//go:linkname AutomataSetFinalState C.xmlAutomataSetFinalState
+func AutomataSetFinalState(am AutomataPtr, state AutomataStatePtr) c.Int
+
+//go:linkname AutomataNewState C.xmlAutomataNewState
+func AutomataNewState(am AutomataPtr) AutomataStatePtr
+
+//go:linkname AutomataNewTransition C.xmlAutomataNewTransition
+func AutomataNewTransition(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, token *Char, data unsafe.Pointer) AutomataStatePtr
+
+//go:linkname AutomataNewTransition2 C.xmlAutomataNewTransition2
+func AutomataNewTransition2(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, token *Char, token2 *Char, data unsafe.Pointer) AutomataStatePtr
+
+//go:linkname AutomataNewNegTrans C.xmlAutomataNewNegTrans
+func AutomataNewNegTrans(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, token *Char, token2 *Char, data unsafe.Pointer) AutomataStatePtr
+
+//go:linkname AutomataNewCountTrans C.xmlAutomataNewCountTrans
+func AutomataNewCountTrans(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, token *Char, min c.Int, max c.Int, data unsafe.Pointer) AutomataStatePtr
+
+//go:linkname AutomataNewCountTrans2 C.xmlAutomataNewCountTrans2
+func AutomataNewCountTrans2(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, token *Char, token2 *Char, min c.Int, max c.Int, data unsafe.Pointer) AutomataStatePtr
+
+//go:linkname AutomataNewOnceTrans C.xmlAutomataNewOnceTrans
+func AutomataNewOnceTrans(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, token *Char, min c.Int, max c.Int, data unsafe.Pointer) AutomataStatePtr
+
+//go:linkname AutomataNewOnceTrans2 C.xmlAutomataNewOnceTrans2
+func AutomataNewOnceTrans2(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, token *Char, token2 *Char, min c.Int, max c.Int, data unsafe.Pointer) AutomataStatePtr
+
+//go:linkname AutomataNewAllTrans C.xmlAutomataNewAllTrans
+func AutomataNewAllTrans(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, lax c.Int) AutomataStatePtr
+
+//go:linkname AutomataNewEpsilon C.xmlAutomataNewEpsilon
+func AutomataNewEpsilon(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr) AutomataStatePtr
+
+//go:linkname AutomataNewCountedTrans C.xmlAutomataNewCountedTrans
+func AutomataNewCountedTrans(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, counter c.Int) AutomataStatePtr
+
+//go:linkname AutomataNewCounterTrans C.xmlAutomataNewCounterTrans
+func AutomataNewCounterTrans(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, counter c.Int) AutomataStatePtr
+
+//go:linkname AutomataNewCounter C.xmlAutomataNewCounter
+func AutomataNewCounter(am AutomataPtr, min c.Int, max c.Int) c.Int
+
+//go:linkname AutomataCompile C.xmlAutomataCompile
+func AutomataCompile(am AutomataPtr) *X_xmlRegexp
+
+//go:linkname AutomataIsDeterminist C.xmlAutomataIsDeterminist
+func AutomataIsDeterminist(am AutomataPtr) c.Int

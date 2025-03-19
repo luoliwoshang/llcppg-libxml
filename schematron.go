@@ -1,51 +1,61 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
 	"unsafe"
 )
 
-type XmlSchematronValidOptions c.Int
+type SchematronValidOptions c.Int
 
 const (
-	XmlSchematronValidOptionsXMLSCHEMATRONOUTQUIET  XmlSchematronValidOptions = 1
-	XmlSchematronValidOptionsXMLSCHEMATRONOUTTEXT   XmlSchematronValidOptions = 2
-	XmlSchematronValidOptionsXMLSCHEMATRONOUTXML    XmlSchematronValidOptions = 4
-	XmlSchematronValidOptionsXMLSCHEMATRONOUTERROR  XmlSchematronValidOptions = 8
-	XmlSchematronValidOptionsXMLSCHEMATRONOUTFILE   XmlSchematronValidOptions = 256
-	XmlSchematronValidOptionsXMLSCHEMATRONOUTBUFFER XmlSchematronValidOptions = 512
-	XmlSchematronValidOptionsXMLSCHEMATRONOUTIO     XmlSchematronValidOptions = 1024
+	SCHEMATRONOUTQUIET  SchematronValidOptions = 1
+	SCHEMATRONOUTTEXT   SchematronValidOptions = 2
+	SCHEMATRONOUTXML    SchematronValidOptions = 4
+	SCHEMATRONOUTERROR  SchematronValidOptions = 8
+	SCHEMATRONOUTFILE   SchematronValidOptions = 256
+	SCHEMATRONOUTBUFFER SchematronValidOptions = 512
+	SCHEMATRONOUTIO     SchematronValidOptions = 1024
 )
 
-type X_XmlSchematron struct {
+type X_xmlSchematron struct {
 	Unused [8]uint8
 }
-type XmlSchematron X_XmlSchematron
-type XmlSchematronPtr *XmlSchematron
-// llgo:type C
-type XmlSchematronValidityErrorFunc func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_list ...interface{})
-// llgo:type C
-type XmlSchematronValidityWarningFunc func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_list ...interface{})
+type Schematron X_xmlSchematron
+type SchematronPtr *Schematron
 
-type X_XmlSchematronParserCtxt struct {
-	Unused [8]uint8
-}
-type XmlSchematronParserCtxt X_XmlSchematronParserCtxt
-type XmlSchematronParserCtxtPtr *XmlSchematronParserCtxt
+// llgo:type C
+type SchematronValidityErrorFunc func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_list ...interface{})
 
-type X_XmlSchematronValidCtxt struct {
+// llgo:type C
+type SchematronValidityWarningFunc func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_list ...interface{})
+
+type X_xmlSchematronParserCtxt struct {
 	Unused [8]uint8
 }
-type XmlSchematronValidCtxt X_XmlSchematronValidCtxt
-type XmlSchematronValidCtxtPtr *XmlSchematronValidCtxt
-//go:linkname XmlSchematronNewParserCtxt C.xmlSchematronNewParserCtxt
-func XmlSchematronNewParserCtxt(URL *int8) XmlSchematronParserCtxtPtr
-//go:linkname XmlSchematronNewMemParserCtxt C.xmlSchematronNewMemParserCtxt
-func XmlSchematronNewMemParserCtxt(buffer *int8, size c.Int) XmlSchematronParserCtxtPtr
-//go:linkname XmlSchematronNewDocParserCtxt C.xmlSchematronNewDocParserCtxt
-func XmlSchematronNewDocParserCtxt(doc XmlDocPtr) XmlSchematronParserCtxtPtr
-//go:linkname XmlSchematronFreeParserCtxt C.xmlSchematronFreeParserCtxt
-func XmlSchematronFreeParserCtxt(ctxt XmlSchematronParserCtxtPtr)
+type SchematronParserCtxt X_xmlSchematronParserCtxt
+type SchematronParserCtxtPtr *SchematronParserCtxt
+
+type X_xmlSchematronValidCtxt struct {
+	Unused [8]uint8
+}
+type SchematronValidCtxt X_xmlSchematronValidCtxt
+type SchematronValidCtxtPtr *SchematronValidCtxt
+
+/*
+ * Interfaces for parsing.
+ */
+//go:linkname SchematronNewParserCtxt C.xmlSchematronNewParserCtxt
+func SchematronNewParserCtxt(URL *int8) SchematronParserCtxtPtr
+
+//go:linkname SchematronNewMemParserCtxt C.xmlSchematronNewMemParserCtxt
+func SchematronNewMemParserCtxt(buffer *int8, size c.Int) SchematronParserCtxtPtr
+
+//go:linkname SchematronNewDocParserCtxt C.xmlSchematronNewDocParserCtxt
+func SchematronNewDocParserCtxt(doc DocPtr) SchematronParserCtxtPtr
+
+//go:linkname SchematronFreeParserCtxt C.xmlSchematronFreeParserCtxt
+func SchematronFreeParserCtxt(ctxt SchematronParserCtxtPtr)
+
 /*****
 XMLPUBFUN void
 	    xmlSchematronSetParserErrors(xmlSchematronParserCtxtPtr ctxt,
@@ -60,12 +70,18 @@ XMLPUBFUN int
 XMLPUBFUN int
 		xmlSchematronIsValid	(xmlSchematronValidCtxtPtr ctxt);
  *****/
-//go:linkname XmlSchematronParse C.xmlSchematronParse
-func XmlSchematronParse(ctxt XmlSchematronParserCtxtPtr) XmlSchematronPtr
-//go:linkname XmlSchematronFree C.xmlSchematronFree
-func XmlSchematronFree(schema XmlSchematronPtr)
-//go:linkname XmlSchematronSetValidStructuredErrors C.xmlSchematronSetValidStructuredErrors
-func XmlSchematronSetValidStructuredErrors(ctxt XmlSchematronValidCtxtPtr, serror XmlStructuredErrorFunc, ctx unsafe.Pointer)
+//go:linkname SchematronParse C.xmlSchematronParse
+func SchematronParse(ctxt SchematronParserCtxtPtr) SchematronPtr
+
+//go:linkname SchematronFree C.xmlSchematronFree
+func SchematronFree(schema SchematronPtr)
+
+/*
+ * Interfaces for validating
+ */
+//go:linkname SchematronSetValidStructuredErrors C.xmlSchematronSetValidStructuredErrors
+func SchematronSetValidStructuredErrors(ctxt SchematronValidCtxtPtr, serror StructuredErrorFunc, ctx unsafe.Pointer)
+
 /******
 XMLPUBFUN void
 	    xmlSchematronSetValidErrors	(xmlSchematronValidCtxtPtr ctxt,
@@ -86,9 +102,11 @@ XMLPUBFUN int
             xmlSchematronValidateOneElement (xmlSchematronValidCtxtPtr ctxt,
 			                 xmlNodePtr elem);
  *******/
-//go:linkname XmlSchematronNewValidCtxt C.xmlSchematronNewValidCtxt
-func XmlSchematronNewValidCtxt(schema XmlSchematronPtr, options c.Int) XmlSchematronValidCtxtPtr
-//go:linkname XmlSchematronFreeValidCtxt C.xmlSchematronFreeValidCtxt
-func XmlSchematronFreeValidCtxt(ctxt XmlSchematronValidCtxtPtr)
-//go:linkname XmlSchematronValidateDoc C.xmlSchematronValidateDoc
-func XmlSchematronValidateDoc(ctxt XmlSchematronValidCtxtPtr, instance XmlDocPtr) c.Int
+//go:linkname SchematronNewValidCtxt C.xmlSchematronNewValidCtxt
+func SchematronNewValidCtxt(schema SchematronPtr, options c.Int) SchematronValidCtxtPtr
+
+//go:linkname SchematronFreeValidCtxt C.xmlSchematronFreeValidCtxt
+func SchematronFreeValidCtxt(ctxt SchematronValidCtxtPtr)
+
+//go:linkname SchematronValidateDoc C.xmlSchematronValidateDoc
+func SchematronValidateDoc(ctxt SchematronValidCtxtPtr, instance DocPtr) c.Int

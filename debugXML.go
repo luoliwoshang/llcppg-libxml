@@ -1,88 +1,124 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
 	"unsafe"
 )
-//go:linkname XmlDebugDumpString C.xmlDebugDumpString
-func XmlDebugDumpString(output *c.FILE, str *XmlChar)
-//go:linkname XmlDebugDumpAttr C.xmlDebugDumpAttr
-func XmlDebugDumpAttr(output *c.FILE, attr XmlAttrPtr, depth c.Int)
-//go:linkname XmlDebugDumpAttrList C.xmlDebugDumpAttrList
-func XmlDebugDumpAttrList(output *c.FILE, attr XmlAttrPtr, depth c.Int)
-//go:linkname XmlDebugDumpOneNode C.xmlDebugDumpOneNode
-func XmlDebugDumpOneNode(output *c.FILE, node XmlNodePtr, depth c.Int)
-//go:linkname XmlDebugDumpNode C.xmlDebugDumpNode
-func XmlDebugDumpNode(output *c.FILE, node XmlNodePtr, depth c.Int)
-//go:linkname XmlDebugDumpNodeList C.xmlDebugDumpNodeList
-func XmlDebugDumpNodeList(output *c.FILE, node XmlNodePtr, depth c.Int)
-//go:linkname XmlDebugDumpDocumentHead C.xmlDebugDumpDocumentHead
-func XmlDebugDumpDocumentHead(output *c.FILE, doc XmlDocPtr)
-//go:linkname XmlDebugDumpDocument C.xmlDebugDumpDocument
-func XmlDebugDumpDocument(output *c.FILE, doc XmlDocPtr)
-//go:linkname XmlDebugDumpDTD C.xmlDebugDumpDTD
-func XmlDebugDumpDTD(output *c.FILE, dtd XmlDtdPtr)
-//go:linkname XmlDebugDumpEntities C.xmlDebugDumpEntities
-func XmlDebugDumpEntities(output *c.FILE, doc XmlDocPtr)
+
+/*
+ * The standard Dump routines.
+ */
+//go:linkname DebugDumpString C.xmlDebugDumpString
+func DebugDumpString(output *c.FILE, str *Char)
+
+//go:linkname DebugDumpAttr C.xmlDebugDumpAttr
+func DebugDumpAttr(output *c.FILE, attr AttrPtr, depth c.Int)
+
+//go:linkname DebugDumpAttrList C.xmlDebugDumpAttrList
+func DebugDumpAttrList(output *c.FILE, attr AttrPtr, depth c.Int)
+
+//go:linkname DebugDumpOneNode C.xmlDebugDumpOneNode
+func DebugDumpOneNode(output *c.FILE, node NodePtr, depth c.Int)
+
+//go:linkname DebugDumpNode C.xmlDebugDumpNode
+func DebugDumpNode(output *c.FILE, node NodePtr, depth c.Int)
+
+//go:linkname DebugDumpNodeList C.xmlDebugDumpNodeList
+func DebugDumpNodeList(output *c.FILE, node NodePtr, depth c.Int)
+
+//go:linkname DebugDumpDocumentHead C.xmlDebugDumpDocumentHead
+func DebugDumpDocumentHead(output *c.FILE, doc DocPtr)
+
+//go:linkname DebugDumpDocument C.xmlDebugDumpDocument
+func DebugDumpDocument(output *c.FILE, doc DocPtr)
+
+//go:linkname DebugDumpDTD C.xmlDebugDumpDTD
+func DebugDumpDTD(output *c.FILE, dtd DtdPtr)
+
+//go:linkname DebugDumpEntities C.xmlDebugDumpEntities
+func DebugDumpEntities(output *c.FILE, doc DocPtr)
+
 /****************************************************************
  *								*
  *			Checking routines			*
  *								*
  ****************************************************************/
-//go:linkname XmlDebugCheckDocument C.xmlDebugCheckDocument
-func XmlDebugCheckDocument(output *c.FILE, doc XmlDocPtr) c.Int
+//go:linkname DebugCheckDocument C.xmlDebugCheckDocument
+func DebugCheckDocument(output *c.FILE, doc DocPtr) c.Int
+
 /****************************************************************
  *								*
  *			XML shell helpers			*
  *								*
  ****************************************************************/
-//go:linkname XmlLsOneNode C.xmlLsOneNode
-func XmlLsOneNode(output *c.FILE, node XmlNodePtr)
-//go:linkname XmlLsCountNode C.xmlLsCountNode
-func XmlLsCountNode(node XmlNodePtr) c.Int
-//go:linkname XmlBoolToText C.xmlBoolToText
-func XmlBoolToText(boolval c.Int) *int8
-// llgo:type C
-type XmlShellReadlineFunc func(*int8) *int8
+//go:linkname LsOneNode C.xmlLsOneNode
+func LsOneNode(output *c.FILE, node NodePtr)
 
-type X_XmlShellCtxt struct {
+//go:linkname LsCountNode C.xmlLsCountNode
+func LsCountNode(node NodePtr) c.Int
+
+//go:linkname BoolToText C.xmlBoolToText
+func BoolToText(boolval c.Int) *int8
+
+// llgo:type C
+type ShellReadlineFunc func(*int8) *int8
+
+type X_xmlShellCtxt struct {
 	Filename *int8
-	Doc      XmlDocPtr
-	Node     XmlNodePtr
-	Pctxt    XmlXPathContextPtr
+	Doc      DocPtr
+	Node     NodePtr
+	Pctxt    XPathContextPtr
 	Loaded   c.Int
 	Output   *c.FILE
 	Input    unsafe.Pointer
 }
-type XmlShellCtxt X_XmlShellCtxt
-type XmlShellCtxtPtr *XmlShellCtxt
+type ShellCtxt X_xmlShellCtxt
+type ShellCtxtPtr *ShellCtxt
+
 // llgo:type C
-type XmlShellCmd func(XmlShellCtxtPtr, *int8, XmlNodePtr, XmlNodePtr) c.Int
-//go:linkname XmlShellPrintXPathError C.xmlShellPrintXPathError
-func XmlShellPrintXPathError(errorType c.Int, arg *int8)
-//go:linkname XmlShellPrintXPathResult C.xmlShellPrintXPathResult
-func XmlShellPrintXPathResult(list XmlXPathObjectPtr)
-//go:linkname XmlShellList C.xmlShellList
-func XmlShellList(ctxt XmlShellCtxtPtr, arg *int8, node XmlNodePtr, node2 XmlNodePtr) c.Int
-//go:linkname XmlShellBase C.xmlShellBase
-func XmlShellBase(ctxt XmlShellCtxtPtr, arg *int8, node XmlNodePtr, node2 XmlNodePtr) c.Int
-//go:linkname XmlShellDir C.xmlShellDir
-func XmlShellDir(ctxt XmlShellCtxtPtr, arg *int8, node XmlNodePtr, node2 XmlNodePtr) c.Int
-//go:linkname XmlShellLoad C.xmlShellLoad
-func XmlShellLoad(ctxt XmlShellCtxtPtr, filename *int8, node XmlNodePtr, node2 XmlNodePtr) c.Int
-//go:linkname XmlShellPrintNode C.xmlShellPrintNode
-func XmlShellPrintNode(node XmlNodePtr)
-//go:linkname XmlShellCat C.xmlShellCat
-func XmlShellCat(ctxt XmlShellCtxtPtr, arg *int8, node XmlNodePtr, node2 XmlNodePtr) c.Int
-//go:linkname XmlShellWrite C.xmlShellWrite
-func XmlShellWrite(ctxt XmlShellCtxtPtr, filename *int8, node XmlNodePtr, node2 XmlNodePtr) c.Int
-//go:linkname XmlShellSave C.xmlShellSave
-func XmlShellSave(ctxt XmlShellCtxtPtr, filename *int8, node XmlNodePtr, node2 XmlNodePtr) c.Int
-//go:linkname XmlShellValidate C.xmlShellValidate
-func XmlShellValidate(ctxt XmlShellCtxtPtr, dtd *int8, node XmlNodePtr, node2 XmlNodePtr) c.Int
-//go:linkname XmlShellDu C.xmlShellDu
-func XmlShellDu(ctxt XmlShellCtxtPtr, arg *int8, tree XmlNodePtr, node2 XmlNodePtr) c.Int
-//go:linkname XmlShellPwd C.xmlShellPwd
-func XmlShellPwd(ctxt XmlShellCtxtPtr, buffer *int8, node XmlNodePtr, node2 XmlNodePtr) c.Int
-//go:linkname XmlShell C.xmlShell
-func XmlShell(doc XmlDocPtr, filename *int8, input XmlShellReadlineFunc, output *c.FILE)
+type ShellCmd func(ShellCtxtPtr, *int8, NodePtr, NodePtr) c.Int
+
+//go:linkname ShellPrintXPathError C.xmlShellPrintXPathError
+func ShellPrintXPathError(errorType c.Int, arg *int8)
+
+//go:linkname ShellPrintXPathResult C.xmlShellPrintXPathResult
+func ShellPrintXPathResult(list XPathObjectPtr)
+
+//go:linkname ShellList C.xmlShellList
+func ShellList(ctxt ShellCtxtPtr, arg *int8, node NodePtr, node2 NodePtr) c.Int
+
+//go:linkname ShellBase C.xmlShellBase
+func ShellBase(ctxt ShellCtxtPtr, arg *int8, node NodePtr, node2 NodePtr) c.Int
+
+//go:linkname ShellDir C.xmlShellDir
+func ShellDir(ctxt ShellCtxtPtr, arg *int8, node NodePtr, node2 NodePtr) c.Int
+
+//go:linkname ShellLoad C.xmlShellLoad
+func ShellLoad(ctxt ShellCtxtPtr, filename *int8, node NodePtr, node2 NodePtr) c.Int
+
+//go:linkname ShellPrintNode C.xmlShellPrintNode
+func ShellPrintNode(node NodePtr)
+
+//go:linkname ShellCat C.xmlShellCat
+func ShellCat(ctxt ShellCtxtPtr, arg *int8, node NodePtr, node2 NodePtr) c.Int
+
+//go:linkname ShellWrite C.xmlShellWrite
+func ShellWrite(ctxt ShellCtxtPtr, filename *int8, node NodePtr, node2 NodePtr) c.Int
+
+//go:linkname ShellSave C.xmlShellSave
+func ShellSave(ctxt ShellCtxtPtr, filename *int8, node NodePtr, node2 NodePtr) c.Int
+
+//go:linkname ShellValidate C.xmlShellValidate
+func ShellValidate(ctxt ShellCtxtPtr, dtd *int8, node NodePtr, node2 NodePtr) c.Int
+
+//go:linkname ShellDu C.xmlShellDu
+func ShellDu(ctxt ShellCtxtPtr, arg *int8, tree NodePtr, node2 NodePtr) c.Int
+
+//go:linkname ShellPwd C.xmlShellPwd
+func ShellPwd(ctxt ShellCtxtPtr, buffer *int8, node NodePtr, node2 NodePtr) c.Int
+
+/*
+ * The Shell interface.
+ */
+//go:linkname Shell C.xmlShell
+func Shell(doc DocPtr, filename *int8, input ShellReadlineFunc, output *c.FILE)

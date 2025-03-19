@@ -1,56 +1,95 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
 	"unsafe"
 )
+
 // llgo:type C
-type XmlFreeFunc func(unsafe.Pointer)
+type FreeFunc func(unsafe.Pointer)
+
 // llgo:type C
-type XmlMallocFunc func(uintptr) unsafe.Pointer
+type MallocFunc func(uintptr) unsafe.Pointer
+
 // llgo:type C
-type XmlReallocFunc func(unsafe.Pointer, uintptr) unsafe.Pointer
+type ReallocFunc func(unsafe.Pointer, uintptr) unsafe.Pointer
+
 // llgo:type C
-type XmlStrdupFunc func(*int8) *int8
-//go:linkname XmlMemSetup C.xmlMemSetup
-func XmlMemSetup(freeFunc XmlFreeFunc, mallocFunc XmlMallocFunc, reallocFunc XmlReallocFunc, strdupFunc XmlStrdupFunc) c.Int
-//go:linkname XmlMemGet C.xmlMemGet
-func XmlMemGet(freeFunc XmlFreeFunc, mallocFunc XmlMallocFunc, reallocFunc XmlReallocFunc, strdupFunc XmlStrdupFunc) c.Int
-//go:linkname XmlGcMemSetup C.xmlGcMemSetup
-func XmlGcMemSetup(freeFunc XmlFreeFunc, mallocFunc XmlMallocFunc, mallocAtomicFunc XmlMallocFunc, reallocFunc XmlReallocFunc, strdupFunc XmlStrdupFunc) c.Int
-//go:linkname XmlGcMemGet C.xmlGcMemGet
-func XmlGcMemGet(freeFunc XmlFreeFunc, mallocFunc XmlMallocFunc, mallocAtomicFunc XmlMallocFunc, reallocFunc XmlReallocFunc, strdupFunc XmlStrdupFunc) c.Int
-//go:linkname XmlInitMemory C.xmlInitMemory
-func XmlInitMemory() c.Int
-//go:linkname XmlCleanupMemory C.xmlCleanupMemory
-func XmlCleanupMemory()
-//go:linkname XmlMemSize C.xmlMemSize
-func XmlMemSize(ptr unsafe.Pointer) uintptr
-//go:linkname XmlMemUsed C.xmlMemUsed
-func XmlMemUsed() c.Int
-//go:linkname XmlMemBlocks C.xmlMemBlocks
-func XmlMemBlocks() c.Int
-//go:linkname XmlMemDisplay C.xmlMemDisplay
-func XmlMemDisplay(fp *c.FILE)
-//go:linkname XmlMemDisplayLast C.xmlMemDisplayLast
-func XmlMemDisplayLast(fp *c.FILE, nbBytes c.Long)
-//go:linkname XmlMemShow C.xmlMemShow
-func XmlMemShow(fp *c.FILE, nr c.Int)
-//go:linkname XmlMemoryDump C.xmlMemoryDump
-func XmlMemoryDump()
-//go:linkname XmlMemMalloc C.xmlMemMalloc
-func XmlMemMalloc(size uintptr) unsafe.Pointer
-//go:linkname XmlMemRealloc C.xmlMemRealloc
-func XmlMemRealloc(ptr unsafe.Pointer, size uintptr) unsafe.Pointer
-//go:linkname XmlMemFree C.xmlMemFree
-func XmlMemFree(ptr unsafe.Pointer)
-//go:linkname XmlMemoryStrdup C.xmlMemoryStrdup
-func XmlMemoryStrdup(str *int8) *int8
-//go:linkname XmlMallocLoc C.xmlMallocLoc
-func XmlMallocLoc(size uintptr, file *int8, line c.Int) unsafe.Pointer
-//go:linkname XmlReallocLoc C.xmlReallocLoc
-func XmlReallocLoc(ptr unsafe.Pointer, size uintptr, file *int8, line c.Int) unsafe.Pointer
-//go:linkname XmlMallocAtomicLoc C.xmlMallocAtomicLoc
-func XmlMallocAtomicLoc(size uintptr, file *int8, line c.Int) unsafe.Pointer
-//go:linkname XmlMemStrdupLoc C.xmlMemStrdupLoc
-func XmlMemStrdupLoc(str *int8, file *int8, line c.Int) *int8
+type StrdupFunc func(*int8) *int8
+
+/*
+ * The way to overload the existing functions.
+ * The xmlGc function have an extra entry for atomic block
+ * allocations useful for garbage collected memory allocators
+ */
+//go:linkname MemSetup C.xmlMemSetup
+func MemSetup(freeFunc FreeFunc, mallocFunc MallocFunc, reallocFunc ReallocFunc, strdupFunc StrdupFunc) c.Int
+
+//go:linkname MemGet C.xmlMemGet
+func MemGet(freeFunc FreeFunc, mallocFunc MallocFunc, reallocFunc ReallocFunc, strdupFunc StrdupFunc) c.Int
+
+//go:linkname GcMemSetup C.xmlGcMemSetup
+func GcMemSetup(freeFunc FreeFunc, mallocFunc MallocFunc, mallocAtomicFunc MallocFunc, reallocFunc ReallocFunc, strdupFunc StrdupFunc) c.Int
+
+//go:linkname GcMemGet C.xmlGcMemGet
+func GcMemGet(freeFunc FreeFunc, mallocFunc MallocFunc, mallocAtomicFunc MallocFunc, reallocFunc ReallocFunc, strdupFunc StrdupFunc) c.Int
+
+/*
+ * Initialization of the memory layer.
+ */
+//go:linkname InitMemory C.xmlInitMemory
+func InitMemory() c.Int
+
+/*
+ * Cleanup of the memory layer.
+ */
+//go:linkname CleanupMemory C.xmlCleanupMemory
+func CleanupMemory()
+
+/*
+ * These are specific to the XML debug memory wrapper.
+ */
+//go:linkname MemSize C.xmlMemSize
+func MemSize(ptr unsafe.Pointer) uintptr
+
+//go:linkname MemUsed C.xmlMemUsed
+func MemUsed() c.Int
+
+//go:linkname MemBlocks C.xmlMemBlocks
+func MemBlocks() c.Int
+
+//go:linkname MemDisplay C.xmlMemDisplay
+func MemDisplay(fp *c.FILE)
+
+//go:linkname MemDisplayLast C.xmlMemDisplayLast
+func MemDisplayLast(fp *c.FILE, nbBytes c.Long)
+
+//go:linkname MemShow C.xmlMemShow
+func MemShow(fp *c.FILE, nr c.Int)
+
+//go:linkname MemoryDump C.xmlMemoryDump
+func MemoryDump()
+
+//go:linkname MemMalloc C.xmlMemMalloc
+func MemMalloc(size uintptr) unsafe.Pointer
+
+//go:linkname MemRealloc C.xmlMemRealloc
+func MemRealloc(ptr unsafe.Pointer, size uintptr) unsafe.Pointer
+
+//go:linkname MemFree C.xmlMemFree
+func MemFree(ptr unsafe.Pointer)
+
+//go:linkname MemoryStrdup C.xmlMemoryStrdup
+func MemoryStrdup(str *int8) *int8
+
+//go:linkname MallocLoc C.xmlMallocLoc
+func MallocLoc(size uintptr, file *int8, line c.Int) unsafe.Pointer
+
+//go:linkname ReallocLoc C.xmlReallocLoc
+func ReallocLoc(ptr unsafe.Pointer, size uintptr, file *int8, line c.Int) unsafe.Pointer
+
+//go:linkname MallocAtomicLoc C.xmlMallocAtomicLoc
+func MallocAtomicLoc(size uintptr, file *int8, line c.Int) unsafe.Pointer
+
+//go:linkname MemStrdupLoc C.xmlMemStrdupLoc
+func MemStrdupLoc(str *int8, file *int8, line c.Int) *int8

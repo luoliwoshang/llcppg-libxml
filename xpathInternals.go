@@ -1,262 +1,398 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
 	"unsafe"
 )
-//go:linkname XmlXPathPopBoolean C.xmlXPathPopBoolean
-func XmlXPathPopBoolean(ctxt XmlXPathParserContextPtr) c.Int
-//go:linkname XmlXPathPopNumber C.xmlXPathPopNumber
-func XmlXPathPopNumber(ctxt XmlXPathParserContextPtr) float64
-//go:linkname XmlXPathPopString C.xmlXPathPopString
-func XmlXPathPopString(ctxt XmlXPathParserContextPtr) *XmlChar
-//go:linkname XmlXPathPopNodeSet C.xmlXPathPopNodeSet
-func XmlXPathPopNodeSet(ctxt XmlXPathParserContextPtr) XmlNodeSetPtr
-//go:linkname XmlXPathPopExternal C.xmlXPathPopExternal
-func XmlXPathPopExternal(ctxt XmlXPathParserContextPtr) unsafe.Pointer
-//go:linkname XmlXPathRegisterVariableLookup C.xmlXPathRegisterVariableLookup
-func XmlXPathRegisterVariableLookup(ctxt XmlXPathContextPtr, f XmlXPathVariableLookupFunc, data unsafe.Pointer)
-//go:linkname XmlXPathRegisterFuncLookup C.xmlXPathRegisterFuncLookup
-func XmlXPathRegisterFuncLookup(ctxt XmlXPathContextPtr, f XmlXPathFuncLookupFunc, funcCtxt unsafe.Pointer)
-//go:linkname XmlXPatherror C.xmlXPatherror
-func XmlXPatherror(ctxt XmlXPathParserContextPtr, file *int8, line c.Int, no c.Int)
-//go:linkname XmlXPathErr C.xmlXPathErr
-func XmlXPathErr(ctxt XmlXPathParserContextPtr, error c.Int)
-//go:linkname XmlXPathDebugDumpObject C.xmlXPathDebugDumpObject
-func XmlXPathDebugDumpObject(output *c.FILE, cur XmlXPathObjectPtr, depth c.Int)
-//go:linkname XmlXPathDebugDumpCompExpr C.xmlXPathDebugDumpCompExpr
-func XmlXPathDebugDumpCompExpr(output *c.FILE, comp XmlXPathCompExprPtr, depth c.Int)
+
+//go:linkname XPathPopBoolean C.xmlXPathPopBoolean
+func XPathPopBoolean(ctxt XPathParserContextPtr) c.Int
+
+//go:linkname XPathPopNumber C.xmlXPathPopNumber
+func XPathPopNumber(ctxt XPathParserContextPtr) float64
+
+//go:linkname XPathPopString C.xmlXPathPopString
+func XPathPopString(ctxt XPathParserContextPtr) *Char
+
+//go:linkname XPathPopNodeSet C.xmlXPathPopNodeSet
+func XPathPopNodeSet(ctxt XPathParserContextPtr) NodeSetPtr
+
+//go:linkname XPathPopExternal C.xmlXPathPopExternal
+func XPathPopExternal(ctxt XPathParserContextPtr) unsafe.Pointer
+
+/*
+ * Variable Lookup forwarding.
+ */
+//go:linkname XPathRegisterVariableLookup C.xmlXPathRegisterVariableLookup
+func XPathRegisterVariableLookup(ctxt XPathContextPtr, f XPathVariableLookupFunc, data unsafe.Pointer)
+
+/*
+ * Function Lookup forwarding.
+ */
+//go:linkname XPathRegisterFuncLookup C.xmlXPathRegisterFuncLookup
+func XPathRegisterFuncLookup(ctxt XPathContextPtr, f XPathFuncLookupFunc, funcCtxt unsafe.Pointer)
+
+/*
+ * Error reporting.
+ */
+//go:linkname XPatherror C.xmlXPatherror
+func XPatherror(ctxt XPathParserContextPtr, file *int8, line c.Int, no c.Int)
+
+//go:linkname XPathErr C.xmlXPathErr
+func XPathErr(ctxt XPathParserContextPtr, error c.Int)
+
+//go:linkname XPathDebugDumpObject C.xmlXPathDebugDumpObject
+func XPathDebugDumpObject(output *c.FILE, cur XPathObjectPtr, depth c.Int)
+
+//go:linkname XPathDebugDumpCompExpr C.xmlXPathDebugDumpCompExpr
+func XPathDebugDumpCompExpr(output *c.FILE, comp XPathCompExprPtr, depth c.Int)
+
 /**
  * NodeSet handling.
  */
-//go:linkname XmlXPathNodeSetContains C.xmlXPathNodeSetContains
-func XmlXPathNodeSetContains(cur XmlNodeSetPtr, val XmlNodePtr) c.Int
-//go:linkname XmlXPathDifference C.xmlXPathDifference
-func XmlXPathDifference(nodes1 XmlNodeSetPtr, nodes2 XmlNodeSetPtr) XmlNodeSetPtr
-//go:linkname XmlXPathIntersection C.xmlXPathIntersection
-func XmlXPathIntersection(nodes1 XmlNodeSetPtr, nodes2 XmlNodeSetPtr) XmlNodeSetPtr
-//go:linkname XmlXPathDistinctSorted C.xmlXPathDistinctSorted
-func XmlXPathDistinctSorted(nodes XmlNodeSetPtr) XmlNodeSetPtr
-//go:linkname XmlXPathDistinct C.xmlXPathDistinct
-func XmlXPathDistinct(nodes XmlNodeSetPtr) XmlNodeSetPtr
-//go:linkname XmlXPathHasSameNodes C.xmlXPathHasSameNodes
-func XmlXPathHasSameNodes(nodes1 XmlNodeSetPtr, nodes2 XmlNodeSetPtr) c.Int
-//go:linkname XmlXPathNodeLeadingSorted C.xmlXPathNodeLeadingSorted
-func XmlXPathNodeLeadingSorted(nodes XmlNodeSetPtr, node XmlNodePtr) XmlNodeSetPtr
-//go:linkname XmlXPathLeadingSorted C.xmlXPathLeadingSorted
-func XmlXPathLeadingSorted(nodes1 XmlNodeSetPtr, nodes2 XmlNodeSetPtr) XmlNodeSetPtr
-//go:linkname XmlXPathNodeLeading C.xmlXPathNodeLeading
-func XmlXPathNodeLeading(nodes XmlNodeSetPtr, node XmlNodePtr) XmlNodeSetPtr
-//go:linkname XmlXPathLeading C.xmlXPathLeading
-func XmlXPathLeading(nodes1 XmlNodeSetPtr, nodes2 XmlNodeSetPtr) XmlNodeSetPtr
-//go:linkname XmlXPathNodeTrailingSorted C.xmlXPathNodeTrailingSorted
-func XmlXPathNodeTrailingSorted(nodes XmlNodeSetPtr, node XmlNodePtr) XmlNodeSetPtr
-//go:linkname XmlXPathTrailingSorted C.xmlXPathTrailingSorted
-func XmlXPathTrailingSorted(nodes1 XmlNodeSetPtr, nodes2 XmlNodeSetPtr) XmlNodeSetPtr
-//go:linkname XmlXPathNodeTrailing C.xmlXPathNodeTrailing
-func XmlXPathNodeTrailing(nodes XmlNodeSetPtr, node XmlNodePtr) XmlNodeSetPtr
-//go:linkname XmlXPathTrailing C.xmlXPathTrailing
-func XmlXPathTrailing(nodes1 XmlNodeSetPtr, nodes2 XmlNodeSetPtr) XmlNodeSetPtr
+//go:linkname XPathNodeSetContains C.xmlXPathNodeSetContains
+func XPathNodeSetContains(cur NodeSetPtr, val NodePtr) c.Int
+
+//go:linkname XPathDifference C.xmlXPathDifference
+func XPathDifference(nodes1 NodeSetPtr, nodes2 NodeSetPtr) NodeSetPtr
+
+//go:linkname XPathIntersection C.xmlXPathIntersection
+func XPathIntersection(nodes1 NodeSetPtr, nodes2 NodeSetPtr) NodeSetPtr
+
+//go:linkname XPathDistinctSorted C.xmlXPathDistinctSorted
+func XPathDistinctSorted(nodes NodeSetPtr) NodeSetPtr
+
+//go:linkname XPathDistinct C.xmlXPathDistinct
+func XPathDistinct(nodes NodeSetPtr) NodeSetPtr
+
+//go:linkname XPathHasSameNodes C.xmlXPathHasSameNodes
+func XPathHasSameNodes(nodes1 NodeSetPtr, nodes2 NodeSetPtr) c.Int
+
+//go:linkname XPathNodeLeadingSorted C.xmlXPathNodeLeadingSorted
+func XPathNodeLeadingSorted(nodes NodeSetPtr, node NodePtr) NodeSetPtr
+
+//go:linkname XPathLeadingSorted C.xmlXPathLeadingSorted
+func XPathLeadingSorted(nodes1 NodeSetPtr, nodes2 NodeSetPtr) NodeSetPtr
+
+//go:linkname XPathNodeLeading C.xmlXPathNodeLeading
+func XPathNodeLeading(nodes NodeSetPtr, node NodePtr) NodeSetPtr
+
+//go:linkname XPathLeading C.xmlXPathLeading
+func XPathLeading(nodes1 NodeSetPtr, nodes2 NodeSetPtr) NodeSetPtr
+
+//go:linkname XPathNodeTrailingSorted C.xmlXPathNodeTrailingSorted
+func XPathNodeTrailingSorted(nodes NodeSetPtr, node NodePtr) NodeSetPtr
+
+//go:linkname XPathTrailingSorted C.xmlXPathTrailingSorted
+func XPathTrailingSorted(nodes1 NodeSetPtr, nodes2 NodeSetPtr) NodeSetPtr
+
+//go:linkname XPathNodeTrailing C.xmlXPathNodeTrailing
+func XPathNodeTrailing(nodes NodeSetPtr, node NodePtr) NodeSetPtr
+
+//go:linkname XPathTrailing C.xmlXPathTrailing
+func XPathTrailing(nodes1 NodeSetPtr, nodes2 NodeSetPtr) NodeSetPtr
+
 /**
  * Extending a context.
  */
-//go:linkname XmlXPathRegisterNs C.xmlXPathRegisterNs
-func XmlXPathRegisterNs(ctxt XmlXPathContextPtr, prefix *XmlChar, ns_uri *XmlChar) c.Int
-//go:linkname XmlXPathNsLookup C.xmlXPathNsLookup
-func XmlXPathNsLookup(ctxt XmlXPathContextPtr, prefix *XmlChar) *XmlChar
-//go:linkname XmlXPathRegisteredNsCleanup C.xmlXPathRegisteredNsCleanup
-func XmlXPathRegisteredNsCleanup(ctxt XmlXPathContextPtr)
-//go:linkname XmlXPathRegisterFunc C.xmlXPathRegisterFunc
-func XmlXPathRegisterFunc(ctxt XmlXPathContextPtr, name *XmlChar, f XmlXPathFunction) c.Int
-//go:linkname XmlXPathRegisterFuncNS C.xmlXPathRegisterFuncNS
-func XmlXPathRegisterFuncNS(ctxt XmlXPathContextPtr, name *XmlChar, ns_uri *XmlChar, f XmlXPathFunction) c.Int
-//go:linkname XmlXPathRegisterVariable C.xmlXPathRegisterVariable
-func XmlXPathRegisterVariable(ctxt XmlXPathContextPtr, name *XmlChar, value XmlXPathObjectPtr) c.Int
-//go:linkname XmlXPathRegisterVariableNS C.xmlXPathRegisterVariableNS
-func XmlXPathRegisterVariableNS(ctxt XmlXPathContextPtr, name *XmlChar, ns_uri *XmlChar, value XmlXPathObjectPtr) c.Int
-//go:linkname XmlXPathFunctionLookup C.xmlXPathFunctionLookup
-func XmlXPathFunctionLookup(ctxt XmlXPathContextPtr, name *XmlChar) XmlXPathFunction
-//go:linkname XmlXPathFunctionLookupNS C.xmlXPathFunctionLookupNS
-func XmlXPathFunctionLookupNS(ctxt XmlXPathContextPtr, name *XmlChar, ns_uri *XmlChar) XmlXPathFunction
-//go:linkname XmlXPathRegisteredFuncsCleanup C.xmlXPathRegisteredFuncsCleanup
-func XmlXPathRegisteredFuncsCleanup(ctxt XmlXPathContextPtr)
-//go:linkname XmlXPathVariableLookup C.xmlXPathVariableLookup
-func XmlXPathVariableLookup(ctxt XmlXPathContextPtr, name *XmlChar) XmlXPathObjectPtr
-//go:linkname XmlXPathVariableLookupNS C.xmlXPathVariableLookupNS
-func XmlXPathVariableLookupNS(ctxt XmlXPathContextPtr, name *XmlChar, ns_uri *XmlChar) XmlXPathObjectPtr
-//go:linkname XmlXPathRegisteredVariablesCleanup C.xmlXPathRegisteredVariablesCleanup
-func XmlXPathRegisteredVariablesCleanup(ctxt XmlXPathContextPtr)
+//go:linkname XPathRegisterNs C.xmlXPathRegisterNs
+func XPathRegisterNs(ctxt XPathContextPtr, prefix *Char, ns_uri *Char) c.Int
+
+//go:linkname XPathNsLookup C.xmlXPathNsLookup
+func XPathNsLookup(ctxt XPathContextPtr, prefix *Char) *Char
+
+//go:linkname XPathRegisteredNsCleanup C.xmlXPathRegisteredNsCleanup
+func XPathRegisteredNsCleanup(ctxt XPathContextPtr)
+
+//go:linkname XPathRegisterFunc C.xmlXPathRegisterFunc
+func XPathRegisterFunc(ctxt XPathContextPtr, name *Char, f XPathFunction) c.Int
+
+//go:linkname XPathRegisterFuncNS C.xmlXPathRegisterFuncNS
+func XPathRegisterFuncNS(ctxt XPathContextPtr, name *Char, ns_uri *Char, f XPathFunction) c.Int
+
+//go:linkname XPathRegisterVariable C.xmlXPathRegisterVariable
+func XPathRegisterVariable(ctxt XPathContextPtr, name *Char, value XPathObjectPtr) c.Int
+
+//go:linkname XPathRegisterVariableNS C.xmlXPathRegisterVariableNS
+func XPathRegisterVariableNS(ctxt XPathContextPtr, name *Char, ns_uri *Char, value XPathObjectPtr) c.Int
+
+//go:linkname XPathFunctionLookup C.xmlXPathFunctionLookup
+func XPathFunctionLookup(ctxt XPathContextPtr, name *Char) XPathFunction
+
+//go:linkname XPathFunctionLookupNS C.xmlXPathFunctionLookupNS
+func XPathFunctionLookupNS(ctxt XPathContextPtr, name *Char, ns_uri *Char) XPathFunction
+
+//go:linkname XPathRegisteredFuncsCleanup C.xmlXPathRegisteredFuncsCleanup
+func XPathRegisteredFuncsCleanup(ctxt XPathContextPtr)
+
+//go:linkname XPathVariableLookup C.xmlXPathVariableLookup
+func XPathVariableLookup(ctxt XPathContextPtr, name *Char) XPathObjectPtr
+
+//go:linkname XPathVariableLookupNS C.xmlXPathVariableLookupNS
+func XPathVariableLookupNS(ctxt XPathContextPtr, name *Char, ns_uri *Char) XPathObjectPtr
+
+//go:linkname XPathRegisteredVariablesCleanup C.xmlXPathRegisteredVariablesCleanup
+func XPathRegisteredVariablesCleanup(ctxt XPathContextPtr)
+
 /**
  * Utilities to extend XPath.
  */
-// llgo:link (*XmlChar).XmlXPathNewParserContext C.xmlXPathNewParserContext
-func (recv_ *XmlChar) XmlXPathNewParserContext(ctxt XmlXPathContextPtr) XmlXPathParserContextPtr {
+// llgo:link (*Char).XPathNewParserContext C.xmlXPathNewParserContext
+func (recv_ *Char) XPathNewParserContext(ctxt XPathContextPtr) XPathParserContextPtr {
 	return nil
 }
-//go:linkname XmlXPathFreeParserContext C.xmlXPathFreeParserContext
-func XmlXPathFreeParserContext(ctxt XmlXPathParserContextPtr)
+
+//go:linkname XPathFreeParserContext C.xmlXPathFreeParserContext
+func XPathFreeParserContext(ctxt XPathParserContextPtr)
+
+/* TODO: remap to xmlXPathValuePop and Push. */
 //go:linkname ValuePop C.valuePop
-func ValuePop(ctxt XmlXPathParserContextPtr) XmlXPathObjectPtr
+func ValuePop(ctxt XPathParserContextPtr) XPathObjectPtr
+
 //go:linkname ValuePush C.valuePush
-func ValuePush(ctxt XmlXPathParserContextPtr, value XmlXPathObjectPtr) c.Int
-// llgo:link (*XmlChar).XmlXPathNewString C.xmlXPathNewString
-func (recv_ *XmlChar) XmlXPathNewString() XmlXPathObjectPtr {
+func ValuePush(ctxt XPathParserContextPtr, value XPathObjectPtr) c.Int
+
+// llgo:link (*Char).XPathNewString C.xmlXPathNewString
+func (recv_ *Char) XPathNewString() XPathObjectPtr {
 	return nil
 }
-//go:linkname XmlXPathNewCString C.xmlXPathNewCString
-func XmlXPathNewCString(val *int8) XmlXPathObjectPtr
-// llgo:link (*XmlChar).XmlXPathWrapString C.xmlXPathWrapString
-func (recv_ *XmlChar) XmlXPathWrapString() XmlXPathObjectPtr {
+
+//go:linkname XPathNewCString C.xmlXPathNewCString
+func XPathNewCString(val *int8) XPathObjectPtr
+
+// llgo:link (*Char).XPathWrapString C.xmlXPathWrapString
+func (recv_ *Char) XPathWrapString() XPathObjectPtr {
 	return nil
 }
-//go:linkname XmlXPathWrapCString C.xmlXPathWrapCString
-func XmlXPathWrapCString(val *int8) XmlXPathObjectPtr
-//go:linkname XmlXPathNewFloat C.xmlXPathNewFloat
-func XmlXPathNewFloat(val float64) XmlXPathObjectPtr
-//go:linkname XmlXPathNewBoolean C.xmlXPathNewBoolean
-func XmlXPathNewBoolean(val c.Int) XmlXPathObjectPtr
-//go:linkname XmlXPathNewNodeSet C.xmlXPathNewNodeSet
-func XmlXPathNewNodeSet(val XmlNodePtr) XmlXPathObjectPtr
-//go:linkname XmlXPathNewValueTree C.xmlXPathNewValueTree
-func XmlXPathNewValueTree(val XmlNodePtr) XmlXPathObjectPtr
-//go:linkname XmlXPathNodeSetAdd C.xmlXPathNodeSetAdd
-func XmlXPathNodeSetAdd(cur XmlNodeSetPtr, val XmlNodePtr) c.Int
-//go:linkname XmlXPathNodeSetAddUnique C.xmlXPathNodeSetAddUnique
-func XmlXPathNodeSetAddUnique(cur XmlNodeSetPtr, val XmlNodePtr) c.Int
-//go:linkname XmlXPathNodeSetAddNs C.xmlXPathNodeSetAddNs
-func XmlXPathNodeSetAddNs(cur XmlNodeSetPtr, node XmlNodePtr, ns XmlNsPtr) c.Int
-//go:linkname XmlXPathNodeSetSort C.xmlXPathNodeSetSort
-func XmlXPathNodeSetSort(set XmlNodeSetPtr)
-//go:linkname XmlXPathRoot C.xmlXPathRoot
-func XmlXPathRoot(ctxt XmlXPathParserContextPtr)
-//go:linkname XmlXPathEvalExpr C.xmlXPathEvalExpr
-func XmlXPathEvalExpr(ctxt XmlXPathParserContextPtr)
-//go:linkname XmlXPathParseName C.xmlXPathParseName
-func XmlXPathParseName(ctxt XmlXPathParserContextPtr) *XmlChar
-//go:linkname XmlXPathParseNCName C.xmlXPathParseNCName
-func XmlXPathParseNCName(ctxt XmlXPathParserContextPtr) *XmlChar
-// llgo:link (*XmlChar).XmlXPathStringEvalNumber C.xmlXPathStringEvalNumber
-func (recv_ *XmlChar) XmlXPathStringEvalNumber() float64 {
+
+//go:linkname XPathWrapCString C.xmlXPathWrapCString
+func XPathWrapCString(val *int8) XPathObjectPtr
+
+//go:linkname XPathNewFloat C.xmlXPathNewFloat
+func XPathNewFloat(val float64) XPathObjectPtr
+
+//go:linkname XPathNewBoolean C.xmlXPathNewBoolean
+func XPathNewBoolean(val c.Int) XPathObjectPtr
+
+//go:linkname XPathNewNodeSet C.xmlXPathNewNodeSet
+func XPathNewNodeSet(val NodePtr) XPathObjectPtr
+
+//go:linkname XPathNewValueTree C.xmlXPathNewValueTree
+func XPathNewValueTree(val NodePtr) XPathObjectPtr
+
+//go:linkname XPathNodeSetAdd C.xmlXPathNodeSetAdd
+func XPathNodeSetAdd(cur NodeSetPtr, val NodePtr) c.Int
+
+//go:linkname XPathNodeSetAddUnique C.xmlXPathNodeSetAddUnique
+func XPathNodeSetAddUnique(cur NodeSetPtr, val NodePtr) c.Int
+
+//go:linkname XPathNodeSetAddNs C.xmlXPathNodeSetAddNs
+func XPathNodeSetAddNs(cur NodeSetPtr, node NodePtr, ns NsPtr) c.Int
+
+//go:linkname XPathNodeSetSort C.xmlXPathNodeSetSort
+func XPathNodeSetSort(set NodeSetPtr)
+
+//go:linkname XPathRoot C.xmlXPathRoot
+func XPathRoot(ctxt XPathParserContextPtr)
+
+//go:linkname XPathEvalExpr C.xmlXPathEvalExpr
+func XPathEvalExpr(ctxt XPathParserContextPtr)
+
+//go:linkname XPathParseName C.xmlXPathParseName
+func XPathParseName(ctxt XPathParserContextPtr) *Char
+
+//go:linkname XPathParseNCName C.xmlXPathParseNCName
+func XPathParseNCName(ctxt XPathParserContextPtr) *Char
+
+/*
+ * Existing functions.
+ */
+// llgo:link (*Char).XPathStringEvalNumber C.xmlXPathStringEvalNumber
+func (recv_ *Char) XPathStringEvalNumber() float64 {
 	return 0
 }
-//go:linkname XmlXPathEvaluatePredicateResult C.xmlXPathEvaluatePredicateResult
-func XmlXPathEvaluatePredicateResult(ctxt XmlXPathParserContextPtr, res XmlXPathObjectPtr) c.Int
-//go:linkname XmlXPathRegisterAllFunctions C.xmlXPathRegisterAllFunctions
-func XmlXPathRegisterAllFunctions(ctxt XmlXPathContextPtr)
-//go:linkname XmlXPathNodeSetMerge C.xmlXPathNodeSetMerge
-func XmlXPathNodeSetMerge(val1 XmlNodeSetPtr, val2 XmlNodeSetPtr) XmlNodeSetPtr
-//go:linkname XmlXPathNodeSetDel C.xmlXPathNodeSetDel
-func XmlXPathNodeSetDel(cur XmlNodeSetPtr, val XmlNodePtr)
-//go:linkname XmlXPathNodeSetRemove C.xmlXPathNodeSetRemove
-func XmlXPathNodeSetRemove(cur XmlNodeSetPtr, val c.Int)
-//go:linkname XmlXPathNewNodeSetList C.xmlXPathNewNodeSetList
-func XmlXPathNewNodeSetList(val XmlNodeSetPtr) XmlXPathObjectPtr
-//go:linkname XmlXPathWrapNodeSet C.xmlXPathWrapNodeSet
-func XmlXPathWrapNodeSet(val XmlNodeSetPtr) XmlXPathObjectPtr
-//go:linkname XmlXPathWrapExternal C.xmlXPathWrapExternal
-func XmlXPathWrapExternal(val unsafe.Pointer) XmlXPathObjectPtr
-//go:linkname XmlXPathEqualValues C.xmlXPathEqualValues
-func XmlXPathEqualValues(ctxt XmlXPathParserContextPtr) c.Int
-//go:linkname XmlXPathNotEqualValues C.xmlXPathNotEqualValues
-func XmlXPathNotEqualValues(ctxt XmlXPathParserContextPtr) c.Int
-//go:linkname XmlXPathCompareValues C.xmlXPathCompareValues
-func XmlXPathCompareValues(ctxt XmlXPathParserContextPtr, inf c.Int, strict c.Int) c.Int
-//go:linkname XmlXPathValueFlipSign C.xmlXPathValueFlipSign
-func XmlXPathValueFlipSign(ctxt XmlXPathParserContextPtr)
-//go:linkname XmlXPathAddValues C.xmlXPathAddValues
-func XmlXPathAddValues(ctxt XmlXPathParserContextPtr)
-//go:linkname XmlXPathSubValues C.xmlXPathSubValues
-func XmlXPathSubValues(ctxt XmlXPathParserContextPtr)
-//go:linkname XmlXPathMultValues C.xmlXPathMultValues
-func XmlXPathMultValues(ctxt XmlXPathParserContextPtr)
-//go:linkname XmlXPathDivValues C.xmlXPathDivValues
-func XmlXPathDivValues(ctxt XmlXPathParserContextPtr)
-//go:linkname XmlXPathModValues C.xmlXPathModValues
-func XmlXPathModValues(ctxt XmlXPathParserContextPtr)
-// llgo:link (*XmlChar).XmlXPathIsNodeType C.xmlXPathIsNodeType
-func (recv_ *XmlChar) XmlXPathIsNodeType() c.Int {
+
+//go:linkname XPathEvaluatePredicateResult C.xmlXPathEvaluatePredicateResult
+func XPathEvaluatePredicateResult(ctxt XPathParserContextPtr, res XPathObjectPtr) c.Int
+
+//go:linkname XPathRegisterAllFunctions C.xmlXPathRegisterAllFunctions
+func XPathRegisterAllFunctions(ctxt XPathContextPtr)
+
+//go:linkname XPathNodeSetMerge C.xmlXPathNodeSetMerge
+func XPathNodeSetMerge(val1 NodeSetPtr, val2 NodeSetPtr) NodeSetPtr
+
+//go:linkname XPathNodeSetDel C.xmlXPathNodeSetDel
+func XPathNodeSetDel(cur NodeSetPtr, val NodePtr)
+
+//go:linkname XPathNodeSetRemove C.xmlXPathNodeSetRemove
+func XPathNodeSetRemove(cur NodeSetPtr, val c.Int)
+
+//go:linkname XPathNewNodeSetList C.xmlXPathNewNodeSetList
+func XPathNewNodeSetList(val NodeSetPtr) XPathObjectPtr
+
+//go:linkname XPathWrapNodeSet C.xmlXPathWrapNodeSet
+func XPathWrapNodeSet(val NodeSetPtr) XPathObjectPtr
+
+//go:linkname XPathWrapExternal C.xmlXPathWrapExternal
+func XPathWrapExternal(val unsafe.Pointer) XPathObjectPtr
+
+//go:linkname XPathEqualValues C.xmlXPathEqualValues
+func XPathEqualValues(ctxt XPathParserContextPtr) c.Int
+
+//go:linkname XPathNotEqualValues C.xmlXPathNotEqualValues
+func XPathNotEqualValues(ctxt XPathParserContextPtr) c.Int
+
+//go:linkname XPathCompareValues C.xmlXPathCompareValues
+func XPathCompareValues(ctxt XPathParserContextPtr, inf c.Int, strict c.Int) c.Int
+
+//go:linkname XPathValueFlipSign C.xmlXPathValueFlipSign
+func XPathValueFlipSign(ctxt XPathParserContextPtr)
+
+//go:linkname XPathAddValues C.xmlXPathAddValues
+func XPathAddValues(ctxt XPathParserContextPtr)
+
+//go:linkname XPathSubValues C.xmlXPathSubValues
+func XPathSubValues(ctxt XPathParserContextPtr)
+
+//go:linkname XPathMultValues C.xmlXPathMultValues
+func XPathMultValues(ctxt XPathParserContextPtr)
+
+//go:linkname XPathDivValues C.xmlXPathDivValues
+func XPathDivValues(ctxt XPathParserContextPtr)
+
+//go:linkname XPathModValues C.xmlXPathModValues
+func XPathModValues(ctxt XPathParserContextPtr)
+
+// llgo:link (*Char).XPathIsNodeType C.xmlXPathIsNodeType
+func (recv_ *Char) XPathIsNodeType() c.Int {
 	return 0
 }
-//go:linkname XmlXPathNextSelf C.xmlXPathNextSelf
-func XmlXPathNextSelf(ctxt XmlXPathParserContextPtr, cur XmlNodePtr) XmlNodePtr
-//go:linkname XmlXPathNextChild C.xmlXPathNextChild
-func XmlXPathNextChild(ctxt XmlXPathParserContextPtr, cur XmlNodePtr) XmlNodePtr
-//go:linkname XmlXPathNextDescendant C.xmlXPathNextDescendant
-func XmlXPathNextDescendant(ctxt XmlXPathParserContextPtr, cur XmlNodePtr) XmlNodePtr
-//go:linkname XmlXPathNextDescendantOrSelf C.xmlXPathNextDescendantOrSelf
-func XmlXPathNextDescendantOrSelf(ctxt XmlXPathParserContextPtr, cur XmlNodePtr) XmlNodePtr
-//go:linkname XmlXPathNextParent C.xmlXPathNextParent
-func XmlXPathNextParent(ctxt XmlXPathParserContextPtr, cur XmlNodePtr) XmlNodePtr
-//go:linkname XmlXPathNextAncestorOrSelf C.xmlXPathNextAncestorOrSelf
-func XmlXPathNextAncestorOrSelf(ctxt XmlXPathParserContextPtr, cur XmlNodePtr) XmlNodePtr
-//go:linkname XmlXPathNextFollowingSibling C.xmlXPathNextFollowingSibling
-func XmlXPathNextFollowingSibling(ctxt XmlXPathParserContextPtr, cur XmlNodePtr) XmlNodePtr
-//go:linkname XmlXPathNextFollowing C.xmlXPathNextFollowing
-func XmlXPathNextFollowing(ctxt XmlXPathParserContextPtr, cur XmlNodePtr) XmlNodePtr
-//go:linkname XmlXPathNextNamespace C.xmlXPathNextNamespace
-func XmlXPathNextNamespace(ctxt XmlXPathParserContextPtr, cur XmlNodePtr) XmlNodePtr
-//go:linkname XmlXPathNextAttribute C.xmlXPathNextAttribute
-func XmlXPathNextAttribute(ctxt XmlXPathParserContextPtr, cur XmlNodePtr) XmlNodePtr
-//go:linkname XmlXPathNextPreceding C.xmlXPathNextPreceding
-func XmlXPathNextPreceding(ctxt XmlXPathParserContextPtr, cur XmlNodePtr) XmlNodePtr
-//go:linkname XmlXPathNextAncestor C.xmlXPathNextAncestor
-func XmlXPathNextAncestor(ctxt XmlXPathParserContextPtr, cur XmlNodePtr) XmlNodePtr
-//go:linkname XmlXPathNextPrecedingSibling C.xmlXPathNextPrecedingSibling
-func XmlXPathNextPrecedingSibling(ctxt XmlXPathParserContextPtr, cur XmlNodePtr) XmlNodePtr
-//go:linkname XmlXPathLastFunction C.xmlXPathLastFunction
-func XmlXPathLastFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathPositionFunction C.xmlXPathPositionFunction
-func XmlXPathPositionFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathCountFunction C.xmlXPathCountFunction
-func XmlXPathCountFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathIdFunction C.xmlXPathIdFunction
-func XmlXPathIdFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathLocalNameFunction C.xmlXPathLocalNameFunction
-func XmlXPathLocalNameFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathNamespaceURIFunction C.xmlXPathNamespaceURIFunction
-func XmlXPathNamespaceURIFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathStringFunction C.xmlXPathStringFunction
-func XmlXPathStringFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathStringLengthFunction C.xmlXPathStringLengthFunction
-func XmlXPathStringLengthFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathConcatFunction C.xmlXPathConcatFunction
-func XmlXPathConcatFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathContainsFunction C.xmlXPathContainsFunction
-func XmlXPathContainsFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathStartsWithFunction C.xmlXPathStartsWithFunction
-func XmlXPathStartsWithFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathSubstringFunction C.xmlXPathSubstringFunction
-func XmlXPathSubstringFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathSubstringBeforeFunction C.xmlXPathSubstringBeforeFunction
-func XmlXPathSubstringBeforeFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathSubstringAfterFunction C.xmlXPathSubstringAfterFunction
-func XmlXPathSubstringAfterFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathNormalizeFunction C.xmlXPathNormalizeFunction
-func XmlXPathNormalizeFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathTranslateFunction C.xmlXPathTranslateFunction
-func XmlXPathTranslateFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathNotFunction C.xmlXPathNotFunction
-func XmlXPathNotFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathTrueFunction C.xmlXPathTrueFunction
-func XmlXPathTrueFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathFalseFunction C.xmlXPathFalseFunction
-func XmlXPathFalseFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathLangFunction C.xmlXPathLangFunction
-func XmlXPathLangFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathNumberFunction C.xmlXPathNumberFunction
-func XmlXPathNumberFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathSumFunction C.xmlXPathSumFunction
-func XmlXPathSumFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathFloorFunction C.xmlXPathFloorFunction
-func XmlXPathFloorFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathCeilingFunction C.xmlXPathCeilingFunction
-func XmlXPathCeilingFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathRoundFunction C.xmlXPathRoundFunction
-func XmlXPathRoundFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
-//go:linkname XmlXPathBooleanFunction C.xmlXPathBooleanFunction
-func XmlXPathBooleanFunction(ctxt XmlXPathParserContextPtr, nargs c.Int)
+
+/*
+ * Some of the axis navigation routines.
+ */
+//go:linkname XPathNextSelf C.xmlXPathNextSelf
+func XPathNextSelf(ctxt XPathParserContextPtr, cur NodePtr) NodePtr
+
+//go:linkname XPathNextChild C.xmlXPathNextChild
+func XPathNextChild(ctxt XPathParserContextPtr, cur NodePtr) NodePtr
+
+//go:linkname XPathNextDescendant C.xmlXPathNextDescendant
+func XPathNextDescendant(ctxt XPathParserContextPtr, cur NodePtr) NodePtr
+
+//go:linkname XPathNextDescendantOrSelf C.xmlXPathNextDescendantOrSelf
+func XPathNextDescendantOrSelf(ctxt XPathParserContextPtr, cur NodePtr) NodePtr
+
+//go:linkname XPathNextParent C.xmlXPathNextParent
+func XPathNextParent(ctxt XPathParserContextPtr, cur NodePtr) NodePtr
+
+//go:linkname XPathNextAncestorOrSelf C.xmlXPathNextAncestorOrSelf
+func XPathNextAncestorOrSelf(ctxt XPathParserContextPtr, cur NodePtr) NodePtr
+
+//go:linkname XPathNextFollowingSibling C.xmlXPathNextFollowingSibling
+func XPathNextFollowingSibling(ctxt XPathParserContextPtr, cur NodePtr) NodePtr
+
+//go:linkname XPathNextFollowing C.xmlXPathNextFollowing
+func XPathNextFollowing(ctxt XPathParserContextPtr, cur NodePtr) NodePtr
+
+//go:linkname XPathNextNamespace C.xmlXPathNextNamespace
+func XPathNextNamespace(ctxt XPathParserContextPtr, cur NodePtr) NodePtr
+
+//go:linkname XPathNextAttribute C.xmlXPathNextAttribute
+func XPathNextAttribute(ctxt XPathParserContextPtr, cur NodePtr) NodePtr
+
+//go:linkname XPathNextPreceding C.xmlXPathNextPreceding
+func XPathNextPreceding(ctxt XPathParserContextPtr, cur NodePtr) NodePtr
+
+//go:linkname XPathNextAncestor C.xmlXPathNextAncestor
+func XPathNextAncestor(ctxt XPathParserContextPtr, cur NodePtr) NodePtr
+
+//go:linkname XPathNextPrecedingSibling C.xmlXPathNextPrecedingSibling
+func XPathNextPrecedingSibling(ctxt XPathParserContextPtr, cur NodePtr) NodePtr
+
+/*
+ * The official core of XPath functions.
+ */
+//go:linkname XPathLastFunction C.xmlXPathLastFunction
+func XPathLastFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathPositionFunction C.xmlXPathPositionFunction
+func XPathPositionFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathCountFunction C.xmlXPathCountFunction
+func XPathCountFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathIdFunction C.xmlXPathIdFunction
+func XPathIdFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathLocalNameFunction C.xmlXPathLocalNameFunction
+func XPathLocalNameFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathNamespaceURIFunction C.xmlXPathNamespaceURIFunction
+func XPathNamespaceURIFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathStringFunction C.xmlXPathStringFunction
+func XPathStringFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathStringLengthFunction C.xmlXPathStringLengthFunction
+func XPathStringLengthFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathConcatFunction C.xmlXPathConcatFunction
+func XPathConcatFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathContainsFunction C.xmlXPathContainsFunction
+func XPathContainsFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathStartsWithFunction C.xmlXPathStartsWithFunction
+func XPathStartsWithFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathSubstringFunction C.xmlXPathSubstringFunction
+func XPathSubstringFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathSubstringBeforeFunction C.xmlXPathSubstringBeforeFunction
+func XPathSubstringBeforeFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathSubstringAfterFunction C.xmlXPathSubstringAfterFunction
+func XPathSubstringAfterFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathNormalizeFunction C.xmlXPathNormalizeFunction
+func XPathNormalizeFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathTranslateFunction C.xmlXPathTranslateFunction
+func XPathTranslateFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathNotFunction C.xmlXPathNotFunction
+func XPathNotFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathTrueFunction C.xmlXPathTrueFunction
+func XPathTrueFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathFalseFunction C.xmlXPathFalseFunction
+func XPathFalseFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathLangFunction C.xmlXPathLangFunction
+func XPathLangFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathNumberFunction C.xmlXPathNumberFunction
+func XPathNumberFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathSumFunction C.xmlXPathSumFunction
+func XPathSumFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathFloorFunction C.xmlXPathFloorFunction
+func XPathFloorFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathCeilingFunction C.xmlXPathCeilingFunction
+func XPathCeilingFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathRoundFunction C.xmlXPathRoundFunction
+func XPathRoundFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
+//go:linkname XPathBooleanFunction C.xmlXPathBooleanFunction
+func XPathBooleanFunction(ctxt XPathParserContextPtr, nargs c.Int)
+
 /**
  * Really internal functions
  */
-//go:linkname XmlXPathNodeSetFreeNs C.xmlXPathNodeSetFreeNs
-func XmlXPathNodeSetFreeNs(ns XmlNsPtr)
+//go:linkname XPathNodeSetFreeNs C.xmlXPathNodeSetFreeNs
+func XPathNodeSetFreeNs(ns NsPtr)

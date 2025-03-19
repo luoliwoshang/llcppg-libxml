@@ -1,13 +1,15 @@
-package libxml_2_0
+package libxml2
 
 import _ "unsafe"
 
-type X_XmlGlobalState struct {
+type X_xmlGlobalState struct {
 	Unused [8]uint8
 }
-type XmlGlobalState X_XmlGlobalState
-type XmlGlobalStatePtr *XmlGlobalState
-//go:linkname XmlInitializeGlobalState C.xmlInitializeGlobalState
-func XmlInitializeGlobalState(gs XmlGlobalStatePtr)
-//go:linkname XmlGetGlobalState C.xmlGetGlobalState
-func XmlGetGlobalState() XmlGlobalStatePtr
+type GlobalState X_xmlGlobalState
+type GlobalStatePtr *GlobalState
+
+//go:linkname InitializeGlobalState C.xmlInitializeGlobalState
+func InitializeGlobalState(gs GlobalStatePtr)
+
+//go:linkname GetGlobalState C.xmlGetGlobalState
+func GetGlobalState() GlobalStatePtr

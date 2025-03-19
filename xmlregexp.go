@@ -1,44 +1,62 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
 	"unsafe"
 )
 
-type X_XmlRegexp struct {
+type X_xmlRegexp struct {
 	Unused [8]uint8
 }
-type XmlRegexp X_XmlRegexp
-type XmlRegexpPtr *XmlRegexp
+type Regexp X_xmlRegexp
+type RegexpPtr *Regexp
 
-type X_XmlRegExecCtxt struct {
+type X_xmlRegExecCtxt struct {
 	Unused [8]uint8
 }
-type XmlRegExecCtxt X_XmlRegExecCtxt
-type XmlRegExecCtxtPtr *XmlRegExecCtxt
-// llgo:link (*XmlChar).XmlRegexpCompile C.xmlRegexpCompile
-func (recv_ *XmlChar) XmlRegexpCompile() XmlRegexpPtr {
+type RegExecCtxt X_xmlRegExecCtxt
+type RegExecCtxtPtr *RegExecCtxt
+
+/*
+ * The POSIX like API
+ */
+// llgo:link (*Char).RegexpCompile C.xmlRegexpCompile
+func (recv_ *Char) RegexpCompile() RegexpPtr {
 	return nil
 }
-//go:linkname XmlRegFreeRegexp C.xmlRegFreeRegexp
-func XmlRegFreeRegexp(regexp XmlRegexpPtr)
-//go:linkname XmlRegexpExec C.xmlRegexpExec
-func XmlRegexpExec(comp XmlRegexpPtr, value *XmlChar) c.Int
-//go:linkname XmlRegexpPrint C.xmlRegexpPrint
-func XmlRegexpPrint(output *c.FILE, regexp XmlRegexpPtr)
-//go:linkname XmlRegexpIsDeterminist C.xmlRegexpIsDeterminist
-func XmlRegexpIsDeterminist(comp XmlRegexpPtr) c.Int
+
+//go:linkname RegFreeRegexp C.xmlRegFreeRegexp
+func RegFreeRegexp(regexp RegexpPtr)
+
+//go:linkname RegexpExec C.xmlRegexpExec
+func RegexpExec(comp RegexpPtr, value *Char) c.Int
+
+//go:linkname RegexpPrint C.xmlRegexpPrint
+func RegexpPrint(output *c.FILE, regexp RegexpPtr)
+
+//go:linkname RegexpIsDeterminist C.xmlRegexpIsDeterminist
+func RegexpIsDeterminist(comp RegexpPtr) c.Int
+
 // llgo:type C
-type XmlRegExecCallbacks func(XmlRegExecCtxtPtr, *XmlChar, unsafe.Pointer, unsafe.Pointer)
-//go:linkname XmlRegNewExecCtxt C.xmlRegNewExecCtxt
-func XmlRegNewExecCtxt(comp XmlRegexpPtr, callback XmlRegExecCallbacks, data unsafe.Pointer) XmlRegExecCtxtPtr
-//go:linkname XmlRegFreeExecCtxt C.xmlRegFreeExecCtxt
-func XmlRegFreeExecCtxt(exec XmlRegExecCtxtPtr)
-//go:linkname XmlRegExecPushString C.xmlRegExecPushString
-func XmlRegExecPushString(exec XmlRegExecCtxtPtr, value *XmlChar, data unsafe.Pointer) c.Int
-//go:linkname XmlRegExecPushString2 C.xmlRegExecPushString2
-func XmlRegExecPushString2(exec XmlRegExecCtxtPtr, value *XmlChar, value2 *XmlChar, data unsafe.Pointer) c.Int
-//go:linkname XmlRegExecNextValues C.xmlRegExecNextValues
-func XmlRegExecNextValues(exec XmlRegExecCtxtPtr, nbval *c.Int, nbneg *c.Int, values **XmlChar, terminal *c.Int) c.Int
-//go:linkname XmlRegExecErrInfo C.xmlRegExecErrInfo
-func XmlRegExecErrInfo(exec XmlRegExecCtxtPtr, string **XmlChar, nbval *c.Int, nbneg *c.Int, values **XmlChar, terminal *c.Int) c.Int
+type RegExecCallbacks func(RegExecCtxtPtr, *Char, unsafe.Pointer, unsafe.Pointer)
+
+/*
+ * The progressive API
+ */
+//go:linkname RegNewExecCtxt C.xmlRegNewExecCtxt
+func RegNewExecCtxt(comp RegexpPtr, callback RegExecCallbacks, data unsafe.Pointer) RegExecCtxtPtr
+
+//go:linkname RegFreeExecCtxt C.xmlRegFreeExecCtxt
+func RegFreeExecCtxt(exec RegExecCtxtPtr)
+
+//go:linkname RegExecPushString C.xmlRegExecPushString
+func RegExecPushString(exec RegExecCtxtPtr, value *Char, data unsafe.Pointer) c.Int
+
+//go:linkname RegExecPushString2 C.xmlRegExecPushString2
+func RegExecPushString2(exec RegExecCtxtPtr, value *Char, value2 *Char, data unsafe.Pointer) c.Int
+
+//go:linkname RegExecNextValues C.xmlRegExecNextValues
+func RegExecNextValues(exec RegExecCtxtPtr, nbval *c.Int, nbneg *c.Int, values **Char, terminal *c.Int) c.Int
+
+//go:linkname RegExecErrInfo C.xmlRegExecErrInfo
+func RegExecErrInfo(exec RegExecCtxtPtr, string **Char, nbval *c.Int, nbneg *c.Int, values **Char, terminal *c.Int) c.Int

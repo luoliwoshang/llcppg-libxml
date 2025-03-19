@@ -1,8 +1,12 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
 	_ "unsafe"
 )
-//go:linkname XmlCheckVersion C.xmlCheckVersion
-func XmlCheckVersion(version c.Int)
+
+/*
+ * Originally declared in xmlversion.h which is generated
+ */
+//go:linkname CheckVersion C.xmlCheckVersion
+func CheckVersion(version c.Int)

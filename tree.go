@@ -1,175 +1,175 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
 	"unsafe"
 )
 
-const BASEBUFFERSIZE c.Int = 4096
-const XMLDOCBDOCUMENTNODE c.Int = 21
+const BASE_BUFFER_SIZE = 4096
+const DOCB_DOCUMENT_NODE = 21
 
-type X_XmlParserInputBuffer struct {
+type X_xmlParserInputBuffer struct {
 	Context       unsafe.Pointer
 	Readcallback  unsafe.Pointer
 	Closecallback unsafe.Pointer
-	Encoder       XmlCharEncodingHandlerPtr
-	Buffer        XmlBufPtr
-	Raw           XmlBufPtr
+	Encoder       CharEncodingHandlerPtr
+	Buffer        BufPtr
+	Raw           BufPtr
 	Compressed    c.Int
 	Error         c.Int
 	Rawconsumed   c.Ulong
 }
-type XmlParserInputBuffer X_XmlParserInputBuffer
-type XmlParserInputBufferPtr *XmlParserInputBuffer
+type ParserInputBuffer X_xmlParserInputBuffer
+type ParserInputBufferPtr *ParserInputBuffer
 
-type X_XmlOutputBuffer struct {
+type X_xmlOutputBuffer struct {
 	Context       unsafe.Pointer
 	Writecallback unsafe.Pointer
 	Closecallback unsafe.Pointer
-	Encoder       XmlCharEncodingHandlerPtr
-	Buffer        XmlBufPtr
-	Conv          XmlBufPtr
+	Encoder       CharEncodingHandlerPtr
+	Buffer        BufPtr
+	Conv          BufPtr
 	Written       c.Int
 	Error         c.Int
 }
-type XmlOutputBuffer X_XmlOutputBuffer
-type XmlOutputBufferPtr *XmlOutputBuffer
+type OutputBuffer X_xmlOutputBuffer
+type OutputBufferPtr *OutputBuffer
 
-type X_XmlParserInput struct {
-	Buf            XmlParserInputBufferPtr
+type X_xmlParserInput struct {
+	Buf            ParserInputBufferPtr
 	Filename       *int8
 	Directory      *int8
-	Base           *XmlChar
-	Cur            *XmlChar
-	End            *XmlChar
+	Base           *Char
+	Cur            *Char
+	End            *Char
 	Length         c.Int
 	Line           c.Int
 	Col            c.Int
 	Consumed       c.Ulong
 	Free           unsafe.Pointer
-	Encoding       *XmlChar
-	Version        *XmlChar
+	Encoding       *Char
+	Version        *Char
 	Flags          c.Int
 	Id             c.Int
 	ParentConsumed c.Ulong
-	Entity         XmlEntityPtr
+	Entity         EntityPtr
 }
-type XmlParserInput X_XmlParserInput
-type XmlParserInputPtr *XmlParserInput
+type ParserInput X_xmlParserInput
+type ParserInputPtr *ParserInput
 
-type X_XmlParserCtxt struct {
-	Sax               *X_XmlSAXHandler
+type X_xmlParserCtxt struct {
+	Sax               *X_xmlSAXHandler
 	UserData          unsafe.Pointer
-	MyDoc             XmlDocPtr
+	MyDoc             DocPtr
 	WellFormed        c.Int
 	ReplaceEntities   c.Int
-	Version           *XmlChar
-	Encoding          *XmlChar
+	Version           *Char
+	Encoding          *Char
 	Standalone        c.Int
 	Html              c.Int
-	Input             XmlParserInputPtr
+	Input             ParserInputPtr
 	InputNr           c.Int
 	InputMax          c.Int
-	InputTab          *XmlParserInputPtr
-	Node              XmlNodePtr
+	InputTab          *ParserInputPtr
+	Node              NodePtr
 	NodeNr            c.Int
 	NodeMax           c.Int
-	NodeTab           *XmlNodePtr
+	NodeTab           *NodePtr
 	RecordInfo        c.Int
-	NodeSeq           XmlParserNodeInfoSeq
+	NodeSeq           ParserNodeInfoSeq
 	ErrNo             c.Int
 	HasExternalSubset c.Int
 	HasPErefs         c.Int
 	External          c.Int
 	Valid             c.Int
 	Validate          c.Int
-	Vctxt             XmlValidCtxt
-	Instate           XmlParserInputState
+	Vctxt             ValidCtxt
+	Instate           ParserInputState
 	Token             c.Int
 	Directory         *int8
-	Name              *XmlChar
+	Name              *Char
 	NameNr            c.Int
 	NameMax           c.Int
-	NameTab           **XmlChar
+	NameTab           **Char
 	NbChars           c.Long
 	CheckIndex        c.Long
 	KeepBlanks        c.Int
 	DisableSAX        c.Int
 	InSubset          c.Int
-	IntSubName        *XmlChar
-	ExtSubURI         *XmlChar
-	ExtSubSystem      *XmlChar
+	IntSubName        *Char
+	ExtSubURI         *Char
+	ExtSubSystem      *Char
 	Space             *c.Int
 	SpaceNr           c.Int
 	SpaceMax          c.Int
 	SpaceTab          *c.Int
 	Depth             c.Int
-	Entity            XmlParserInputPtr
+	Entity            ParserInputPtr
 	Charset           c.Int
 	Nodelen           c.Int
 	Nodemem           c.Int
 	Pedantic          c.Int
-	X_Private         unsafe.Pointer
+	X_private         unsafe.Pointer
 	Loadsubset        c.Int
 	Linenumbers       c.Int
 	Catalogs          unsafe.Pointer
 	Recovery          c.Int
 	Progressive       c.Int
-	Dict              XmlDictPtr
-	Atts              **XmlChar
+	Dict              DictPtr
+	Atts              **Char
 	Maxatts           c.Int
 	Docdict           c.Int
-	StrXml            *XmlChar
-	StrXmlns          *XmlChar
-	StrXmlNs          *XmlChar
+	StrXml            *Char
+	StrXmlns          *Char
+	StrXmlNs          *Char
 	Sax2              c.Int
 	NsNr              c.Int
 	NsMax             c.Int
-	NsTab             **XmlChar
+	NsTab             **Char
 	Attallocs         *c.Uint
-	PushTab           *XmlStartTag
-	AttsDefault       XmlHashTablePtr
-	AttsSpecial       XmlHashTablePtr
+	PushTab           *StartTag
+	AttsDefault       HashTablePtr
+	AttsSpecial       HashTablePtr
 	NsWellFormed      c.Int
 	Options           c.Int
 	DictNames         c.Int
 	FreeElemsNr       c.Int
-	FreeElems         XmlNodePtr
+	FreeElems         NodePtr
 	FreeAttrsNr       c.Int
-	FreeAttrs         XmlAttrPtr
-	LastError         XmlError
-	ParseMode         XmlParserMode
+	FreeAttrs         AttrPtr
+	LastError         Error
+	ParseMode         ParserMode
 	Nbentities        c.Ulong
 	Sizeentities      c.Ulong
-	NodeInfo          *XmlParserNodeInfo
+	NodeInfo          *ParserNodeInfo
 	NodeInfoNr        c.Int
 	NodeInfoMax       c.Int
-	NodeInfoTab       *XmlParserNodeInfo
+	NodeInfoTab       *ParserNodeInfo
 	InputId           c.Int
 	Sizeentcopy       c.Ulong
 	EndCheckState     c.Int
 	NbErrors          uint16
 	NbWarnings        uint16
 	MaxAmpl           c.Uint
-	Nsdb              *XmlParserNsData
+	Nsdb              *ParserNsData
 	AttrHashMax       c.Uint
-	AttrHash          *XmlAttrHashBucket
+	AttrHash          *AttrHashBucket
 	ErrorHandler      unsafe.Pointer
 	ErrorCtxt         unsafe.Pointer
 }
-type XmlParserCtxt X_XmlParserCtxt
-type XmlParserCtxtPtr *XmlParserCtxt
+type ParserCtxt X_xmlParserCtxt
+type ParserCtxtPtr *ParserCtxt
 
-type X_XmlSAXLocator struct {
+type X_xmlSAXLocator struct {
 	GetPublicId     unsafe.Pointer
 	GetSystemId     unsafe.Pointer
 	GetLineNumber   unsafe.Pointer
 	GetColumnNumber unsafe.Pointer
 }
-type XmlSAXLocator X_XmlSAXLocator
-type XmlSAXLocatorPtr *XmlSAXLocator
+type SAXLocator X_xmlSAXLocator
+type SAXLocatorPtr *SAXLocator
 
-type X_XmlSAXHandler struct {
+type X_xmlSAXHandler struct {
 	InternalSubset        unsafe.Pointer
 	IsStandalone          unsafe.Pointer
 	HasInternalSubset     unsafe.Pointer
@@ -198,798 +198,1030 @@ type X_XmlSAXHandler struct {
 	CdataBlock            unsafe.Pointer
 	ExternalSubset        unsafe.Pointer
 	Initialized           c.Uint
-	X_Private             unsafe.Pointer
+	X_private             unsafe.Pointer
 	StartElementNs        unsafe.Pointer
 	EndElementNs          unsafe.Pointer
 	Serror                unsafe.Pointer
 }
-type XmlSAXHandler X_XmlSAXHandler
-type XmlSAXHandlerPtr *XmlSAXHandler
+type SAXHandler X_xmlSAXHandler
+type SAXHandlerPtr *SAXHandler
 
-type X_XmlEntity struct {
-	X_Private    unsafe.Pointer
-	Type         XmlElementType
-	Name         *XmlChar
-	Children     *X_XmlNode
-	Last         *X_XmlNode
-	Parent       *X_XmlDtd
-	Next         *X_XmlNode
-	Prev         *X_XmlNode
-	Doc          *X_XmlDoc
-	Orig         *XmlChar
-	Content      *XmlChar
+type X_xmlEntity struct {
+	X_private    unsafe.Pointer
+	Type         ElementType
+	Name         *Char
+	Children     *X_xmlNode
+	Last         *X_xmlNode
+	Parent       *X_xmlDtd
+	Next         *X_xmlNode
+	Prev         *X_xmlNode
+	Doc          *X_xmlDoc
+	Orig         *Char
+	Content      *Char
 	Length       c.Int
-	Etype        XmlEntityType
-	ExternalID   *XmlChar
-	SystemID     *XmlChar
-	Nexte        *X_XmlEntity
-	URI          *XmlChar
+	Etype        EntityType
+	ExternalID   *Char
+	SystemID     *Char
+	Nexte        *X_xmlEntity
+	URI          *Char
 	Owner        c.Int
 	Flags        c.Int
 	ExpandedSize c.Ulong
 }
-type XmlEntity X_XmlEntity
-type XmlEntityPtr *XmlEntity
-type XmlBufferAllocationScheme c.Int
+type Entity X_xmlEntity
+type EntityPtr *Entity
+type BufferAllocationScheme c.Int
 
 const (
-	XmlBufferAllocationSchemeXMLBUFFERALLOCDOUBLEIT  XmlBufferAllocationScheme = 0
-	XmlBufferAllocationSchemeXMLBUFFERALLOCEXACT     XmlBufferAllocationScheme = 1
-	XmlBufferAllocationSchemeXMLBUFFERALLOCIMMUTABLE XmlBufferAllocationScheme = 2
-	XmlBufferAllocationSchemeXMLBUFFERALLOCIO        XmlBufferAllocationScheme = 3
-	XmlBufferAllocationSchemeXMLBUFFERALLOCHYBRID    XmlBufferAllocationScheme = 4
-	XmlBufferAllocationSchemeXMLBUFFERALLOCBOUNDED   XmlBufferAllocationScheme = 5
+	BUFFERALLOCDOUBLEIT  BufferAllocationScheme = 0
+	BUFFERALLOCEXACT     BufferAllocationScheme = 1
+	BUFFERALLOCIMMUTABLE BufferAllocationScheme = 2
+	BUFFERALLOCIO        BufferAllocationScheme = 3
+	BUFFERALLOCHYBRID    BufferAllocationScheme = 4
+	BUFFERALLOCBOUNDED   BufferAllocationScheme = 5
 )
 
-type X_XmlBuffer struct {
-	Content   *XmlChar
+type X_xmlBuffer struct {
+	Content   *Char
 	Use       c.Uint
 	Size      c.Uint
-	Alloc     XmlBufferAllocationScheme
-	ContentIO *XmlChar
+	Alloc     BufferAllocationScheme
+	ContentIO *Char
 }
-type XmlBuffer X_XmlBuffer
-type XmlBufferPtr *XmlBuffer
+type Buffer X_xmlBuffer
+type BufferPtr *Buffer
 
-type X_XmlBuf struct {
+type X_xmlBuf struct {
 	Unused [8]uint8
 }
-type XmlBuf X_XmlBuf
-type XmlBufPtr *XmlBuf
-// llgo:link (*XmlBuf).XmlBufContent C.xmlBufContent
-func (recv_ *XmlBuf) XmlBufContent() *XmlChar {
+type Buf X_xmlBuf
+type BufPtr *Buf
+
+/*
+ * A few public routines for xmlBuf. As those are expected to be used
+ * mostly internally the bulk of the routines are internal in buf.h
+ */
+// llgo:link (*Buf).BufContent C.xmlBufContent
+func (recv_ *Buf) BufContent() *Char {
 	return nil
 }
-//go:linkname XmlBufEnd C.xmlBufEnd
-func XmlBufEnd(buf XmlBufPtr) *XmlChar
-//go:linkname XmlBufUse C.xmlBufUse
-func XmlBufUse(buf XmlBufPtr) uintptr
-//go:linkname XmlBufShrink C.xmlBufShrink
-func XmlBufShrink(buf XmlBufPtr, len uintptr) uintptr
 
-type XmlElementType c.Int
+//go:linkname BufEnd C.xmlBufEnd
+func BufEnd(buf BufPtr) *Char
 
-const (
-	XmlElementTypeXMLELEMENTNODE      XmlElementType = 1
-	XmlElementTypeXMLATTRIBUTENODE    XmlElementType = 2
-	XmlElementTypeXMLTEXTNODE         XmlElementType = 3
-	XmlElementTypeXMLCDATASECTIONNODE XmlElementType = 4
-	XmlElementTypeXMLENTITYREFNODE    XmlElementType = 5
-	XmlElementTypeXMLENTITYNODE       XmlElementType = 6
-	XmlElementTypeXMLPINODE           XmlElementType = 7
-	XmlElementTypeXMLCOMMENTNODE      XmlElementType = 8
-	XmlElementTypeXMLDOCUMENTNODE     XmlElementType = 9
-	XmlElementTypeXMLDOCUMENTTYPENODE XmlElementType = 10
-	XmlElementTypeXMLDOCUMENTFRAGNODE XmlElementType = 11
-	XmlElementTypeXMLNOTATIONNODE     XmlElementType = 12
-	XmlElementTypeXMLHTMLDOCUMENTNODE XmlElementType = 13
-	XmlElementTypeXMLDTDNODE          XmlElementType = 14
-	XmlElementTypeXMLELEMENTDECL      XmlElementType = 15
-	XmlElementTypeXMLATTRIBUTEDECL    XmlElementType = 16
-	XmlElementTypeXMLENTITYDECL       XmlElementType = 17
-	XmlElementTypeXMLNAMESPACEDECL    XmlElementType = 18
-	XmlElementTypeXMLXINCLUDESTART    XmlElementType = 19
-	XmlElementTypeXMLXINCLUDEEND      XmlElementType = 20
-)
+//go:linkname BufUse C.xmlBufUse
+func BufUse(buf BufPtr) uintptr
 
-type X_XmlNotation struct {
-	Name     *XmlChar
-	PublicID *XmlChar
-	SystemID *XmlChar
-}
-type XmlNotation X_XmlNotation
-type XmlNotationPtr *XmlNotation
-type XmlAttributeType c.Int
+//go:linkname BufShrink C.xmlBufShrink
+func BufShrink(buf BufPtr, len uintptr) uintptr
+
+type ElementType c.Int
 
 const (
-	XmlAttributeTypeXMLATTRIBUTECDATA       XmlAttributeType = 1
-	XmlAttributeTypeXMLATTRIBUTEID          XmlAttributeType = 2
-	XmlAttributeTypeXMLATTRIBUTEIDREF       XmlAttributeType = 3
-	XmlAttributeTypeXMLATTRIBUTEIDREFS      XmlAttributeType = 4
-	XmlAttributeTypeXMLATTRIBUTEENTITY      XmlAttributeType = 5
-	XmlAttributeTypeXMLATTRIBUTEENTITIES    XmlAttributeType = 6
-	XmlAttributeTypeXMLATTRIBUTENMTOKEN     XmlAttributeType = 7
-	XmlAttributeTypeXMLATTRIBUTENMTOKENS    XmlAttributeType = 8
-	XmlAttributeTypeXMLATTRIBUTEENUMERATION XmlAttributeType = 9
-	XmlAttributeTypeXMLATTRIBUTENOTATION    XmlAttributeType = 10
+	ELEMENTNODE      ElementType = 1
+	ATTRIBUTENODE    ElementType = 2
+	TEXTNODE         ElementType = 3
+	CDATASECTIONNODE ElementType = 4
+	ENTITYREFNODE    ElementType = 5
+	ENTITYNODE       ElementType = 6
+	PINODE           ElementType = 7
+	COMMENTNODE      ElementType = 8
+	DOCUMENTNODE     ElementType = 9
+	DOCUMENTTYPENODE ElementType = 10
+	DOCUMENTFRAGNODE ElementType = 11
+	NOTATIONNODE     ElementType = 12
+	HTMLDOCUMENTNODE ElementType = 13
+	DTDNODE          ElementType = 14
+	ELEMENTDECL      ElementType = 15
+	ATTRIBUTEDECL    ElementType = 16
+	ENTITYDECL       ElementType = 17
+	NAMESPACEDECL    ElementType = 18
+	XINCLUDESTART    ElementType = 19
+	XINCLUDEEND      ElementType = 20
 )
 
-type XmlAttributeDefault c.Int
+type X_xmlNotation struct {
+	Name     *Char
+	PublicID *Char
+	SystemID *Char
+}
+type Notation X_xmlNotation
+type NotationPtr *Notation
+type AttributeType c.Int
 
 const (
-	XmlAttributeDefaultXMLATTRIBUTENONE     XmlAttributeDefault = 1
-	XmlAttributeDefaultXMLATTRIBUTEREQUIRED XmlAttributeDefault = 2
-	XmlAttributeDefaultXMLATTRIBUTEIMPLIED  XmlAttributeDefault = 3
-	XmlAttributeDefaultXMLATTRIBUTEFIXED    XmlAttributeDefault = 4
+	ATTRIBUTECDATA       AttributeType = 1
+	ATTRIBUTEID          AttributeType = 2
+	ATTRIBUTEIDREF       AttributeType = 3
+	ATTRIBUTEIDREFS      AttributeType = 4
+	ATTRIBUTEENTITY      AttributeType = 5
+	ATTRIBUTEENTITIES    AttributeType = 6
+	ATTRIBUTENMTOKEN     AttributeType = 7
+	ATTRIBUTENMTOKENS    AttributeType = 8
+	ATTRIBUTEENUMERATION AttributeType = 9
+	ATTRIBUTENOTATION    AttributeType = 10
 )
 
-type X_XmlEnumeration struct {
-	Next *X_XmlEnumeration
-	Name *XmlChar
-}
-type XmlEnumeration X_XmlEnumeration
-type XmlEnumerationPtr *XmlEnumeration
+type AttributeDefault c.Int
 
-type X_XmlAttribute struct {
-	X_Private    unsafe.Pointer
-	Type         XmlElementType
-	Name         *XmlChar
-	Children     *X_XmlNode
-	Last         *X_XmlNode
-	Parent       *X_XmlDtd
-	Next         *X_XmlNode
-	Prev         *X_XmlNode
-	Doc          *X_XmlDoc
-	Nexth        *X_XmlAttribute
-	Atype        XmlAttributeType
-	Def          XmlAttributeDefault
-	DefaultValue *XmlChar
-	Tree         XmlEnumerationPtr
-	Prefix       *XmlChar
-	Elem         *XmlChar
-}
-type XmlAttribute X_XmlAttribute
-type XmlAttributePtr *XmlAttribute
+const (
+	ATTRIBUTENONE     AttributeDefault = 1
+	ATTRIBUTEREQUIRED AttributeDefault = 2
+	ATTRIBUTEIMPLIED  AttributeDefault = 3
+	ATTRIBUTEFIXED    AttributeDefault = 4
+)
 
-type X_XmlNode struct {
-	X_Private  unsafe.Pointer
-	Type       XmlElementType
-	Name       *XmlChar
-	Children   *X_XmlNode
-	Last       *X_XmlNode
-	Parent     *X_XmlNode
-	Next       *X_XmlNode
-	Prev       *X_XmlNode
-	Doc        *X_XmlDoc
-	Ns         *XmlNs
-	Content    *XmlChar
-	Properties *X_XmlAttr
-	NsDef      *XmlNs
+type X_xmlEnumeration struct {
+	Next *X_xmlEnumeration
+	Name *Char
+}
+type Enumeration X_xmlEnumeration
+type EnumerationPtr *Enumeration
+
+type X_xmlAttribute struct {
+	X_private    unsafe.Pointer
+	Type         ElementType
+	Name         *Char
+	Children     *X_xmlNode
+	Last         *X_xmlNode
+	Parent       *X_xmlDtd
+	Next         *X_xmlNode
+	Prev         *X_xmlNode
+	Doc          *X_xmlDoc
+	Nexth        *X_xmlAttribute
+	Atype        AttributeType
+	Def          AttributeDefault
+	DefaultValue *Char
+	Tree         EnumerationPtr
+	Prefix       *Char
+	Elem         *Char
+}
+type Attribute X_xmlAttribute
+type AttributePtr *Attribute
+
+type X_xmlNode struct {
+	X_private  unsafe.Pointer
+	Type       ElementType
+	Name       *Char
+	Children   *X_xmlNode
+	Last       *X_xmlNode
+	Parent     *X_xmlNode
+	Next       *X_xmlNode
+	Prev       *X_xmlNode
+	Doc        *X_xmlDoc
+	Ns         *Ns
+	Content    *Char
+	Properties *X_xmlAttr
+	NsDef      *Ns
 	Psvi       unsafe.Pointer
 	Line       uint16
 	Extra      uint16
 }
 
-type X_XmlDtd struct {
-	X_Private  unsafe.Pointer
-	Type       XmlElementType
-	Name       *XmlChar
-	Children   *X_XmlNode
-	Last       *X_XmlNode
-	Parent     *X_XmlDoc
-	Next       *X_XmlNode
-	Prev       *X_XmlNode
-	Doc        *X_XmlDoc
+type X_xmlDtd struct {
+	X_private  unsafe.Pointer
+	Type       ElementType
+	Name       *Char
+	Children   *X_xmlNode
+	Last       *X_xmlNode
+	Parent     *X_xmlDoc
+	Next       *X_xmlNode
+	Prev       *X_xmlNode
+	Doc        *X_xmlDoc
 	Notations  unsafe.Pointer
 	Elements   unsafe.Pointer
 	Attributes unsafe.Pointer
 	Entities   unsafe.Pointer
-	ExternalID *XmlChar
-	SystemID   *XmlChar
+	ExternalID *Char
+	SystemID   *Char
 	Pentities  unsafe.Pointer
 }
 
-type X_XmlDoc struct {
-	X_Private   unsafe.Pointer
-	Type        XmlElementType
+type X_xmlDoc struct {
+	X_private   unsafe.Pointer
+	Type        ElementType
 	Name        *int8
-	Children    *X_XmlNode
-	Last        *X_XmlNode
-	Parent      *X_XmlNode
-	Next        *X_XmlNode
-	Prev        *X_XmlNode
-	Doc         *X_XmlDoc
+	Children    *X_xmlNode
+	Last        *X_xmlNode
+	Parent      *X_xmlNode
+	Next        *X_xmlNode
+	Prev        *X_xmlNode
+	Doc         *X_xmlDoc
 	Compression c.Int
 	Standalone  c.Int
-	IntSubset   *X_XmlDtd
-	ExtSubset   *X_XmlDtd
-	OldNs       *X_XmlNs
-	Version     *XmlChar
-	Encoding    *XmlChar
+	IntSubset   *X_xmlDtd
+	ExtSubset   *X_xmlDtd
+	OldNs       *X_xmlNs
+	Version     *Char
+	Encoding    *Char
 	Ids         unsafe.Pointer
 	Refs        unsafe.Pointer
-	URL         *XmlChar
+	URL         *Char
 	Charset     c.Int
-	Dict        *X_XmlDict
+	Dict        *X_xmlDict
 	Psvi        unsafe.Pointer
 	ParseFlags  c.Int
 	Properties  c.Int
 }
-type XmlElementContentType c.Int
+type ElementContentType c.Int
 
 const (
-	XmlElementContentTypeXMLELEMENTCONTENTPCDATA  XmlElementContentType = 1
-	XmlElementContentTypeXMLELEMENTCONTENTELEMENT XmlElementContentType = 2
-	XmlElementContentTypeXMLELEMENTCONTENTSEQ     XmlElementContentType = 3
-	XmlElementContentTypeXMLELEMENTCONTENTOR      XmlElementContentType = 4
+	ELEMENTCONTENTPCDATA  ElementContentType = 1
+	ELEMENTCONTENTELEMENT ElementContentType = 2
+	ELEMENTCONTENTSEQ     ElementContentType = 3
+	ELEMENTCONTENTOR      ElementContentType = 4
 )
 
-type XmlElementContentOccur c.Int
+type ElementContentOccur c.Int
 
 const (
-	XmlElementContentOccurXMLELEMENTCONTENTONCE XmlElementContentOccur = 1
-	XmlElementContentOccurXMLELEMENTCONTENTOPT  XmlElementContentOccur = 2
-	XmlElementContentOccurXMLELEMENTCONTENTMULT XmlElementContentOccur = 3
-	XmlElementContentOccurXMLELEMENTCONTENTPLUS XmlElementContentOccur = 4
+	ELEMENTCONTENTONCE ElementContentOccur = 1
+	ELEMENTCONTENTOPT  ElementContentOccur = 2
+	ELEMENTCONTENTMULT ElementContentOccur = 3
+	ELEMENTCONTENTPLUS ElementContentOccur = 4
 )
 
-type X_XmlElementContent struct {
-	Type   XmlElementContentType
-	Ocur   XmlElementContentOccur
-	Name   *XmlChar
-	C1     *X_XmlElementContent
-	C2     *X_XmlElementContent
-	Parent *X_XmlElementContent
-	Prefix *XmlChar
+type X_xmlElementContent struct {
+	Type   ElementContentType
+	Ocur   ElementContentOccur
+	Name   *Char
+	C1     *X_xmlElementContent
+	C2     *X_xmlElementContent
+	Parent *X_xmlElementContent
+	Prefix *Char
 }
-type XmlElementContent X_XmlElementContent
-type XmlElementContentPtr *XmlElementContent
-type XmlElementTypeVal c.Int
+type ElementContent X_xmlElementContent
+type ElementContentPtr *ElementContent
+type ElementTypeVal c.Int
 
 const (
-	XmlElementTypeValXMLELEMENTTYPEUNDEFINED XmlElementTypeVal = 0
-	XmlElementTypeValXMLELEMENTTYPEEMPTY     XmlElementTypeVal = 1
-	XmlElementTypeValXMLELEMENTTYPEANY       XmlElementTypeVal = 2
-	XmlElementTypeValXMLELEMENTTYPEMIXED     XmlElementTypeVal = 3
-	XmlElementTypeValXMLELEMENTTYPEELEMENT   XmlElementTypeVal = 4
+	ELEMENTTYPEUNDEFINED ElementTypeVal = 0
+	ELEMENTTYPEEMPTY     ElementTypeVal = 1
+	ELEMENTTYPEANY       ElementTypeVal = 2
+	ELEMENTTYPEMIXED     ElementTypeVal = 3
+	ELEMENTTYPEELEMENT   ElementTypeVal = 4
 )
 
-type X_XmlElement struct {
-	X_Private  unsafe.Pointer
-	Type       XmlElementType
-	Name       *XmlChar
-	Children   *X_XmlNode
-	Last       *X_XmlNode
-	Parent     *X_XmlDtd
-	Next       *X_XmlNode
-	Prev       *X_XmlNode
-	Doc        *X_XmlDoc
-	Etype      XmlElementTypeVal
-	Content    XmlElementContentPtr
-	Attributes XmlAttributePtr
-	Prefix     *XmlChar
-	ContModel  XmlRegexpPtr
+type X_xmlElement struct {
+	X_private  unsafe.Pointer
+	Type       ElementType
+	Name       *Char
+	Children   *X_xmlNode
+	Last       *X_xmlNode
+	Parent     *X_xmlDtd
+	Next       *X_xmlNode
+	Prev       *X_xmlNode
+	Doc        *X_xmlDoc
+	Etype      ElementTypeVal
+	Content    ElementContentPtr
+	Attributes AttributePtr
+	Prefix     *Char
+	ContModel  RegexpPtr
 }
-type XmlElement X_XmlElement
-type XmlElementPtr *XmlElement
-type XmlNsType XmlElementType
+type Element X_xmlElement
+type ElementPtr *Element
+type NsType ElementType
 
-type X_XmlNs struct {
-	Next      *X_XmlNs
-	Type      XmlNsType
-	Href      *XmlChar
-	Prefix    *XmlChar
-	X_Private unsafe.Pointer
-	Context   *X_XmlDoc
+type X_xmlNs struct {
+	Next      *X_xmlNs
+	Type      NsType
+	Href      *Char
+	Prefix    *Char
+	X_private unsafe.Pointer
+	Context   *X_xmlDoc
 }
-type XmlNs X_XmlNs
-type XmlNsPtr *XmlNs
-type XmlDtd X_XmlDtd
-type XmlDtdPtr *XmlDtd
+type Ns X_xmlNs
+type NsPtr *Ns
+type Dtd X_xmlDtd
+type DtdPtr *Dtd
 
-type X_XmlAttr struct {
-	X_Private unsafe.Pointer
-	Type      XmlElementType
-	Name      *XmlChar
-	Children  *X_XmlNode
-	Last      *X_XmlNode
-	Parent    *X_XmlNode
-	Next      *X_XmlAttr
-	Prev      *X_XmlAttr
-	Doc       *X_XmlDoc
-	Ns        *XmlNs
-	Atype     XmlAttributeType
+type X_xmlAttr struct {
+	X_private unsafe.Pointer
+	Type      ElementType
+	Name      *Char
+	Children  *X_xmlNode
+	Last      *X_xmlNode
+	Parent    *X_xmlNode
+	Next      *X_xmlAttr
+	Prev      *X_xmlAttr
+	Doc       *X_xmlDoc
+	Ns        *Ns
+	Atype     AttributeType
 	Psvi      unsafe.Pointer
-	Id        *X_XmlID
+	Id        *X_xmlID
 }
-type XmlAttr X_XmlAttr
-type XmlAttrPtr *XmlAttr
+type Attr X_xmlAttr
+type AttrPtr *Attr
 
-type X_XmlID struct {
-	Next   *X_XmlID
-	Value  *XmlChar
-	Attr   XmlAttrPtr
-	Name   *XmlChar
+type X_xmlID struct {
+	Next   *X_xmlID
+	Value  *Char
+	Attr   AttrPtr
+	Name   *Char
 	Lineno c.Int
-	Doc    *X_XmlDoc
+	Doc    *X_xmlDoc
 }
-type XmlID X_XmlID
-type XmlIDPtr *XmlID
+type ID X_xmlID
+type IDPtr *ID
 
-type X_XmlRef struct {
-	Next   *X_XmlRef
-	Value  *XmlChar
-	Attr   XmlAttrPtr
-	Name   *XmlChar
+type X_xmlRef struct {
+	Next   *X_xmlRef
+	Value  *Char
+	Attr   AttrPtr
+	Name   *Char
 	Lineno c.Int
 }
-type XmlRef X_XmlRef
-type XmlRefPtr *XmlRef
-type XmlNode X_XmlNode
-type XmlNodePtr *XmlNode
-type XmlDocProperties c.Int
+type Ref X_xmlRef
+type RefPtr *Ref
+type Node X_xmlNode
+type NodePtr *Node
+type DocProperties c.Int
 
 const (
-	XmlDocPropertiesXMLDOCWELLFORMED XmlDocProperties = 1
-	XmlDocPropertiesXMLDOCNSVALID    XmlDocProperties = 2
-	XmlDocPropertiesXMLDOCOLD10      XmlDocProperties = 4
-	XmlDocPropertiesXMLDOCDTDVALID   XmlDocProperties = 8
-	XmlDocPropertiesXMLDOCXINCLUDE   XmlDocProperties = 16
-	XmlDocPropertiesXMLDOCUSERBUILT  XmlDocProperties = 32
-	XmlDocPropertiesXMLDOCINTERNAL   XmlDocProperties = 64
-	XmlDocPropertiesXMLDOCHTML       XmlDocProperties = 128
+	DOCWELLFORMED DocProperties = 1
+	DOCNSVALID    DocProperties = 2
+	DOCOLD10      DocProperties = 4
+	DOCDTDVALID   DocProperties = 8
+	DOCXINCLUDE   DocProperties = 16
+	DOCUSERBUILT  DocProperties = 32
+	DOCINTERNAL   DocProperties = 64
+	DOCHTML       DocProperties = 128
 )
 
-type XmlDoc X_XmlDoc
-type XmlDocPtr *XmlDoc
+type Doc X_xmlDoc
+type DocPtr *Doc
 
-type X_XmlDict struct {
+type X_xmlDict struct {
 	Unused [8]uint8
 }
 
-type X_XmlDOMWrapCtxt struct {
-	X_Private        unsafe.Pointer
+type X_xmlDOMWrapCtxt struct {
+	X_private        unsafe.Pointer
 	Type             c.Int
 	NamespaceMap     unsafe.Pointer
 	GetNsForNodeFunc unsafe.Pointer
 }
-type XmlDOMWrapCtxt X_XmlDOMWrapCtxt
-type XmlDOMWrapCtxtPtr *XmlDOMWrapCtxt
+type DOMWrapCtxt X_xmlDOMWrapCtxt
+type DOMWrapCtxtPtr *DOMWrapCtxt
+
 // llgo:type C
-type XmlDOMWrapAcquireNsFunction func(XmlDOMWrapCtxtPtr, XmlNodePtr, *XmlChar, *XmlChar) XmlNsPtr
+type DOMWrapAcquireNsFunction func(DOMWrapCtxtPtr, NodePtr, *Char, *Char) NsPtr
+
 // llgo:type C
-type XmlRegisterNodeFunc func(XmlNodePtr)
+type RegisterNodeFunc func(NodePtr)
+
 // llgo:type C
-type XmlDeregisterNodeFunc func(XmlNodePtr)
-//go:linkname X__XmlBufferAllocScheme C.__xmlBufferAllocScheme
-func X__XmlBufferAllocScheme() *XmlBufferAllocationScheme
-//go:linkname X__XmlDefaultBufferSize C.__xmlDefaultBufferSize
-func X__XmlDefaultBufferSize() *c.Int
-//go:linkname X__XmlRegisterNodeDefaultValue C.__xmlRegisterNodeDefaultValue
-func X__XmlRegisterNodeDefaultValue() XmlRegisterNodeFunc
-//go:linkname X__XmlDeregisterNodeDefaultValue C.__xmlDeregisterNodeDefaultValue
-func X__XmlDeregisterNodeDefaultValue() XmlDeregisterNodeFunc
-/** DOC_ENABLE */
-// llgo:link (*XmlChar).XmlValidateNCName C.xmlValidateNCName
-func (recv_ *XmlChar) XmlValidateNCName(space c.Int) c.Int {
+type DeregisterNodeFunc func(NodePtr)
+
+//go:linkname X__xmlBufferAllocScheme C.__xmlBufferAllocScheme
+func X__xmlBufferAllocScheme() *BufferAllocationScheme
+
+//go:linkname X__xmlDefaultBufferSize C.__xmlDefaultBufferSize
+func X__xmlDefaultBufferSize() *c.Int
+
+//go:linkname X__xmlRegisterNodeDefaultValue C.__xmlRegisterNodeDefaultValue
+func X__xmlRegisterNodeDefaultValue() RegisterNodeFunc
+
+//go:linkname X__xmlDeregisterNodeDefaultValue C.__xmlDeregisterNodeDefaultValue
+func X__xmlDeregisterNodeDefaultValue() DeregisterNodeFunc
+
+/*
+ * Some helper functions
+ */
+// llgo:link (*Char).ValidateNCName C.xmlValidateNCName
+func (recv_ *Char) ValidateNCName(space c.Int) c.Int {
 	return 0
 }
-// llgo:link (*XmlChar).XmlValidateQName C.xmlValidateQName
-func (recv_ *XmlChar) XmlValidateQName(space c.Int) c.Int {
+
+// llgo:link (*Char).ValidateQName C.xmlValidateQName
+func (recv_ *Char) ValidateQName(space c.Int) c.Int {
 	return 0
 }
-// llgo:link (*XmlChar).XmlValidateName C.xmlValidateName
-func (recv_ *XmlChar) XmlValidateName(space c.Int) c.Int {
+
+// llgo:link (*Char).ValidateName C.xmlValidateName
+func (recv_ *Char) ValidateName(space c.Int) c.Int {
 	return 0
 }
-// llgo:link (*XmlChar).XmlValidateNMToken C.xmlValidateNMToken
-func (recv_ *XmlChar) XmlValidateNMToken(space c.Int) c.Int {
+
+// llgo:link (*Char).ValidateNMToken C.xmlValidateNMToken
+func (recv_ *Char) ValidateNMToken(space c.Int) c.Int {
 	return 0
 }
-// llgo:link (*XmlChar).XmlBuildQName C.xmlBuildQName
-func (recv_ *XmlChar) XmlBuildQName(prefix *XmlChar, memory *XmlChar, len c.Int) *XmlChar {
+
+// llgo:link (*Char).BuildQName C.xmlBuildQName
+func (recv_ *Char) BuildQName(prefix *Char, memory *Char, len c.Int) *Char {
 	return nil
 }
-// llgo:link (*XmlChar).XmlSplitQName2 C.xmlSplitQName2
-func (recv_ *XmlChar) XmlSplitQName2(prefix **XmlChar) *XmlChar {
+
+// llgo:link (*Char).SplitQName2 C.xmlSplitQName2
+func (recv_ *Char) SplitQName2(prefix **Char) *Char {
 	return nil
 }
-// llgo:link (*XmlChar).XmlSplitQName3 C.xmlSplitQName3
-func (recv_ *XmlChar) XmlSplitQName3(len *c.Int) *XmlChar {
+
+// llgo:link (*Char).SplitQName3 C.xmlSplitQName3
+func (recv_ *Char) SplitQName3(len *c.Int) *Char {
 	return nil
 }
-// llgo:link XmlBufferAllocationScheme.XmlSetBufferAllocationScheme C.xmlSetBufferAllocationScheme
-func (recv_ XmlBufferAllocationScheme) XmlSetBufferAllocationScheme() {
+
+/*
+ * Handling Buffers, the old ones see @xmlBuf for the new ones.
+ */
+// llgo:link BufferAllocationScheme.SetBufferAllocationScheme C.xmlSetBufferAllocationScheme
+func (recv_ BufferAllocationScheme) SetBufferAllocationScheme() {
 }
-//go:linkname XmlGetBufferAllocationScheme C.xmlGetBufferAllocationScheme
-func XmlGetBufferAllocationScheme() XmlBufferAllocationScheme
-//go:linkname XmlBufferCreate C.xmlBufferCreate
-func XmlBufferCreate() XmlBufferPtr
-//go:linkname XmlBufferCreateSize C.xmlBufferCreateSize
-func XmlBufferCreateSize(size uintptr) XmlBufferPtr
-//go:linkname XmlBufferCreateStatic C.xmlBufferCreateStatic
-func XmlBufferCreateStatic(mem unsafe.Pointer, size uintptr) XmlBufferPtr
-//go:linkname XmlBufferResize C.xmlBufferResize
-func XmlBufferResize(buf XmlBufferPtr, size c.Uint) c.Int
-//go:linkname XmlBufferFree C.xmlBufferFree
-func XmlBufferFree(buf XmlBufferPtr)
-//go:linkname XmlBufferDump C.xmlBufferDump
-func XmlBufferDump(file *c.FILE, buf XmlBufferPtr) c.Int
-//go:linkname XmlBufferAdd C.xmlBufferAdd
-func XmlBufferAdd(buf XmlBufferPtr, str *XmlChar, len c.Int) c.Int
-//go:linkname XmlBufferAddHead C.xmlBufferAddHead
-func XmlBufferAddHead(buf XmlBufferPtr, str *XmlChar, len c.Int) c.Int
-//go:linkname XmlBufferCat C.xmlBufferCat
-func XmlBufferCat(buf XmlBufferPtr, str *XmlChar) c.Int
-//go:linkname XmlBufferCCat C.xmlBufferCCat
-func XmlBufferCCat(buf XmlBufferPtr, str *int8) c.Int
-//go:linkname XmlBufferShrink C.xmlBufferShrink
-func XmlBufferShrink(buf XmlBufferPtr, len c.Uint) c.Int
-//go:linkname XmlBufferGrow C.xmlBufferGrow
-func XmlBufferGrow(buf XmlBufferPtr, len c.Uint) c.Int
-//go:linkname XmlBufferEmpty C.xmlBufferEmpty
-func XmlBufferEmpty(buf XmlBufferPtr)
-// llgo:link (*XmlBuffer).XmlBufferContent C.xmlBufferContent
-func (recv_ *XmlBuffer) XmlBufferContent() *XmlChar {
+
+//go:linkname GetBufferAllocationScheme C.xmlGetBufferAllocationScheme
+func GetBufferAllocationScheme() BufferAllocationScheme
+
+//go:linkname BufferCreate C.xmlBufferCreate
+func BufferCreate() BufferPtr
+
+//go:linkname BufferCreateSize C.xmlBufferCreateSize
+func BufferCreateSize(size uintptr) BufferPtr
+
+//go:linkname BufferCreateStatic C.xmlBufferCreateStatic
+func BufferCreateStatic(mem unsafe.Pointer, size uintptr) BufferPtr
+
+//go:linkname BufferResize C.xmlBufferResize
+func BufferResize(buf BufferPtr, size c.Uint) c.Int
+
+//go:linkname BufferFree C.xmlBufferFree
+func BufferFree(buf BufferPtr)
+
+//go:linkname BufferDump C.xmlBufferDump
+func BufferDump(file *c.FILE, buf BufferPtr) c.Int
+
+//go:linkname BufferAdd C.xmlBufferAdd
+func BufferAdd(buf BufferPtr, str *Char, len c.Int) c.Int
+
+//go:linkname BufferAddHead C.xmlBufferAddHead
+func BufferAddHead(buf BufferPtr, str *Char, len c.Int) c.Int
+
+//go:linkname BufferCat C.xmlBufferCat
+func BufferCat(buf BufferPtr, str *Char) c.Int
+
+//go:linkname BufferCCat C.xmlBufferCCat
+func BufferCCat(buf BufferPtr, str *int8) c.Int
+
+//go:linkname BufferShrink C.xmlBufferShrink
+func BufferShrink(buf BufferPtr, len c.Uint) c.Int
+
+//go:linkname BufferGrow C.xmlBufferGrow
+func BufferGrow(buf BufferPtr, len c.Uint) c.Int
+
+//go:linkname BufferEmpty C.xmlBufferEmpty
+func BufferEmpty(buf BufferPtr)
+
+// llgo:link (*Buffer).BufferContent C.xmlBufferContent
+func (recv_ *Buffer) BufferContent() *Char {
 	return nil
 }
-//go:linkname XmlBufferDetach C.xmlBufferDetach
-func XmlBufferDetach(buf XmlBufferPtr) *XmlChar
-//go:linkname XmlBufferSetAllocationScheme C.xmlBufferSetAllocationScheme
-func XmlBufferSetAllocationScheme(buf XmlBufferPtr, scheme XmlBufferAllocationScheme)
-// llgo:link (*XmlBuffer).XmlBufferLength C.xmlBufferLength
-func (recv_ *XmlBuffer) XmlBufferLength() c.Int {
+
+//go:linkname BufferDetach C.xmlBufferDetach
+func BufferDetach(buf BufferPtr) *Char
+
+//go:linkname BufferSetAllocationScheme C.xmlBufferSetAllocationScheme
+func BufferSetAllocationScheme(buf BufferPtr, scheme BufferAllocationScheme)
+
+// llgo:link (*Buffer).BufferLength C.xmlBufferLength
+func (recv_ *Buffer) BufferLength() c.Int {
 	return 0
 }
-//go:linkname XmlCreateIntSubset C.xmlCreateIntSubset
-func XmlCreateIntSubset(doc XmlDocPtr, name *XmlChar, ExternalID *XmlChar, SystemID *XmlChar) XmlDtdPtr
-//go:linkname XmlNewDtd C.xmlNewDtd
-func XmlNewDtd(doc XmlDocPtr, name *XmlChar, ExternalID *XmlChar, SystemID *XmlChar) XmlDtdPtr
-// llgo:link (*XmlDoc).XmlGetIntSubset C.xmlGetIntSubset
-func (recv_ *XmlDoc) XmlGetIntSubset() XmlDtdPtr {
+
+/*
+ * Creating/freeing new structures.
+ */
+//go:linkname CreateIntSubset C.xmlCreateIntSubset
+func CreateIntSubset(doc DocPtr, name *Char, ExternalID *Char, SystemID *Char) DtdPtr
+
+//go:linkname NewDtd C.xmlNewDtd
+func NewDtd(doc DocPtr, name *Char, ExternalID *Char, SystemID *Char) DtdPtr
+
+// llgo:link (*Doc).GetIntSubset C.xmlGetIntSubset
+func (recv_ *Doc) GetIntSubset() DtdPtr {
 	return nil
 }
-//go:linkname XmlFreeDtd C.xmlFreeDtd
-func XmlFreeDtd(cur XmlDtdPtr)
-//go:linkname XmlNewGlobalNs C.xmlNewGlobalNs
-func XmlNewGlobalNs(doc XmlDocPtr, href *XmlChar, prefix *XmlChar) XmlNsPtr
-//go:linkname XmlNewNs C.xmlNewNs
-func XmlNewNs(node XmlNodePtr, href *XmlChar, prefix *XmlChar) XmlNsPtr
-//go:linkname XmlFreeNs C.xmlFreeNs
-func XmlFreeNs(cur XmlNsPtr)
-//go:linkname XmlFreeNsList C.xmlFreeNsList
-func XmlFreeNsList(cur XmlNsPtr)
-// llgo:link (*XmlChar).XmlNewDoc C.xmlNewDoc
-func (recv_ *XmlChar) XmlNewDoc() XmlDocPtr {
+
+//go:linkname FreeDtd C.xmlFreeDtd
+func FreeDtd(cur DtdPtr)
+
+//go:linkname NewGlobalNs C.xmlNewGlobalNs
+func NewGlobalNs(doc DocPtr, href *Char, prefix *Char) NsPtr
+
+//go:linkname NewNs C.xmlNewNs
+func NewNs(node NodePtr, href *Char, prefix *Char) NsPtr
+
+//go:linkname FreeNs C.xmlFreeNs
+func FreeNs(cur NsPtr)
+
+//go:linkname FreeNsList C.xmlFreeNsList
+func FreeNsList(cur NsPtr)
+
+// llgo:link (*Char).NewDoc C.xmlNewDoc
+func (recv_ *Char) NewDoc() DocPtr {
 	return nil
 }
-//go:linkname XmlFreeDoc C.xmlFreeDoc
-func XmlFreeDoc(cur XmlDocPtr)
-//go:linkname XmlNewDocProp C.xmlNewDocProp
-func XmlNewDocProp(doc XmlDocPtr, name *XmlChar, value *XmlChar) XmlAttrPtr
-//go:linkname XmlNewProp C.xmlNewProp
-func XmlNewProp(node XmlNodePtr, name *XmlChar, value *XmlChar) XmlAttrPtr
-//go:linkname XmlNewNsProp C.xmlNewNsProp
-func XmlNewNsProp(node XmlNodePtr, ns XmlNsPtr, name *XmlChar, value *XmlChar) XmlAttrPtr
-//go:linkname XmlNewNsPropEatName C.xmlNewNsPropEatName
-func XmlNewNsPropEatName(node XmlNodePtr, ns XmlNsPtr, name *XmlChar, value *XmlChar) XmlAttrPtr
-//go:linkname XmlFreePropList C.xmlFreePropList
-func XmlFreePropList(cur XmlAttrPtr)
-//go:linkname XmlFreeProp C.xmlFreeProp
-func XmlFreeProp(cur XmlAttrPtr)
-//go:linkname XmlCopyProp C.xmlCopyProp
-func XmlCopyProp(target XmlNodePtr, cur XmlAttrPtr) XmlAttrPtr
-//go:linkname XmlCopyPropList C.xmlCopyPropList
-func XmlCopyPropList(target XmlNodePtr, cur XmlAttrPtr) XmlAttrPtr
-//go:linkname XmlCopyDtd C.xmlCopyDtd
-func XmlCopyDtd(dtd XmlDtdPtr) XmlDtdPtr
-//go:linkname XmlCopyDoc C.xmlCopyDoc
-func XmlCopyDoc(doc XmlDocPtr, recursive c.Int) XmlDocPtr
-//go:linkname XmlNewDocNode C.xmlNewDocNode
-func XmlNewDocNode(doc XmlDocPtr, ns XmlNsPtr, name *XmlChar, content *XmlChar) XmlNodePtr
-//go:linkname XmlNewDocNodeEatName C.xmlNewDocNodeEatName
-func XmlNewDocNodeEatName(doc XmlDocPtr, ns XmlNsPtr, name *XmlChar, content *XmlChar) XmlNodePtr
-//go:linkname XmlNewNode C.xmlNewNode
-func XmlNewNode(ns XmlNsPtr, name *XmlChar) XmlNodePtr
-//go:linkname XmlNewNodeEatName C.xmlNewNodeEatName
-func XmlNewNodeEatName(ns XmlNsPtr, name *XmlChar) XmlNodePtr
-//go:linkname XmlNewChild C.xmlNewChild
-func XmlNewChild(parent XmlNodePtr, ns XmlNsPtr, name *XmlChar, content *XmlChar) XmlNodePtr
-// llgo:link (*XmlDoc).XmlNewDocText C.xmlNewDocText
-func (recv_ *XmlDoc) XmlNewDocText(content *XmlChar) XmlNodePtr {
+
+//go:linkname FreeDoc C.xmlFreeDoc
+func FreeDoc(cur DocPtr)
+
+//go:linkname NewDocProp C.xmlNewDocProp
+func NewDocProp(doc DocPtr, name *Char, value *Char) AttrPtr
+
+//go:linkname NewProp C.xmlNewProp
+func NewProp(node NodePtr, name *Char, value *Char) AttrPtr
+
+//go:linkname NewNsProp C.xmlNewNsProp
+func NewNsProp(node NodePtr, ns NsPtr, name *Char, value *Char) AttrPtr
+
+//go:linkname NewNsPropEatName C.xmlNewNsPropEatName
+func NewNsPropEatName(node NodePtr, ns NsPtr, name *Char, value *Char) AttrPtr
+
+//go:linkname FreePropList C.xmlFreePropList
+func FreePropList(cur AttrPtr)
+
+//go:linkname FreeProp C.xmlFreeProp
+func FreeProp(cur AttrPtr)
+
+//go:linkname CopyProp C.xmlCopyProp
+func CopyProp(target NodePtr, cur AttrPtr) AttrPtr
+
+//go:linkname CopyPropList C.xmlCopyPropList
+func CopyPropList(target NodePtr, cur AttrPtr) AttrPtr
+
+//go:linkname CopyDtd C.xmlCopyDtd
+func CopyDtd(dtd DtdPtr) DtdPtr
+
+//go:linkname CopyDoc C.xmlCopyDoc
+func CopyDoc(doc DocPtr, recursive c.Int) DocPtr
+
+/*
+ * Creating new nodes.
+ */
+//go:linkname NewDocNode C.xmlNewDocNode
+func NewDocNode(doc DocPtr, ns NsPtr, name *Char, content *Char) NodePtr
+
+//go:linkname NewDocNodeEatName C.xmlNewDocNodeEatName
+func NewDocNodeEatName(doc DocPtr, ns NsPtr, name *Char, content *Char) NodePtr
+
+//go:linkname NewNode C.xmlNewNode
+func NewNode(ns NsPtr, name *Char) NodePtr
+
+//go:linkname NewNodeEatName C.xmlNewNodeEatName
+func NewNodeEatName(ns NsPtr, name *Char) NodePtr
+
+//go:linkname NewChild C.xmlNewChild
+func NewChild(parent NodePtr, ns NsPtr, name *Char, content *Char) NodePtr
+
+// llgo:link (*Doc).NewDocText C.xmlNewDocText
+func (recv_ *Doc) NewDocText(content *Char) NodePtr {
 	return nil
 }
-// llgo:link (*XmlChar).XmlNewText C.xmlNewText
-func (recv_ *XmlChar) XmlNewText() XmlNodePtr {
+
+// llgo:link (*Char).NewText C.xmlNewText
+func (recv_ *Char) NewText() NodePtr {
 	return nil
 }
-//go:linkname XmlNewDocPI C.xmlNewDocPI
-func XmlNewDocPI(doc XmlDocPtr, name *XmlChar, content *XmlChar) XmlNodePtr
-// llgo:link (*XmlChar).XmlNewPI C.xmlNewPI
-func (recv_ *XmlChar) XmlNewPI(content *XmlChar) XmlNodePtr {
+
+//go:linkname NewDocPI C.xmlNewDocPI
+func NewDocPI(doc DocPtr, name *Char, content *Char) NodePtr
+
+// llgo:link (*Char).NewPI C.xmlNewPI
+func (recv_ *Char) NewPI(content *Char) NodePtr {
 	return nil
 }
-//go:linkname XmlNewDocTextLen C.xmlNewDocTextLen
-func XmlNewDocTextLen(doc XmlDocPtr, content *XmlChar, len c.Int) XmlNodePtr
-// llgo:link (*XmlChar).XmlNewTextLen C.xmlNewTextLen
-func (recv_ *XmlChar) XmlNewTextLen(len c.Int) XmlNodePtr {
+
+//go:linkname NewDocTextLen C.xmlNewDocTextLen
+func NewDocTextLen(doc DocPtr, content *Char, len c.Int) NodePtr
+
+// llgo:link (*Char).NewTextLen C.xmlNewTextLen
+func (recv_ *Char) NewTextLen(len c.Int) NodePtr {
 	return nil
 }
-//go:linkname XmlNewDocComment C.xmlNewDocComment
-func XmlNewDocComment(doc XmlDocPtr, content *XmlChar) XmlNodePtr
-// llgo:link (*XmlChar).XmlNewComment C.xmlNewComment
-func (recv_ *XmlChar) XmlNewComment() XmlNodePtr {
+
+//go:linkname NewDocComment C.xmlNewDocComment
+func NewDocComment(doc DocPtr, content *Char) NodePtr
+
+// llgo:link (*Char).NewComment C.xmlNewComment
+func (recv_ *Char) NewComment() NodePtr {
 	return nil
 }
-//go:linkname XmlNewCDataBlock C.xmlNewCDataBlock
-func XmlNewCDataBlock(doc XmlDocPtr, content *XmlChar, len c.Int) XmlNodePtr
-//go:linkname XmlNewCharRef C.xmlNewCharRef
-func XmlNewCharRef(doc XmlDocPtr, name *XmlChar) XmlNodePtr
-// llgo:link (*XmlDoc).XmlNewReference C.xmlNewReference
-func (recv_ *XmlDoc) XmlNewReference(name *XmlChar) XmlNodePtr {
+
+//go:linkname NewCDataBlock C.xmlNewCDataBlock
+func NewCDataBlock(doc DocPtr, content *Char, len c.Int) NodePtr
+
+//go:linkname NewCharRef C.xmlNewCharRef
+func NewCharRef(doc DocPtr, name *Char) NodePtr
+
+// llgo:link (*Doc).NewReference C.xmlNewReference
+func (recv_ *Doc) NewReference(name *Char) NodePtr {
 	return nil
 }
-//go:linkname XmlCopyNode C.xmlCopyNode
-func XmlCopyNode(node XmlNodePtr, recursive c.Int) XmlNodePtr
-//go:linkname XmlDocCopyNode C.xmlDocCopyNode
-func XmlDocCopyNode(node XmlNodePtr, doc XmlDocPtr, recursive c.Int) XmlNodePtr
-//go:linkname XmlDocCopyNodeList C.xmlDocCopyNodeList
-func XmlDocCopyNodeList(doc XmlDocPtr, node XmlNodePtr) XmlNodePtr
-//go:linkname XmlCopyNodeList C.xmlCopyNodeList
-func XmlCopyNodeList(node XmlNodePtr) XmlNodePtr
-//go:linkname XmlNewTextChild C.xmlNewTextChild
-func XmlNewTextChild(parent XmlNodePtr, ns XmlNsPtr, name *XmlChar, content *XmlChar) XmlNodePtr
-//go:linkname XmlNewDocRawNode C.xmlNewDocRawNode
-func XmlNewDocRawNode(doc XmlDocPtr, ns XmlNsPtr, name *XmlChar, content *XmlChar) XmlNodePtr
-//go:linkname XmlNewDocFragment C.xmlNewDocFragment
-func XmlNewDocFragment(doc XmlDocPtr) XmlNodePtr
-// llgo:link (*XmlNode).XmlGetLineNo C.xmlGetLineNo
-func (recv_ *XmlNode) XmlGetLineNo() c.Long {
+
+//go:linkname CopyNode C.xmlCopyNode
+func CopyNode(node NodePtr, recursive c.Int) NodePtr
+
+//go:linkname DocCopyNode C.xmlDocCopyNode
+func DocCopyNode(node NodePtr, doc DocPtr, recursive c.Int) NodePtr
+
+//go:linkname DocCopyNodeList C.xmlDocCopyNodeList
+func DocCopyNodeList(doc DocPtr, node NodePtr) NodePtr
+
+//go:linkname CopyNodeList C.xmlCopyNodeList
+func CopyNodeList(node NodePtr) NodePtr
+
+//go:linkname NewTextChild C.xmlNewTextChild
+func NewTextChild(parent NodePtr, ns NsPtr, name *Char, content *Char) NodePtr
+
+//go:linkname NewDocRawNode C.xmlNewDocRawNode
+func NewDocRawNode(doc DocPtr, ns NsPtr, name *Char, content *Char) NodePtr
+
+//go:linkname NewDocFragment C.xmlNewDocFragment
+func NewDocFragment(doc DocPtr) NodePtr
+
+/*
+ * Navigating.
+ */
+// llgo:link (*Node).GetLineNo C.xmlGetLineNo
+func (recv_ *Node) GetLineNo() c.Long {
 	return 0
 }
-// llgo:link (*XmlNode).XmlGetNodePath C.xmlGetNodePath
-func (recv_ *XmlNode) XmlGetNodePath() *XmlChar {
+
+// llgo:link (*Node).GetNodePath C.xmlGetNodePath
+func (recv_ *Node) GetNodePath() *Char {
 	return nil
 }
-// llgo:link (*XmlDoc).XmlDocGetRootElement C.xmlDocGetRootElement
-func (recv_ *XmlDoc) XmlDocGetRootElement() XmlNodePtr {
+
+// llgo:link (*Doc).DocGetRootElement C.xmlDocGetRootElement
+func (recv_ *Doc) DocGetRootElement() NodePtr {
 	return nil
 }
-// llgo:link (*XmlNode).XmlGetLastChild C.xmlGetLastChild
-func (recv_ *XmlNode) XmlGetLastChild() XmlNodePtr {
+
+// llgo:link (*Node).GetLastChild C.xmlGetLastChild
+func (recv_ *Node) GetLastChild() NodePtr {
 	return nil
 }
-// llgo:link (*XmlNode).XmlNodeIsText C.xmlNodeIsText
-func (recv_ *XmlNode) XmlNodeIsText() c.Int {
+
+// llgo:link (*Node).NodeIsText C.xmlNodeIsText
+func (recv_ *Node) NodeIsText() c.Int {
 	return 0
 }
-// llgo:link (*XmlNode).XmlIsBlankNode C.xmlIsBlankNode
-func (recv_ *XmlNode) XmlIsBlankNode() c.Int {
+
+// llgo:link (*Node).IsBlankNode C.xmlIsBlankNode
+func (recv_ *Node) IsBlankNode() c.Int {
 	return 0
 }
-//go:linkname XmlDocSetRootElement C.xmlDocSetRootElement
-func XmlDocSetRootElement(doc XmlDocPtr, root XmlNodePtr) XmlNodePtr
-//go:linkname XmlNodeSetName C.xmlNodeSetName
-func XmlNodeSetName(cur XmlNodePtr, name *XmlChar)
-//go:linkname XmlAddChild C.xmlAddChild
-func XmlAddChild(parent XmlNodePtr, cur XmlNodePtr) XmlNodePtr
-//go:linkname XmlAddChildList C.xmlAddChildList
-func XmlAddChildList(parent XmlNodePtr, cur XmlNodePtr) XmlNodePtr
-//go:linkname XmlReplaceNode C.xmlReplaceNode
-func XmlReplaceNode(old XmlNodePtr, cur XmlNodePtr) XmlNodePtr
-//go:linkname XmlAddPrevSibling C.xmlAddPrevSibling
-func XmlAddPrevSibling(cur XmlNodePtr, elem XmlNodePtr) XmlNodePtr
-//go:linkname XmlAddSibling C.xmlAddSibling
-func XmlAddSibling(cur XmlNodePtr, elem XmlNodePtr) XmlNodePtr
-//go:linkname XmlAddNextSibling C.xmlAddNextSibling
-func XmlAddNextSibling(cur XmlNodePtr, elem XmlNodePtr) XmlNodePtr
-//go:linkname XmlUnlinkNode C.xmlUnlinkNode
-func XmlUnlinkNode(cur XmlNodePtr)
-//go:linkname XmlTextMerge C.xmlTextMerge
-func XmlTextMerge(first XmlNodePtr, second XmlNodePtr) XmlNodePtr
-//go:linkname XmlTextConcat C.xmlTextConcat
-func XmlTextConcat(node XmlNodePtr, content *XmlChar, len c.Int) c.Int
-//go:linkname XmlFreeNodeList C.xmlFreeNodeList
-func XmlFreeNodeList(cur XmlNodePtr)
-//go:linkname XmlFreeNode C.xmlFreeNode
-func XmlFreeNode(cur XmlNodePtr)
-//go:linkname XmlSetTreeDoc C.xmlSetTreeDoc
-func XmlSetTreeDoc(tree XmlNodePtr, doc XmlDocPtr) c.Int
-//go:linkname XmlSetListDoc C.xmlSetListDoc
-func XmlSetListDoc(list XmlNodePtr, doc XmlDocPtr) c.Int
-//go:linkname XmlSearchNs C.xmlSearchNs
-func XmlSearchNs(doc XmlDocPtr, node XmlNodePtr, nameSpace *XmlChar) XmlNsPtr
-//go:linkname XmlSearchNsByHref C.xmlSearchNsByHref
-func XmlSearchNsByHref(doc XmlDocPtr, node XmlNodePtr, href *XmlChar) XmlNsPtr
-// llgo:link (*XmlDoc).XmlGetNsListSafe C.xmlGetNsListSafe
-func (recv_ *XmlDoc) XmlGetNsListSafe(node *XmlNode, out **XmlNsPtr) c.Int {
+
+/*
+ * Changing the structure.
+ */
+//go:linkname DocSetRootElement C.xmlDocSetRootElement
+func DocSetRootElement(doc DocPtr, root NodePtr) NodePtr
+
+//go:linkname NodeSetName C.xmlNodeSetName
+func NodeSetName(cur NodePtr, name *Char)
+
+//go:linkname AddChild C.xmlAddChild
+func AddChild(parent NodePtr, cur NodePtr) NodePtr
+
+//go:linkname AddChildList C.xmlAddChildList
+func AddChildList(parent NodePtr, cur NodePtr) NodePtr
+
+//go:linkname ReplaceNode C.xmlReplaceNode
+func ReplaceNode(old NodePtr, cur NodePtr) NodePtr
+
+//go:linkname AddPrevSibling C.xmlAddPrevSibling
+func AddPrevSibling(cur NodePtr, elem NodePtr) NodePtr
+
+//go:linkname AddSibling C.xmlAddSibling
+func AddSibling(cur NodePtr, elem NodePtr) NodePtr
+
+//go:linkname AddNextSibling C.xmlAddNextSibling
+func AddNextSibling(cur NodePtr, elem NodePtr) NodePtr
+
+//go:linkname UnlinkNode C.xmlUnlinkNode
+func UnlinkNode(cur NodePtr)
+
+//go:linkname TextMerge C.xmlTextMerge
+func TextMerge(first NodePtr, second NodePtr) NodePtr
+
+//go:linkname TextConcat C.xmlTextConcat
+func TextConcat(node NodePtr, content *Char, len c.Int) c.Int
+
+//go:linkname FreeNodeList C.xmlFreeNodeList
+func FreeNodeList(cur NodePtr)
+
+//go:linkname FreeNode C.xmlFreeNode
+func FreeNode(cur NodePtr)
+
+//go:linkname SetTreeDoc C.xmlSetTreeDoc
+func SetTreeDoc(tree NodePtr, doc DocPtr) c.Int
+
+//go:linkname SetListDoc C.xmlSetListDoc
+func SetListDoc(list NodePtr, doc DocPtr) c.Int
+
+/*
+ * Namespaces.
+ */
+//go:linkname SearchNs C.xmlSearchNs
+func SearchNs(doc DocPtr, node NodePtr, nameSpace *Char) NsPtr
+
+//go:linkname SearchNsByHref C.xmlSearchNsByHref
+func SearchNsByHref(doc DocPtr, node NodePtr, href *Char) NsPtr
+
+// llgo:link (*Doc).GetNsListSafe C.xmlGetNsListSafe
+func (recv_ *Doc) GetNsListSafe(node *Node, out **NsPtr) c.Int {
 	return 0
 }
-// llgo:link (*XmlDoc).XmlGetNsList C.xmlGetNsList
-func (recv_ *XmlDoc) XmlGetNsList(node *XmlNode) *XmlNsPtr {
+
+// llgo:link (*Doc).GetNsList C.xmlGetNsList
+func (recv_ *Doc) GetNsList(node *Node) *NsPtr {
 	return nil
 }
-//go:linkname XmlSetNs C.xmlSetNs
-func XmlSetNs(node XmlNodePtr, ns XmlNsPtr)
-//go:linkname XmlCopyNamespace C.xmlCopyNamespace
-func XmlCopyNamespace(cur XmlNsPtr) XmlNsPtr
-//go:linkname XmlCopyNamespaceList C.xmlCopyNamespaceList
-func XmlCopyNamespaceList(cur XmlNsPtr) XmlNsPtr
-//go:linkname XmlSetProp C.xmlSetProp
-func XmlSetProp(node XmlNodePtr, name *XmlChar, value *XmlChar) XmlAttrPtr
-//go:linkname XmlSetNsProp C.xmlSetNsProp
-func XmlSetNsProp(node XmlNodePtr, ns XmlNsPtr, name *XmlChar, value *XmlChar) XmlAttrPtr
-// llgo:link (*XmlNode).XmlNodeGetAttrValue C.xmlNodeGetAttrValue
-func (recv_ *XmlNode) XmlNodeGetAttrValue(name *XmlChar, nsUri *XmlChar, out **XmlChar) c.Int {
+
+//go:linkname SetNs C.xmlSetNs
+func SetNs(node NodePtr, ns NsPtr)
+
+//go:linkname CopyNamespace C.xmlCopyNamespace
+func CopyNamespace(cur NsPtr) NsPtr
+
+//go:linkname CopyNamespaceList C.xmlCopyNamespaceList
+func CopyNamespaceList(cur NsPtr) NsPtr
+
+/*
+ * Changing the content.
+ */
+//go:linkname SetProp C.xmlSetProp
+func SetProp(node NodePtr, name *Char, value *Char) AttrPtr
+
+//go:linkname SetNsProp C.xmlSetNsProp
+func SetNsProp(node NodePtr, ns NsPtr, name *Char, value *Char) AttrPtr
+
+// llgo:link (*Node).NodeGetAttrValue C.xmlNodeGetAttrValue
+func (recv_ *Node) NodeGetAttrValue(name *Char, nsUri *Char, out **Char) c.Int {
 	return 0
 }
-// llgo:link (*XmlNode).XmlGetNoNsProp C.xmlGetNoNsProp
-func (recv_ *XmlNode) XmlGetNoNsProp(name *XmlChar) *XmlChar {
+
+// llgo:link (*Node).GetNoNsProp C.xmlGetNoNsProp
+func (recv_ *Node) GetNoNsProp(name *Char) *Char {
 	return nil
 }
-// llgo:link (*XmlNode).XmlGetProp C.xmlGetProp
-func (recv_ *XmlNode) XmlGetProp(name *XmlChar) *XmlChar {
+
+// llgo:link (*Node).GetProp C.xmlGetProp
+func (recv_ *Node) GetProp(name *Char) *Char {
 	return nil
 }
-// llgo:link (*XmlNode).XmlHasProp C.xmlHasProp
-func (recv_ *XmlNode) XmlHasProp(name *XmlChar) XmlAttrPtr {
+
+// llgo:link (*Node).HasProp C.xmlHasProp
+func (recv_ *Node) HasProp(name *Char) AttrPtr {
 	return nil
 }
-// llgo:link (*XmlNode).XmlHasNsProp C.xmlHasNsProp
-func (recv_ *XmlNode) XmlHasNsProp(name *XmlChar, nameSpace *XmlChar) XmlAttrPtr {
+
+// llgo:link (*Node).HasNsProp C.xmlHasNsProp
+func (recv_ *Node) HasNsProp(name *Char, nameSpace *Char) AttrPtr {
 	return nil
 }
-// llgo:link (*XmlNode).XmlGetNsProp C.xmlGetNsProp
-func (recv_ *XmlNode) XmlGetNsProp(name *XmlChar, nameSpace *XmlChar) *XmlChar {
+
+// llgo:link (*Node).GetNsProp C.xmlGetNsProp
+func (recv_ *Node) GetNsProp(name *Char, nameSpace *Char) *Char {
 	return nil
 }
-// llgo:link (*XmlDoc).XmlStringGetNodeList C.xmlStringGetNodeList
-func (recv_ *XmlDoc) XmlStringGetNodeList(value *XmlChar) XmlNodePtr {
+
+// llgo:link (*Doc).StringGetNodeList C.xmlStringGetNodeList
+func (recv_ *Doc) StringGetNodeList(value *Char) NodePtr {
 	return nil
 }
-// llgo:link (*XmlDoc).XmlStringLenGetNodeList C.xmlStringLenGetNodeList
-func (recv_ *XmlDoc) XmlStringLenGetNodeList(value *XmlChar, len c.Int) XmlNodePtr {
+
+// llgo:link (*Doc).StringLenGetNodeList C.xmlStringLenGetNodeList
+func (recv_ *Doc) StringLenGetNodeList(value *Char, len c.Int) NodePtr {
 	return nil
 }
-//go:linkname XmlNodeListGetString C.xmlNodeListGetString
-func XmlNodeListGetString(doc XmlDocPtr, list *XmlNode, inLine c.Int) *XmlChar
-// llgo:link (*XmlDoc).XmlNodeListGetRawString C.xmlNodeListGetRawString
-func (recv_ *XmlDoc) XmlNodeListGetRawString(list *XmlNode, inLine c.Int) *XmlChar {
+
+//go:linkname NodeListGetString C.xmlNodeListGetString
+func NodeListGetString(doc DocPtr, list *Node, inLine c.Int) *Char
+
+// llgo:link (*Doc).NodeListGetRawString C.xmlNodeListGetRawString
+func (recv_ *Doc) NodeListGetRawString(list *Node, inLine c.Int) *Char {
 	return nil
 }
-//go:linkname XmlNodeSetContent C.xmlNodeSetContent
-func XmlNodeSetContent(cur XmlNodePtr, content *XmlChar) c.Int
-//go:linkname XmlNodeSetContentLen C.xmlNodeSetContentLen
-func XmlNodeSetContentLen(cur XmlNodePtr, content *XmlChar, len c.Int) c.Int
-//go:linkname XmlNodeAddContent C.xmlNodeAddContent
-func XmlNodeAddContent(cur XmlNodePtr, content *XmlChar) c.Int
-//go:linkname XmlNodeAddContentLen C.xmlNodeAddContentLen
-func XmlNodeAddContentLen(cur XmlNodePtr, content *XmlChar, len c.Int) c.Int
-// llgo:link (*XmlNode).XmlNodeGetContent C.xmlNodeGetContent
-func (recv_ *XmlNode) XmlNodeGetContent() *XmlChar {
+
+//go:linkname NodeSetContent C.xmlNodeSetContent
+func NodeSetContent(cur NodePtr, content *Char) c.Int
+
+//go:linkname NodeSetContentLen C.xmlNodeSetContentLen
+func NodeSetContentLen(cur NodePtr, content *Char, len c.Int) c.Int
+
+//go:linkname NodeAddContent C.xmlNodeAddContent
+func NodeAddContent(cur NodePtr, content *Char) c.Int
+
+//go:linkname NodeAddContentLen C.xmlNodeAddContentLen
+func NodeAddContentLen(cur NodePtr, content *Char, len c.Int) c.Int
+
+// llgo:link (*Node).NodeGetContent C.xmlNodeGetContent
+func (recv_ *Node) NodeGetContent() *Char {
 	return nil
 }
-//go:linkname XmlNodeBufGetContent C.xmlNodeBufGetContent
-func XmlNodeBufGetContent(buffer XmlBufferPtr, cur *XmlNode) c.Int
-//go:linkname XmlBufGetNodeContent C.xmlBufGetNodeContent
-func XmlBufGetNodeContent(buf XmlBufPtr, cur *XmlNode) c.Int
-// llgo:link (*XmlNode).XmlNodeGetLang C.xmlNodeGetLang
-func (recv_ *XmlNode) XmlNodeGetLang() *XmlChar {
+
+//go:linkname NodeBufGetContent C.xmlNodeBufGetContent
+func NodeBufGetContent(buffer BufferPtr, cur *Node) c.Int
+
+//go:linkname BufGetNodeContent C.xmlBufGetNodeContent
+func BufGetNodeContent(buf BufPtr, cur *Node) c.Int
+
+// llgo:link (*Node).NodeGetLang C.xmlNodeGetLang
+func (recv_ *Node) NodeGetLang() *Char {
 	return nil
 }
-// llgo:link (*XmlNode).XmlNodeGetSpacePreserve C.xmlNodeGetSpacePreserve
-func (recv_ *XmlNode) XmlNodeGetSpacePreserve() c.Int {
+
+// llgo:link (*Node).NodeGetSpacePreserve C.xmlNodeGetSpacePreserve
+func (recv_ *Node) NodeGetSpacePreserve() c.Int {
 	return 0
 }
-//go:linkname XmlNodeSetLang C.xmlNodeSetLang
-func XmlNodeSetLang(cur XmlNodePtr, lang *XmlChar) c.Int
-//go:linkname XmlNodeSetSpacePreserve C.xmlNodeSetSpacePreserve
-func XmlNodeSetSpacePreserve(cur XmlNodePtr, val c.Int) c.Int
-// llgo:link (*XmlDoc).XmlNodeGetBaseSafe C.xmlNodeGetBaseSafe
-func (recv_ *XmlDoc) XmlNodeGetBaseSafe(cur *XmlNode, baseOut **XmlChar) c.Int {
+
+//go:linkname NodeSetLang C.xmlNodeSetLang
+func NodeSetLang(cur NodePtr, lang *Char) c.Int
+
+//go:linkname NodeSetSpacePreserve C.xmlNodeSetSpacePreserve
+func NodeSetSpacePreserve(cur NodePtr, val c.Int) c.Int
+
+// llgo:link (*Doc).NodeGetBaseSafe C.xmlNodeGetBaseSafe
+func (recv_ *Doc) NodeGetBaseSafe(cur *Node, baseOut **Char) c.Int {
 	return 0
 }
-// llgo:link (*XmlDoc).XmlNodeGetBase C.xmlNodeGetBase
-func (recv_ *XmlDoc) XmlNodeGetBase(cur *XmlNode) *XmlChar {
+
+// llgo:link (*Doc).NodeGetBase C.xmlNodeGetBase
+func (recv_ *Doc) NodeGetBase(cur *Node) *Char {
 	return nil
 }
-//go:linkname XmlNodeSetBase C.xmlNodeSetBase
-func XmlNodeSetBase(cur XmlNodePtr, uri *XmlChar) c.Int
-//go:linkname XmlRemoveProp C.xmlRemoveProp
-func XmlRemoveProp(cur XmlAttrPtr) c.Int
-//go:linkname XmlUnsetNsProp C.xmlUnsetNsProp
-func XmlUnsetNsProp(node XmlNodePtr, ns XmlNsPtr, name *XmlChar) c.Int
-//go:linkname XmlUnsetProp C.xmlUnsetProp
-func XmlUnsetProp(node XmlNodePtr, name *XmlChar) c.Int
-//go:linkname XmlBufferWriteCHAR C.xmlBufferWriteCHAR
-func XmlBufferWriteCHAR(buf XmlBufferPtr, string *XmlChar)
-//go:linkname XmlBufferWriteChar C.xmlBufferWriteChar
-func XmlBufferWriteChar(buf XmlBufferPtr, string *int8)
-//go:linkname XmlBufferWriteQuotedString C.xmlBufferWriteQuotedString
-func XmlBufferWriteQuotedString(buf XmlBufferPtr, string *XmlChar)
-//go:linkname XmlAttrSerializeTxtContent C.xmlAttrSerializeTxtContent
-func XmlAttrSerializeTxtContent(buf XmlBufferPtr, doc XmlDocPtr, attr XmlAttrPtr, string *XmlChar)
-//go:linkname XmlReconciliateNs C.xmlReconciliateNs
-func XmlReconciliateNs(doc XmlDocPtr, tree XmlNodePtr) c.Int
-//go:linkname XmlDocDumpFormatMemory C.xmlDocDumpFormatMemory
-func XmlDocDumpFormatMemory(cur XmlDocPtr, mem **XmlChar, size *c.Int, format c.Int)
-//go:linkname XmlDocDumpMemory C.xmlDocDumpMemory
-func XmlDocDumpMemory(cur XmlDocPtr, mem **XmlChar, size *c.Int)
-//go:linkname XmlDocDumpMemoryEnc C.xmlDocDumpMemoryEnc
-func XmlDocDumpMemoryEnc(out_doc XmlDocPtr, doc_txt_ptr **XmlChar, doc_txt_len *c.Int, txt_encoding *int8)
-//go:linkname XmlDocDumpFormatMemoryEnc C.xmlDocDumpFormatMemoryEnc
-func XmlDocDumpFormatMemoryEnc(out_doc XmlDocPtr, doc_txt_ptr **XmlChar, doc_txt_len *c.Int, txt_encoding *int8, format c.Int)
-//go:linkname XmlDocFormatDump C.xmlDocFormatDump
-func XmlDocFormatDump(f *c.FILE, cur XmlDocPtr, format c.Int) c.Int
-//go:linkname XmlDocDump C.xmlDocDump
-func XmlDocDump(f *c.FILE, cur XmlDocPtr) c.Int
-//go:linkname XmlElemDump C.xmlElemDump
-func XmlElemDump(f *c.FILE, doc XmlDocPtr, cur XmlNodePtr)
-//go:linkname XmlSaveFile C.xmlSaveFile
-func XmlSaveFile(filename *int8, cur XmlDocPtr) c.Int
-//go:linkname XmlSaveFormatFile C.xmlSaveFormatFile
-func XmlSaveFormatFile(filename *int8, cur XmlDocPtr, format c.Int) c.Int
-//go:linkname XmlBufNodeDump C.xmlBufNodeDump
-func XmlBufNodeDump(buf XmlBufPtr, doc XmlDocPtr, cur XmlNodePtr, level c.Int, format c.Int) uintptr
-//go:linkname XmlNodeDump C.xmlNodeDump
-func XmlNodeDump(buf XmlBufferPtr, doc XmlDocPtr, cur XmlNodePtr, level c.Int, format c.Int) c.Int
-//go:linkname XmlSaveFileTo C.xmlSaveFileTo
-func XmlSaveFileTo(buf XmlOutputBufferPtr, cur XmlDocPtr, encoding *int8) c.Int
-//go:linkname XmlSaveFormatFileTo C.xmlSaveFormatFileTo
-func XmlSaveFormatFileTo(buf XmlOutputBufferPtr, cur XmlDocPtr, encoding *int8, format c.Int) c.Int
-//go:linkname XmlNodeDumpOutput C.xmlNodeDumpOutput
-func XmlNodeDumpOutput(buf XmlOutputBufferPtr, doc XmlDocPtr, cur XmlNodePtr, level c.Int, format c.Int, encoding *int8)
-//go:linkname XmlSaveFormatFileEnc C.xmlSaveFormatFileEnc
-func XmlSaveFormatFileEnc(filename *int8, cur XmlDocPtr, encoding *int8, format c.Int) c.Int
-//go:linkname XmlSaveFileEnc C.xmlSaveFileEnc
-func XmlSaveFileEnc(filename *int8, cur XmlDocPtr, encoding *int8) c.Int
-// llgo:link (*XmlChar).XmlIsXHTML C.xmlIsXHTML
-func (recv_ *XmlChar) XmlIsXHTML(publicID *XmlChar) c.Int {
+
+//go:linkname NodeSetBase C.xmlNodeSetBase
+func NodeSetBase(cur NodePtr, uri *Char) c.Int
+
+/*
+ * Removing content.
+ */
+//go:linkname RemoveProp C.xmlRemoveProp
+func RemoveProp(cur AttrPtr) c.Int
+
+//go:linkname UnsetNsProp C.xmlUnsetNsProp
+func UnsetNsProp(node NodePtr, ns NsPtr, name *Char) c.Int
+
+//go:linkname UnsetProp C.xmlUnsetProp
+func UnsetProp(node NodePtr, name *Char) c.Int
+
+/*
+ * Internal, don't use.
+ */
+//go:linkname BufferWriteCHAR C.xmlBufferWriteCHAR
+func BufferWriteCHAR(buf BufferPtr, string *Char)
+
+//go:linkname BufferWriteChar C.xmlBufferWriteChar
+func BufferWriteChar(buf BufferPtr, string *int8)
+
+//go:linkname BufferWriteQuotedString C.xmlBufferWriteQuotedString
+func BufferWriteQuotedString(buf BufferPtr, string *Char)
+
+//go:linkname AttrSerializeTxtContent C.xmlAttrSerializeTxtContent
+func AttrSerializeTxtContent(buf BufferPtr, doc DocPtr, attr AttrPtr, string *Char)
+
+/*
+ * Namespace handling.
+ */
+//go:linkname ReconciliateNs C.xmlReconciliateNs
+func ReconciliateNs(doc DocPtr, tree NodePtr) c.Int
+
+/*
+ * Saving.
+ */
+//go:linkname DocDumpFormatMemory C.xmlDocDumpFormatMemory
+func DocDumpFormatMemory(cur DocPtr, mem **Char, size *c.Int, format c.Int)
+
+//go:linkname DocDumpMemory C.xmlDocDumpMemory
+func DocDumpMemory(cur DocPtr, mem **Char, size *c.Int)
+
+//go:linkname DocDumpMemoryEnc C.xmlDocDumpMemoryEnc
+func DocDumpMemoryEnc(out_doc DocPtr, doc_txt_ptr **Char, doc_txt_len *c.Int, txt_encoding *int8)
+
+//go:linkname DocDumpFormatMemoryEnc C.xmlDocDumpFormatMemoryEnc
+func DocDumpFormatMemoryEnc(out_doc DocPtr, doc_txt_ptr **Char, doc_txt_len *c.Int, txt_encoding *int8, format c.Int)
+
+//go:linkname DocFormatDump C.xmlDocFormatDump
+func DocFormatDump(f *c.FILE, cur DocPtr, format c.Int) c.Int
+
+//go:linkname DocDump C.xmlDocDump
+func DocDump(f *c.FILE, cur DocPtr) c.Int
+
+//go:linkname ElemDump C.xmlElemDump
+func ElemDump(f *c.FILE, doc DocPtr, cur NodePtr)
+
+//go:linkname SaveFile C.xmlSaveFile
+func SaveFile(filename *int8, cur DocPtr) c.Int
+
+//go:linkname SaveFormatFile C.xmlSaveFormatFile
+func SaveFormatFile(filename *int8, cur DocPtr, format c.Int) c.Int
+
+//go:linkname BufNodeDump C.xmlBufNodeDump
+func BufNodeDump(buf BufPtr, doc DocPtr, cur NodePtr, level c.Int, format c.Int) uintptr
+
+//go:linkname NodeDump C.xmlNodeDump
+func NodeDump(buf BufferPtr, doc DocPtr, cur NodePtr, level c.Int, format c.Int) c.Int
+
+//go:linkname SaveFileTo C.xmlSaveFileTo
+func SaveFileTo(buf OutputBufferPtr, cur DocPtr, encoding *int8) c.Int
+
+//go:linkname SaveFormatFileTo C.xmlSaveFormatFileTo
+func SaveFormatFileTo(buf OutputBufferPtr, cur DocPtr, encoding *int8, format c.Int) c.Int
+
+//go:linkname NodeDumpOutput C.xmlNodeDumpOutput
+func NodeDumpOutput(buf OutputBufferPtr, doc DocPtr, cur NodePtr, level c.Int, format c.Int, encoding *int8)
+
+//go:linkname SaveFormatFileEnc C.xmlSaveFormatFileEnc
+func SaveFormatFileEnc(filename *int8, cur DocPtr, encoding *int8, format c.Int) c.Int
+
+//go:linkname SaveFileEnc C.xmlSaveFileEnc
+func SaveFileEnc(filename *int8, cur DocPtr, encoding *int8) c.Int
+
+/*
+ * XHTML
+ */
+// llgo:link (*Char).IsXHTML C.xmlIsXHTML
+func (recv_ *Char) IsXHTML(publicID *Char) c.Int {
 	return 0
 }
-// llgo:link (*XmlDoc).XmlGetDocCompressMode C.xmlGetDocCompressMode
-func (recv_ *XmlDoc) XmlGetDocCompressMode() c.Int {
+
+/*
+ * Compression.
+ */
+// llgo:link (*Doc).GetDocCompressMode C.xmlGetDocCompressMode
+func (recv_ *Doc) GetDocCompressMode() c.Int {
 	return 0
 }
-//go:linkname XmlSetDocCompressMode C.xmlSetDocCompressMode
-func XmlSetDocCompressMode(doc XmlDocPtr, mode c.Int)
-//go:linkname XmlGetCompressMode C.xmlGetCompressMode
-func XmlGetCompressMode() c.Int
-//go:linkname XmlSetCompressMode C.xmlSetCompressMode
-func XmlSetCompressMode(mode c.Int)
-//go:linkname XmlDOMWrapNewCtxt C.xmlDOMWrapNewCtxt
-func XmlDOMWrapNewCtxt() XmlDOMWrapCtxtPtr
-//go:linkname XmlDOMWrapFreeCtxt C.xmlDOMWrapFreeCtxt
-func XmlDOMWrapFreeCtxt(ctxt XmlDOMWrapCtxtPtr)
-//go:linkname XmlDOMWrapReconcileNamespaces C.xmlDOMWrapReconcileNamespaces
-func XmlDOMWrapReconcileNamespaces(ctxt XmlDOMWrapCtxtPtr, elem XmlNodePtr, options c.Int) c.Int
-//go:linkname XmlDOMWrapAdoptNode C.xmlDOMWrapAdoptNode
-func XmlDOMWrapAdoptNode(ctxt XmlDOMWrapCtxtPtr, sourceDoc XmlDocPtr, node XmlNodePtr, destDoc XmlDocPtr, destParent XmlNodePtr, options c.Int) c.Int
-//go:linkname XmlDOMWrapRemoveNode C.xmlDOMWrapRemoveNode
-func XmlDOMWrapRemoveNode(ctxt XmlDOMWrapCtxtPtr, doc XmlDocPtr, node XmlNodePtr, options c.Int) c.Int
-//go:linkname XmlDOMWrapCloneNode C.xmlDOMWrapCloneNode
-func XmlDOMWrapCloneNode(ctxt XmlDOMWrapCtxtPtr, sourceDoc XmlDocPtr, node XmlNodePtr, clonedNode *XmlNodePtr, destDoc XmlDocPtr, destParent XmlNodePtr, deep c.Int, options c.Int) c.Int
-//go:linkname XmlChildElementCount C.xmlChildElementCount
-func XmlChildElementCount(parent XmlNodePtr) c.Ulong
-//go:linkname XmlNextElementSibling C.xmlNextElementSibling
-func XmlNextElementSibling(node XmlNodePtr) XmlNodePtr
-//go:linkname XmlFirstElementChild C.xmlFirstElementChild
-func XmlFirstElementChild(parent XmlNodePtr) XmlNodePtr
-//go:linkname XmlLastElementChild C.xmlLastElementChild
-func XmlLastElementChild(parent XmlNodePtr) XmlNodePtr
-//go:linkname XmlPreviousElementSibling C.xmlPreviousElementSibling
-func XmlPreviousElementSibling(node XmlNodePtr) XmlNodePtr
-//go:linkname XmlRegisterNodeDefault C.xmlRegisterNodeDefault
-func XmlRegisterNodeDefault(func_ XmlRegisterNodeFunc) XmlRegisterNodeFunc
-//go:linkname XmlDeregisterNodeDefault C.xmlDeregisterNodeDefault
-func XmlDeregisterNodeDefault(func_ XmlDeregisterNodeFunc) XmlDeregisterNodeFunc
-//go:linkname XmlThrDefRegisterNodeDefault C.xmlThrDefRegisterNodeDefault
-func XmlThrDefRegisterNodeDefault(func_ XmlRegisterNodeFunc) XmlRegisterNodeFunc
-//go:linkname XmlThrDefDeregisterNodeDefault C.xmlThrDefDeregisterNodeDefault
-func XmlThrDefDeregisterNodeDefault(func_ XmlDeregisterNodeFunc) XmlDeregisterNodeFunc
-// llgo:link XmlBufferAllocationScheme.XmlThrDefBufferAllocScheme C.xmlThrDefBufferAllocScheme
-func (recv_ XmlBufferAllocationScheme) XmlThrDefBufferAllocScheme() XmlBufferAllocationScheme {
+
+//go:linkname SetDocCompressMode C.xmlSetDocCompressMode
+func SetDocCompressMode(doc DocPtr, mode c.Int)
+
+//go:linkname GetCompressMode C.xmlGetCompressMode
+func GetCompressMode() c.Int
+
+//go:linkname SetCompressMode C.xmlSetCompressMode
+func SetCompressMode(mode c.Int)
+
+/*
+* DOM-wrapper helper functions.
+ */
+//go:linkname DOMWrapNewCtxt C.xmlDOMWrapNewCtxt
+func DOMWrapNewCtxt() DOMWrapCtxtPtr
+
+//go:linkname DOMWrapFreeCtxt C.xmlDOMWrapFreeCtxt
+func DOMWrapFreeCtxt(ctxt DOMWrapCtxtPtr)
+
+//go:linkname DOMWrapReconcileNamespaces C.xmlDOMWrapReconcileNamespaces
+func DOMWrapReconcileNamespaces(ctxt DOMWrapCtxtPtr, elem NodePtr, options c.Int) c.Int
+
+//go:linkname DOMWrapAdoptNode C.xmlDOMWrapAdoptNode
+func DOMWrapAdoptNode(ctxt DOMWrapCtxtPtr, sourceDoc DocPtr, node NodePtr, destDoc DocPtr, destParent NodePtr, options c.Int) c.Int
+
+//go:linkname DOMWrapRemoveNode C.xmlDOMWrapRemoveNode
+func DOMWrapRemoveNode(ctxt DOMWrapCtxtPtr, doc DocPtr, node NodePtr, options c.Int) c.Int
+
+//go:linkname DOMWrapCloneNode C.xmlDOMWrapCloneNode
+func DOMWrapCloneNode(ctxt DOMWrapCtxtPtr, sourceDoc DocPtr, node NodePtr, clonedNode *NodePtr, destDoc DocPtr, destParent NodePtr, deep c.Int, options c.Int) c.Int
+
+/*
+ * 5 interfaces from DOM ElementTraversal, but different in entities
+ * traversal.
+ */
+//go:linkname ChildElementCount C.xmlChildElementCount
+func ChildElementCount(parent NodePtr) c.Ulong
+
+//go:linkname NextElementSibling C.xmlNextElementSibling
+func NextElementSibling(node NodePtr) NodePtr
+
+//go:linkname FirstElementChild C.xmlFirstElementChild
+func FirstElementChild(parent NodePtr) NodePtr
+
+//go:linkname LastElementChild C.xmlLastElementChild
+func LastElementChild(parent NodePtr) NodePtr
+
+//go:linkname PreviousElementSibling C.xmlPreviousElementSibling
+func PreviousElementSibling(node NodePtr) NodePtr
+
+//go:linkname RegisterNodeDefault C.xmlRegisterNodeDefault
+func RegisterNodeDefault(func_ RegisterNodeFunc) RegisterNodeFunc
+
+//go:linkname DeregisterNodeDefault C.xmlDeregisterNodeDefault
+func DeregisterNodeDefault(func_ DeregisterNodeFunc) DeregisterNodeFunc
+
+//go:linkname ThrDefRegisterNodeDefault C.xmlThrDefRegisterNodeDefault
+func ThrDefRegisterNodeDefault(func_ RegisterNodeFunc) RegisterNodeFunc
+
+//go:linkname ThrDefDeregisterNodeDefault C.xmlThrDefDeregisterNodeDefault
+func ThrDefDeregisterNodeDefault(func_ DeregisterNodeFunc) DeregisterNodeFunc
+
+// llgo:link BufferAllocationScheme.ThrDefBufferAllocScheme C.xmlThrDefBufferAllocScheme
+func (recv_ BufferAllocationScheme) ThrDefBufferAllocScheme() BufferAllocationScheme {
 	return 0
 }
-//go:linkname XmlThrDefDefaultBufferSize C.xmlThrDefDefaultBufferSize
-func XmlThrDefDefaultBufferSize(v c.Int) c.Int
+
+//go:linkname ThrDefDefaultBufferSize C.xmlThrDefDefaultBufferSize
+func ThrDefDefaultBufferSize(v c.Int) c.Int

@@ -1,122 +1,158 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
 	"unsafe"
 )
 
-type XmlSchemaValidError c.Int
+type SchemaValidError c.Int
 
 const (
-	XmlSchemaValidErrorXMLSCHEMASERROK             XmlSchemaValidError = 0
-	XmlSchemaValidErrorXMLSCHEMASERRNOROOT         XmlSchemaValidError = 1
-	XmlSchemaValidErrorXMLSCHEMASERRUNDECLAREDELEM XmlSchemaValidError = 2
-	XmlSchemaValidErrorXMLSCHEMASERRNOTTOPLEVEL    XmlSchemaValidError = 3
-	XmlSchemaValidErrorXMLSCHEMASERRMISSING        XmlSchemaValidError = 4
-	XmlSchemaValidErrorXMLSCHEMASERRWRONGELEM      XmlSchemaValidError = 5
-	XmlSchemaValidErrorXMLSCHEMASERRNOTYPE         XmlSchemaValidError = 6
-	XmlSchemaValidErrorXMLSCHEMASERRNOROLLBACK     XmlSchemaValidError = 7
-	XmlSchemaValidErrorXMLSCHEMASERRISABSTRACT     XmlSchemaValidError = 8
-	XmlSchemaValidErrorXMLSCHEMASERRNOTEMPTY       XmlSchemaValidError = 9
-	XmlSchemaValidErrorXMLSCHEMASERRELEMCONT       XmlSchemaValidError = 10
-	XmlSchemaValidErrorXMLSCHEMASERRHAVEDEFAULT    XmlSchemaValidError = 11
-	XmlSchemaValidErrorXMLSCHEMASERRNOTNILLABLE    XmlSchemaValidError = 12
-	XmlSchemaValidErrorXMLSCHEMASERREXTRACONTENT   XmlSchemaValidError = 13
-	XmlSchemaValidErrorXMLSCHEMASERRINVALIDATTR    XmlSchemaValidError = 14
-	XmlSchemaValidErrorXMLSCHEMASERRINVALIDELEM    XmlSchemaValidError = 15
-	XmlSchemaValidErrorXMLSCHEMASERRNOTDETERMINIST XmlSchemaValidError = 16
-	XmlSchemaValidErrorXMLSCHEMASERRCONSTRUCT      XmlSchemaValidError = 17
-	XmlSchemaValidErrorXMLSCHEMASERRINTERNAL       XmlSchemaValidError = 18
-	XmlSchemaValidErrorXMLSCHEMASERRNOTSIMPLE      XmlSchemaValidError = 19
-	XmlSchemaValidErrorXMLSCHEMASERRATTRUNKNOWN    XmlSchemaValidError = 20
-	XmlSchemaValidErrorXMLSCHEMASERRATTRINVALID    XmlSchemaValidError = 21
-	XmlSchemaValidErrorXMLSCHEMASERRVALUE          XmlSchemaValidError = 22
-	XmlSchemaValidErrorXMLSCHEMASERRFACET          XmlSchemaValidError = 23
-	XmlSchemaValidErrorXMLSCHEMASERR               XmlSchemaValidError = 24
-	XmlSchemaValidErrorXMLSCHEMASERRXXX            XmlSchemaValidError = 25
+	SCHEMASERROK             SchemaValidError = 0
+	SCHEMASERRNOROOT         SchemaValidError = 1
+	SCHEMASERRUNDECLAREDELEM SchemaValidError = 2
+	SCHEMASERRNOTTOPLEVEL    SchemaValidError = 3
+	SCHEMASERRMISSING        SchemaValidError = 4
+	SCHEMASERRWRONGELEM      SchemaValidError = 5
+	SCHEMASERRNOTYPE         SchemaValidError = 6
+	SCHEMASERRNOROLLBACK     SchemaValidError = 7
+	SCHEMASERRISABSTRACT     SchemaValidError = 8
+	SCHEMASERRNOTEMPTY       SchemaValidError = 9
+	SCHEMASERRELEMCONT       SchemaValidError = 10
+	SCHEMASERRHAVEDEFAULT    SchemaValidError = 11
+	SCHEMASERRNOTNILLABLE    SchemaValidError = 12
+	SCHEMASERREXTRACONTENT   SchemaValidError = 13
+	SCHEMASERRINVALIDATTR    SchemaValidError = 14
+	SCHEMASERRINVALIDELEM    SchemaValidError = 15
+	SCHEMASERRNOTDETERMINIST SchemaValidError = 16
+	SCHEMASERRCONSTRUCT      SchemaValidError = 17
+	SCHEMASERRINTERNAL       SchemaValidError = 18
+	SCHEMASERRNOTSIMPLE      SchemaValidError = 19
+	SCHEMASERRATTRUNKNOWN    SchemaValidError = 20
+	SCHEMASERRATTRINVALID    SchemaValidError = 21
+	SCHEMASERRVALUE          SchemaValidError = 22
+	SCHEMASERRFACET          SchemaValidError = 23
+	SCHEMASERR_              SchemaValidError = 24
+	SCHEMASERRXXX            SchemaValidError = 25
 )
 
-type XmlSchemaValidOption c.Int
+type SchemaValidOption c.Int
 
-const XmlSchemaValidOptionXMLSCHEMAVALVCICREATE XmlSchemaValidOption = 1
+const SCHEMAVALVCICREATE SchemaValidOption = 1
 
-type XmlSchema X_XmlSchema
-type XmlSchemaPtr *XmlSchema
+type Schema X_xmlSchema
+type SchemaPtr *Schema
+
 // llgo:type C
-type XmlSchemaValidityErrorFunc func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_list ...interface{})
-// llgo:type C
-type XmlSchemaValidityWarningFunc func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_list ...interface{})
+type SchemaValidityErrorFunc func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_list ...interface{})
 
-type X_XmlSchemaParserCtxt struct {
+// llgo:type C
+type SchemaValidityWarningFunc func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_list ...interface{})
+
+type X_xmlSchemaParserCtxt struct {
 	Unused [8]uint8
 }
-type XmlSchemaParserCtxt X_XmlSchemaParserCtxt
-type XmlSchemaParserCtxtPtr *XmlSchemaParserCtxt
+type SchemaParserCtxt X_xmlSchemaParserCtxt
+type SchemaParserCtxtPtr *SchemaParserCtxt
 
-type X_XmlSchemaValidCtxt struct {
+type X_xmlSchemaValidCtxt struct {
 	Unused [8]uint8
 }
-type XmlSchemaValidCtxt X_XmlSchemaValidCtxt
-type XmlSchemaValidCtxtPtr *XmlSchemaValidCtxt
+type SchemaValidCtxt X_xmlSchemaValidCtxt
+type SchemaValidCtxtPtr *SchemaValidCtxt
+
 // llgo:type C
-type XmlSchemaValidityLocatorFunc func(unsafe.Pointer, **int8, *c.Ulong) c.Int
-//go:linkname XmlSchemaNewParserCtxt C.xmlSchemaNewParserCtxt
-func XmlSchemaNewParserCtxt(URL *int8) XmlSchemaParserCtxtPtr
-//go:linkname XmlSchemaNewMemParserCtxt C.xmlSchemaNewMemParserCtxt
-func XmlSchemaNewMemParserCtxt(buffer *int8, size c.Int) XmlSchemaParserCtxtPtr
-//go:linkname XmlSchemaNewDocParserCtxt C.xmlSchemaNewDocParserCtxt
-func XmlSchemaNewDocParserCtxt(doc XmlDocPtr) XmlSchemaParserCtxtPtr
-//go:linkname XmlSchemaFreeParserCtxt C.xmlSchemaFreeParserCtxt
-func XmlSchemaFreeParserCtxt(ctxt XmlSchemaParserCtxtPtr)
-//go:linkname XmlSchemaSetParserErrors C.xmlSchemaSetParserErrors
-func XmlSchemaSetParserErrors(ctxt XmlSchemaParserCtxtPtr, err XmlSchemaValidityErrorFunc, warn XmlSchemaValidityWarningFunc, ctx unsafe.Pointer)
-//go:linkname XmlSchemaSetParserStructuredErrors C.xmlSchemaSetParserStructuredErrors
-func XmlSchemaSetParserStructuredErrors(ctxt XmlSchemaParserCtxtPtr, serror XmlStructuredErrorFunc, ctx unsafe.Pointer)
-//go:linkname XmlSchemaGetParserErrors C.xmlSchemaGetParserErrors
-func XmlSchemaGetParserErrors(ctxt XmlSchemaParserCtxtPtr, err XmlSchemaValidityErrorFunc, warn XmlSchemaValidityWarningFunc, ctx *unsafe.Pointer) c.Int
-//go:linkname XmlSchemaIsValid C.xmlSchemaIsValid
-func XmlSchemaIsValid(ctxt XmlSchemaValidCtxtPtr) c.Int
-//go:linkname XmlSchemaParse C.xmlSchemaParse
-func XmlSchemaParse(ctxt XmlSchemaParserCtxtPtr) XmlSchemaPtr
-//go:linkname XmlSchemaFree C.xmlSchemaFree
-func XmlSchemaFree(schema XmlSchemaPtr)
-//go:linkname XmlSchemaDump C.xmlSchemaDump
-func XmlSchemaDump(output *c.FILE, schema XmlSchemaPtr)
-//go:linkname XmlSchemaSetValidErrors C.xmlSchemaSetValidErrors
-func XmlSchemaSetValidErrors(ctxt XmlSchemaValidCtxtPtr, err XmlSchemaValidityErrorFunc, warn XmlSchemaValidityWarningFunc, ctx unsafe.Pointer)
-//go:linkname XmlSchemaSetValidStructuredErrors C.xmlSchemaSetValidStructuredErrors
-func XmlSchemaSetValidStructuredErrors(ctxt XmlSchemaValidCtxtPtr, serror XmlStructuredErrorFunc, ctx unsafe.Pointer)
-//go:linkname XmlSchemaGetValidErrors C.xmlSchemaGetValidErrors
-func XmlSchemaGetValidErrors(ctxt XmlSchemaValidCtxtPtr, err XmlSchemaValidityErrorFunc, warn XmlSchemaValidityWarningFunc, ctx *unsafe.Pointer) c.Int
-//go:linkname XmlSchemaSetValidOptions C.xmlSchemaSetValidOptions
-func XmlSchemaSetValidOptions(ctxt XmlSchemaValidCtxtPtr, options c.Int) c.Int
-//go:linkname XmlSchemaValidateSetFilename C.xmlSchemaValidateSetFilename
-func XmlSchemaValidateSetFilename(vctxt XmlSchemaValidCtxtPtr, filename *int8)
-//go:linkname XmlSchemaValidCtxtGetOptions C.xmlSchemaValidCtxtGetOptions
-func XmlSchemaValidCtxtGetOptions(ctxt XmlSchemaValidCtxtPtr) c.Int
-//go:linkname XmlSchemaNewValidCtxt C.xmlSchemaNewValidCtxt
-func XmlSchemaNewValidCtxt(schema XmlSchemaPtr) XmlSchemaValidCtxtPtr
-//go:linkname XmlSchemaFreeValidCtxt C.xmlSchemaFreeValidCtxt
-func XmlSchemaFreeValidCtxt(ctxt XmlSchemaValidCtxtPtr)
-//go:linkname XmlSchemaValidateDoc C.xmlSchemaValidateDoc
-func XmlSchemaValidateDoc(ctxt XmlSchemaValidCtxtPtr, instance XmlDocPtr) c.Int
-//go:linkname XmlSchemaValidateOneElement C.xmlSchemaValidateOneElement
-func XmlSchemaValidateOneElement(ctxt XmlSchemaValidCtxtPtr, elem XmlNodePtr) c.Int
-//go:linkname XmlSchemaValidateStream C.xmlSchemaValidateStream
-func XmlSchemaValidateStream(ctxt XmlSchemaValidCtxtPtr, input XmlParserInputBufferPtr, enc XmlCharEncoding, sax XmlSAXHandlerPtr, user_data unsafe.Pointer) c.Int
-//go:linkname XmlSchemaValidateFile C.xmlSchemaValidateFile
-func XmlSchemaValidateFile(ctxt XmlSchemaValidCtxtPtr, filename *int8, options c.Int) c.Int
-//go:linkname XmlSchemaValidCtxtGetParserCtxt C.xmlSchemaValidCtxtGetParserCtxt
-func XmlSchemaValidCtxtGetParserCtxt(ctxt XmlSchemaValidCtxtPtr) XmlParserCtxtPtr
+type SchemaValidityLocatorFunc func(unsafe.Pointer, **int8, *c.Ulong) c.Int
 
-type X_XmlSchemaSAXPlug struct {
+/*
+ * Interfaces for parsing.
+ */
+//go:linkname SchemaNewParserCtxt C.xmlSchemaNewParserCtxt
+func SchemaNewParserCtxt(URL *int8) SchemaParserCtxtPtr
+
+//go:linkname SchemaNewMemParserCtxt C.xmlSchemaNewMemParserCtxt
+func SchemaNewMemParserCtxt(buffer *int8, size c.Int) SchemaParserCtxtPtr
+
+//go:linkname SchemaNewDocParserCtxt C.xmlSchemaNewDocParserCtxt
+func SchemaNewDocParserCtxt(doc DocPtr) SchemaParserCtxtPtr
+
+//go:linkname SchemaFreeParserCtxt C.xmlSchemaFreeParserCtxt
+func SchemaFreeParserCtxt(ctxt SchemaParserCtxtPtr)
+
+//go:linkname SchemaSetParserErrors C.xmlSchemaSetParserErrors
+func SchemaSetParserErrors(ctxt SchemaParserCtxtPtr, err SchemaValidityErrorFunc, warn SchemaValidityWarningFunc, ctx unsafe.Pointer)
+
+//go:linkname SchemaSetParserStructuredErrors C.xmlSchemaSetParserStructuredErrors
+func SchemaSetParserStructuredErrors(ctxt SchemaParserCtxtPtr, serror StructuredErrorFunc, ctx unsafe.Pointer)
+
+//go:linkname SchemaGetParserErrors C.xmlSchemaGetParserErrors
+func SchemaGetParserErrors(ctxt SchemaParserCtxtPtr, err SchemaValidityErrorFunc, warn SchemaValidityWarningFunc, ctx *unsafe.Pointer) c.Int
+
+//go:linkname SchemaIsValid C.xmlSchemaIsValid
+func SchemaIsValid(ctxt SchemaValidCtxtPtr) c.Int
+
+//go:linkname SchemaParse C.xmlSchemaParse
+func SchemaParse(ctxt SchemaParserCtxtPtr) SchemaPtr
+
+//go:linkname SchemaFree C.xmlSchemaFree
+func SchemaFree(schema SchemaPtr)
+
+//go:linkname SchemaDump C.xmlSchemaDump
+func SchemaDump(output *c.FILE, schema SchemaPtr)
+
+/*
+ * Interfaces for validating
+ */
+//go:linkname SchemaSetValidErrors C.xmlSchemaSetValidErrors
+func SchemaSetValidErrors(ctxt SchemaValidCtxtPtr, err SchemaValidityErrorFunc, warn SchemaValidityWarningFunc, ctx unsafe.Pointer)
+
+//go:linkname SchemaSetValidStructuredErrors C.xmlSchemaSetValidStructuredErrors
+func SchemaSetValidStructuredErrors(ctxt SchemaValidCtxtPtr, serror StructuredErrorFunc, ctx unsafe.Pointer)
+
+//go:linkname SchemaGetValidErrors C.xmlSchemaGetValidErrors
+func SchemaGetValidErrors(ctxt SchemaValidCtxtPtr, err SchemaValidityErrorFunc, warn SchemaValidityWarningFunc, ctx *unsafe.Pointer) c.Int
+
+//go:linkname SchemaSetValidOptions C.xmlSchemaSetValidOptions
+func SchemaSetValidOptions(ctxt SchemaValidCtxtPtr, options c.Int) c.Int
+
+//go:linkname SchemaValidateSetFilename C.xmlSchemaValidateSetFilename
+func SchemaValidateSetFilename(vctxt SchemaValidCtxtPtr, filename *int8)
+
+//go:linkname SchemaValidCtxtGetOptions C.xmlSchemaValidCtxtGetOptions
+func SchemaValidCtxtGetOptions(ctxt SchemaValidCtxtPtr) c.Int
+
+//go:linkname SchemaNewValidCtxt C.xmlSchemaNewValidCtxt
+func SchemaNewValidCtxt(schema SchemaPtr) SchemaValidCtxtPtr
+
+//go:linkname SchemaFreeValidCtxt C.xmlSchemaFreeValidCtxt
+func SchemaFreeValidCtxt(ctxt SchemaValidCtxtPtr)
+
+//go:linkname SchemaValidateDoc C.xmlSchemaValidateDoc
+func SchemaValidateDoc(ctxt SchemaValidCtxtPtr, instance DocPtr) c.Int
+
+//go:linkname SchemaValidateOneElement C.xmlSchemaValidateOneElement
+func SchemaValidateOneElement(ctxt SchemaValidCtxtPtr, elem NodePtr) c.Int
+
+//go:linkname SchemaValidateStream C.xmlSchemaValidateStream
+func SchemaValidateStream(ctxt SchemaValidCtxtPtr, input ParserInputBufferPtr, enc CharEncoding, sax SAXHandlerPtr, user_data unsafe.Pointer) c.Int
+
+//go:linkname SchemaValidateFile C.xmlSchemaValidateFile
+func SchemaValidateFile(ctxt SchemaValidCtxtPtr, filename *int8, options c.Int) c.Int
+
+//go:linkname SchemaValidCtxtGetParserCtxt C.xmlSchemaValidCtxtGetParserCtxt
+func SchemaValidCtxtGetParserCtxt(ctxt SchemaValidCtxtPtr) ParserCtxtPtr
+
+type X_xmlSchemaSAXPlug struct {
 	Unused [8]uint8
 }
-type XmlSchemaSAXPlugStruct X_XmlSchemaSAXPlug
-type XmlSchemaSAXPlugPtr *XmlSchemaSAXPlugStruct
-//go:linkname XmlSchemaSAXPlug C.xmlSchemaSAXPlug
-func XmlSchemaSAXPlug(ctxt XmlSchemaValidCtxtPtr, sax *XmlSAXHandlerPtr, user_data *unsafe.Pointer) XmlSchemaSAXPlugPtr
-//go:linkname XmlSchemaSAXUnplug C.xmlSchemaSAXUnplug
-func XmlSchemaSAXUnplug(plug XmlSchemaSAXPlugPtr) c.Int
-//go:linkname XmlSchemaValidateSetLocator C.xmlSchemaValidateSetLocator
-func XmlSchemaValidateSetLocator(vctxt XmlSchemaValidCtxtPtr, f XmlSchemaValidityLocatorFunc, ctxt unsafe.Pointer)
+type SchemaSAXPlugStruct X_xmlSchemaSAXPlug
+type SchemaSAXPlugPtr *SchemaSAXPlugStruct
+
+//go:linkname SchemaSAXPlug C.xmlSchemaSAXPlug
+func SchemaSAXPlug(ctxt SchemaValidCtxtPtr, sax *SAXHandlerPtr, user_data *unsafe.Pointer) SchemaSAXPlugPtr
+
+//go:linkname SchemaSAXUnplug C.xmlSchemaSAXUnplug
+func SchemaSAXUnplug(plug SchemaSAXPlugPtr) c.Int
+
+//go:linkname SchemaValidateSetLocator C.xmlSchemaValidateSetLocator
+func SchemaValidateSetLocator(vctxt SchemaValidCtxtPtr, f SchemaValidityLocatorFunc, ctxt unsafe.Pointer)

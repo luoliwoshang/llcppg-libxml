@@ -1,26 +1,30 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
 	"unsafe"
 )
 
-type X_XmlModule struct {
+type X_xmlModule struct {
 	Unused [8]uint8
 }
-type XmlModule X_XmlModule
-type XmlModulePtr *XmlModule
-type XmlModuleOption c.Int
+type Module X_xmlModule
+type ModulePtr *Module
+type ModuleOption c.Int
 
 const (
-	XmlModuleOptionXMLMODULELAZY  XmlModuleOption = 1
-	XmlModuleOptionXMLMODULELOCAL XmlModuleOption = 2
+	MODULELAZY  ModuleOption = 1
+	MODULELOCAL ModuleOption = 2
 )
-//go:linkname XmlModuleOpen C.xmlModuleOpen
-func XmlModuleOpen(filename *int8, options c.Int) XmlModulePtr
-//go:linkname XmlModuleSymbol C.xmlModuleSymbol
-func XmlModuleSymbol(module XmlModulePtr, name *int8, result *unsafe.Pointer) c.Int
-//go:linkname XmlModuleClose C.xmlModuleClose
-func XmlModuleClose(module XmlModulePtr) c.Int
-//go:linkname XmlModuleFree C.xmlModuleFree
-func XmlModuleFree(module XmlModulePtr) c.Int
+
+//go:linkname ModuleOpen C.xmlModuleOpen
+func ModuleOpen(filename *int8, options c.Int) ModulePtr
+
+//go:linkname ModuleSymbol C.xmlModuleSymbol
+func ModuleSymbol(module ModulePtr, name *int8, result *unsafe.Pointer) c.Int
+
+//go:linkname ModuleClose C.xmlModuleClose
+func ModuleClose(module ModulePtr) c.Int
+
+//go:linkname ModuleFree C.xmlModuleFree
+func ModuleFree(module ModulePtr) c.Int

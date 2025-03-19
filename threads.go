@@ -1,48 +1,66 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
 	_ "unsafe"
 )
 
-type X_XmlMutex struct {
+type X_xmlMutex struct {
 	Unused [8]uint8
 }
-type XmlMutex X_XmlMutex
-type XmlMutexPtr *XmlMutex
+type Mutex X_xmlMutex
+type MutexPtr *Mutex
 
-type X_XmlRMutex struct {
+type X_xmlRMutex struct {
 	Unused [8]uint8
 }
-type XmlRMutex X_XmlRMutex
-type XmlRMutexPtr *XmlRMutex
-//go:linkname XmlCheckThreadLocalStorage C.xmlCheckThreadLocalStorage
-func XmlCheckThreadLocalStorage() c.Int
-//go:linkname XmlNewMutex C.xmlNewMutex
-func XmlNewMutex() XmlMutexPtr
-//go:linkname XmlMutexLock C.xmlMutexLock
-func XmlMutexLock(tok XmlMutexPtr)
-//go:linkname XmlMutexUnlock C.xmlMutexUnlock
-func XmlMutexUnlock(tok XmlMutexPtr)
-//go:linkname XmlFreeMutex C.xmlFreeMutex
-func XmlFreeMutex(tok XmlMutexPtr)
-//go:linkname XmlNewRMutex C.xmlNewRMutex
-func XmlNewRMutex() XmlRMutexPtr
-//go:linkname XmlRMutexLock C.xmlRMutexLock
-func XmlRMutexLock(tok XmlRMutexPtr)
-//go:linkname XmlRMutexUnlock C.xmlRMutexUnlock
-func XmlRMutexUnlock(tok XmlRMutexPtr)
-//go:linkname XmlFreeRMutex C.xmlFreeRMutex
-func XmlFreeRMutex(tok XmlRMutexPtr)
-//go:linkname XmlInitThreads C.xmlInitThreads
-func XmlInitThreads()
-//go:linkname XmlLockLibrary C.xmlLockLibrary
-func XmlLockLibrary()
-//go:linkname XmlUnlockLibrary C.xmlUnlockLibrary
-func XmlUnlockLibrary()
-//go:linkname XmlGetThreadId C.xmlGetThreadId
-func XmlGetThreadId() c.Int
-//go:linkname XmlIsMainThread C.xmlIsMainThread
-func XmlIsMainThread() c.Int
-//go:linkname XmlCleanupThreads C.xmlCleanupThreads
-func XmlCleanupThreads()
+type RMutex X_xmlRMutex
+type RMutexPtr *RMutex
+
+//go:linkname CheckThreadLocalStorage C.xmlCheckThreadLocalStorage
+func CheckThreadLocalStorage() c.Int
+
+//go:linkname NewMutex C.xmlNewMutex
+func NewMutex() MutexPtr
+
+//go:linkname MutexLock C.xmlMutexLock
+func MutexLock(tok MutexPtr)
+
+//go:linkname MutexUnlock C.xmlMutexUnlock
+func MutexUnlock(tok MutexPtr)
+
+//go:linkname FreeMutex C.xmlFreeMutex
+func FreeMutex(tok MutexPtr)
+
+//go:linkname NewRMutex C.xmlNewRMutex
+func NewRMutex() RMutexPtr
+
+//go:linkname RMutexLock C.xmlRMutexLock
+func RMutexLock(tok RMutexPtr)
+
+//go:linkname RMutexUnlock C.xmlRMutexUnlock
+func RMutexUnlock(tok RMutexPtr)
+
+//go:linkname FreeRMutex C.xmlFreeRMutex
+func FreeRMutex(tok RMutexPtr)
+
+/*
+ * Library wide APIs.
+ */
+//go:linkname InitThreads C.xmlInitThreads
+func InitThreads()
+
+//go:linkname LockLibrary C.xmlLockLibrary
+func LockLibrary()
+
+//go:linkname UnlockLibrary C.xmlUnlockLibrary
+func UnlockLibrary()
+
+//go:linkname GetThreadId C.xmlGetThreadId
+func GetThreadId() c.Int
+
+//go:linkname IsMainThread C.xmlIsMainThread
+func IsMainThread() c.Int
+
+//go:linkname CleanupThreads C.xmlCleanupThreads
+func CleanupThreads()

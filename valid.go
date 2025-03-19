@@ -1,207 +1,294 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
 	"unsafe"
 )
 
-type X_XmlValidState struct {
+type X_xmlValidState struct {
 	Unused [8]uint8
 }
-type XmlValidState X_XmlValidState
-type XmlValidStatePtr *XmlValidState
-// llgo:type C
-type XmlValidityErrorFunc func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_list ...interface{})
-// llgo:type C
-type XmlValidityWarningFunc func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_list ...interface{})
+type ValidState X_xmlValidState
+type ValidStatePtr *ValidState
 
-type X_XmlValidCtxt struct {
+// llgo:type C
+type ValidityErrorFunc func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_list ...interface{})
+
+// llgo:type C
+type ValidityWarningFunc func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_list ...interface{})
+
+type X_xmlValidCtxt struct {
 	UserData  unsafe.Pointer
 	Error     unsafe.Pointer
 	Warning   unsafe.Pointer
-	Node      XmlNodePtr
+	Node      NodePtr
 	NodeNr    c.Int
 	NodeMax   c.Int
-	NodeTab   *XmlNodePtr
+	NodeTab   *NodePtr
 	Flags     c.Uint
-	Doc       XmlDocPtr
+	Doc       DocPtr
 	Valid     c.Int
-	Vstate    *XmlValidState
+	Vstate    *ValidState
 	VstateNr  c.Int
 	VstateMax c.Int
-	VstateTab *XmlValidState
-	Am        XmlAutomataPtr
-	State     XmlAutomataStatePtr
+	VstateTab *ValidState
+	Am        AutomataPtr
+	State     AutomataStatePtr
 }
-type XmlValidCtxt X_XmlValidCtxt
-type XmlValidCtxtPtr *XmlValidCtxt
-type XmlNotationTable X_XmlHashTable
-type XmlNotationTablePtr *XmlNotationTable
-type XmlElementTable X_XmlHashTable
-type XmlElementTablePtr *XmlElementTable
-type XmlAttributeTable X_XmlHashTable
-type XmlAttributeTablePtr *XmlAttributeTable
-type XmlIDTable X_XmlHashTable
-type XmlIDTablePtr *XmlIDTable
-type XmlRefTable X_XmlHashTable
-type XmlRefTablePtr *XmlRefTable
-//go:linkname XmlAddNotationDecl C.xmlAddNotationDecl
-func XmlAddNotationDecl(ctxt XmlValidCtxtPtr, dtd XmlDtdPtr, name *XmlChar, PublicID *XmlChar, SystemID *XmlChar) XmlNotationPtr
-//go:linkname XmlCopyNotationTable C.xmlCopyNotationTable
-func XmlCopyNotationTable(table XmlNotationTablePtr) XmlNotationTablePtr
-//go:linkname XmlFreeNotationTable C.xmlFreeNotationTable
-func XmlFreeNotationTable(table XmlNotationTablePtr)
-//go:linkname XmlDumpNotationDecl C.xmlDumpNotationDecl
-func XmlDumpNotationDecl(buf XmlBufferPtr, nota XmlNotationPtr)
-//go:linkname XmlDumpNotationTable C.xmlDumpNotationTable
-func XmlDumpNotationTable(buf XmlBufferPtr, table XmlNotationTablePtr)
-// llgo:link (*XmlChar).XmlNewElementContent C.xmlNewElementContent
-func (recv_ *XmlChar) XmlNewElementContent(type_ XmlElementContentType) XmlElementContentPtr {
+type ValidCtxt X_xmlValidCtxt
+type ValidCtxtPtr *ValidCtxt
+type NotationTable X_xmlHashTable
+type NotationTablePtr *NotationTable
+type ElementTable X_xmlHashTable
+type ElementTablePtr *ElementTable
+type AttributeTable X_xmlHashTable
+type AttributeTablePtr *AttributeTable
+type IDTable X_xmlHashTable
+type IDTablePtr *IDTable
+type RefTable X_xmlHashTable
+type RefTablePtr *RefTable
+
+/* Notation */
+//go:linkname AddNotationDecl C.xmlAddNotationDecl
+func AddNotationDecl(ctxt ValidCtxtPtr, dtd DtdPtr, name *Char, PublicID *Char, SystemID *Char) NotationPtr
+
+//go:linkname CopyNotationTable C.xmlCopyNotationTable
+func CopyNotationTable(table NotationTablePtr) NotationTablePtr
+
+//go:linkname FreeNotationTable C.xmlFreeNotationTable
+func FreeNotationTable(table NotationTablePtr)
+
+//go:linkname DumpNotationDecl C.xmlDumpNotationDecl
+func DumpNotationDecl(buf BufferPtr, nota NotationPtr)
+
+/* XML_DEPRECATED, still used in lxml */
+//go:linkname DumpNotationTable C.xmlDumpNotationTable
+func DumpNotationTable(buf BufferPtr, table NotationTablePtr)
+
+/* Element Content */
+/* the non Doc version are being deprecated */
+// llgo:link (*Char).NewElementContent C.xmlNewElementContent
+func (recv_ *Char) NewElementContent(type_ ElementContentType) ElementContentPtr {
 	return nil
 }
-//go:linkname XmlCopyElementContent C.xmlCopyElementContent
-func XmlCopyElementContent(content XmlElementContentPtr) XmlElementContentPtr
-//go:linkname XmlFreeElementContent C.xmlFreeElementContent
-func XmlFreeElementContent(cur XmlElementContentPtr)
-//go:linkname XmlNewDocElementContent C.xmlNewDocElementContent
-func XmlNewDocElementContent(doc XmlDocPtr, name *XmlChar, type_ XmlElementContentType) XmlElementContentPtr
-//go:linkname XmlCopyDocElementContent C.xmlCopyDocElementContent
-func XmlCopyDocElementContent(doc XmlDocPtr, content XmlElementContentPtr) XmlElementContentPtr
-//go:linkname XmlFreeDocElementContent C.xmlFreeDocElementContent
-func XmlFreeDocElementContent(doc XmlDocPtr, cur XmlElementContentPtr)
-//go:linkname XmlSnprintfElementContent C.xmlSnprintfElementContent
-func XmlSnprintfElementContent(buf *int8, size c.Int, content XmlElementContentPtr, englob c.Int)
-//go:linkname XmlSprintfElementContent C.xmlSprintfElementContent
-func XmlSprintfElementContent(buf *int8, content XmlElementContentPtr, englob c.Int)
-//go:linkname XmlAddElementDecl C.xmlAddElementDecl
-func XmlAddElementDecl(ctxt XmlValidCtxtPtr, dtd XmlDtdPtr, name *XmlChar, type_ XmlElementTypeVal, content XmlElementContentPtr) XmlElementPtr
-//go:linkname XmlCopyElementTable C.xmlCopyElementTable
-func XmlCopyElementTable(table XmlElementTablePtr) XmlElementTablePtr
-//go:linkname XmlFreeElementTable C.xmlFreeElementTable
-func XmlFreeElementTable(table XmlElementTablePtr)
-//go:linkname XmlDumpElementTable C.xmlDumpElementTable
-func XmlDumpElementTable(buf XmlBufferPtr, table XmlElementTablePtr)
-//go:linkname XmlDumpElementDecl C.xmlDumpElementDecl
-func XmlDumpElementDecl(buf XmlBufferPtr, elem XmlElementPtr)
-// llgo:link (*XmlChar).XmlCreateEnumeration C.xmlCreateEnumeration
-func (recv_ *XmlChar) XmlCreateEnumeration() XmlEnumerationPtr {
+
+//go:linkname CopyElementContent C.xmlCopyElementContent
+func CopyElementContent(content ElementContentPtr) ElementContentPtr
+
+//go:linkname FreeElementContent C.xmlFreeElementContent
+func FreeElementContent(cur ElementContentPtr)
+
+/* the new versions with doc argument */
+//go:linkname NewDocElementContent C.xmlNewDocElementContent
+func NewDocElementContent(doc DocPtr, name *Char, type_ ElementContentType) ElementContentPtr
+
+//go:linkname CopyDocElementContent C.xmlCopyDocElementContent
+func CopyDocElementContent(doc DocPtr, content ElementContentPtr) ElementContentPtr
+
+//go:linkname FreeDocElementContent C.xmlFreeDocElementContent
+func FreeDocElementContent(doc DocPtr, cur ElementContentPtr)
+
+//go:linkname SnprintfElementContent C.xmlSnprintfElementContent
+func SnprintfElementContent(buf *int8, size c.Int, content ElementContentPtr, englob c.Int)
+
+//go:linkname SprintfElementContent C.xmlSprintfElementContent
+func SprintfElementContent(buf *int8, content ElementContentPtr, englob c.Int)
+
+/* Element */
+//go:linkname AddElementDecl C.xmlAddElementDecl
+func AddElementDecl(ctxt ValidCtxtPtr, dtd DtdPtr, name *Char, type_ ElementTypeVal, content ElementContentPtr) ElementPtr
+
+//go:linkname CopyElementTable C.xmlCopyElementTable
+func CopyElementTable(table ElementTablePtr) ElementTablePtr
+
+//go:linkname FreeElementTable C.xmlFreeElementTable
+func FreeElementTable(table ElementTablePtr)
+
+//go:linkname DumpElementTable C.xmlDumpElementTable
+func DumpElementTable(buf BufferPtr, table ElementTablePtr)
+
+//go:linkname DumpElementDecl C.xmlDumpElementDecl
+func DumpElementDecl(buf BufferPtr, elem ElementPtr)
+
+/* Enumeration */
+// llgo:link (*Char).CreateEnumeration C.xmlCreateEnumeration
+func (recv_ *Char) CreateEnumeration() EnumerationPtr {
 	return nil
 }
-//go:linkname XmlFreeEnumeration C.xmlFreeEnumeration
-func XmlFreeEnumeration(cur XmlEnumerationPtr)
-//go:linkname XmlCopyEnumeration C.xmlCopyEnumeration
-func XmlCopyEnumeration(cur XmlEnumerationPtr) XmlEnumerationPtr
-//go:linkname XmlAddAttributeDecl C.xmlAddAttributeDecl
-func XmlAddAttributeDecl(ctxt XmlValidCtxtPtr, dtd XmlDtdPtr, elem *XmlChar, name *XmlChar, ns *XmlChar, type_ XmlAttributeType, def XmlAttributeDefault, defaultValue *XmlChar, tree XmlEnumerationPtr) XmlAttributePtr
-//go:linkname XmlCopyAttributeTable C.xmlCopyAttributeTable
-func XmlCopyAttributeTable(table XmlAttributeTablePtr) XmlAttributeTablePtr
-//go:linkname XmlFreeAttributeTable C.xmlFreeAttributeTable
-func XmlFreeAttributeTable(table XmlAttributeTablePtr)
-//go:linkname XmlDumpAttributeTable C.xmlDumpAttributeTable
-func XmlDumpAttributeTable(buf XmlBufferPtr, table XmlAttributeTablePtr)
-//go:linkname XmlDumpAttributeDecl C.xmlDumpAttributeDecl
-func XmlDumpAttributeDecl(buf XmlBufferPtr, attr XmlAttributePtr)
-//go:linkname XmlAddIDSafe C.xmlAddIDSafe
-func XmlAddIDSafe(attr XmlAttrPtr, value *XmlChar) c.Int
-//go:linkname XmlAddID C.xmlAddID
-func XmlAddID(ctxt XmlValidCtxtPtr, doc XmlDocPtr, value *XmlChar, attr XmlAttrPtr) XmlIDPtr
-//go:linkname XmlFreeIDTable C.xmlFreeIDTable
-func XmlFreeIDTable(table XmlIDTablePtr)
-//go:linkname XmlGetID C.xmlGetID
-func XmlGetID(doc XmlDocPtr, ID *XmlChar) XmlAttrPtr
-//go:linkname XmlIsID C.xmlIsID
-func XmlIsID(doc XmlDocPtr, elem XmlNodePtr, attr XmlAttrPtr) c.Int
-//go:linkname XmlRemoveID C.xmlRemoveID
-func XmlRemoveID(doc XmlDocPtr, attr XmlAttrPtr) c.Int
-//go:linkname XmlAddRef C.xmlAddRef
-func XmlAddRef(ctxt XmlValidCtxtPtr, doc XmlDocPtr, value *XmlChar, attr XmlAttrPtr) XmlRefPtr
-//go:linkname XmlFreeRefTable C.xmlFreeRefTable
-func XmlFreeRefTable(table XmlRefTablePtr)
-//go:linkname XmlIsRef C.xmlIsRef
-func XmlIsRef(doc XmlDocPtr, elem XmlNodePtr, attr XmlAttrPtr) c.Int
-//go:linkname XmlRemoveRef C.xmlRemoveRef
-func XmlRemoveRef(doc XmlDocPtr, attr XmlAttrPtr) c.Int
-//go:linkname XmlGetRefs C.xmlGetRefs
-func XmlGetRefs(doc XmlDocPtr, ID *XmlChar) XmlListPtr
-//go:linkname XmlNewValidCtxt C.xmlNewValidCtxt
-func XmlNewValidCtxt() XmlValidCtxtPtr
-//go:linkname XmlFreeValidCtxt C.xmlFreeValidCtxt
-func XmlFreeValidCtxt(XmlValidCtxtPtr)
-//go:linkname XmlValidateRoot C.xmlValidateRoot
-func XmlValidateRoot(ctxt XmlValidCtxtPtr, doc XmlDocPtr) c.Int
-//go:linkname XmlValidateElementDecl C.xmlValidateElementDecl
-func XmlValidateElementDecl(ctxt XmlValidCtxtPtr, doc XmlDocPtr, elem XmlElementPtr) c.Int
-//go:linkname XmlValidNormalizeAttributeValue C.xmlValidNormalizeAttributeValue
-func XmlValidNormalizeAttributeValue(doc XmlDocPtr, elem XmlNodePtr, name *XmlChar, value *XmlChar) *XmlChar
-//go:linkname XmlValidCtxtNormalizeAttributeValue C.xmlValidCtxtNormalizeAttributeValue
-func XmlValidCtxtNormalizeAttributeValue(ctxt XmlValidCtxtPtr, doc XmlDocPtr, elem XmlNodePtr, name *XmlChar, value *XmlChar) *XmlChar
-//go:linkname XmlValidateAttributeDecl C.xmlValidateAttributeDecl
-func XmlValidateAttributeDecl(ctxt XmlValidCtxtPtr, doc XmlDocPtr, attr XmlAttributePtr) c.Int
-// llgo:link XmlAttributeType.XmlValidateAttributeValue C.xmlValidateAttributeValue
-func (recv_ XmlAttributeType) XmlValidateAttributeValue(value *XmlChar) c.Int {
+
+//go:linkname FreeEnumeration C.xmlFreeEnumeration
+func FreeEnumeration(cur EnumerationPtr)
+
+//go:linkname CopyEnumeration C.xmlCopyEnumeration
+func CopyEnumeration(cur EnumerationPtr) EnumerationPtr
+
+/* Attribute */
+//go:linkname AddAttributeDecl C.xmlAddAttributeDecl
+func AddAttributeDecl(ctxt ValidCtxtPtr, dtd DtdPtr, elem *Char, name *Char, ns *Char, type_ AttributeType, def AttributeDefault, defaultValue *Char, tree EnumerationPtr) AttributePtr
+
+//go:linkname CopyAttributeTable C.xmlCopyAttributeTable
+func CopyAttributeTable(table AttributeTablePtr) AttributeTablePtr
+
+//go:linkname FreeAttributeTable C.xmlFreeAttributeTable
+func FreeAttributeTable(table AttributeTablePtr)
+
+//go:linkname DumpAttributeTable C.xmlDumpAttributeTable
+func DumpAttributeTable(buf BufferPtr, table AttributeTablePtr)
+
+//go:linkname DumpAttributeDecl C.xmlDumpAttributeDecl
+func DumpAttributeDecl(buf BufferPtr, attr AttributePtr)
+
+/* IDs */
+//go:linkname AddIDSafe C.xmlAddIDSafe
+func AddIDSafe(attr AttrPtr, value *Char) c.Int
+
+//go:linkname AddID C.xmlAddID
+func AddID(ctxt ValidCtxtPtr, doc DocPtr, value *Char, attr AttrPtr) IDPtr
+
+//go:linkname FreeIDTable C.xmlFreeIDTable
+func FreeIDTable(table IDTablePtr)
+
+//go:linkname GetID C.xmlGetID
+func GetID(doc DocPtr, ID *Char) AttrPtr
+
+//go:linkname IsID C.xmlIsID
+func IsID(doc DocPtr, elem NodePtr, attr AttrPtr) c.Int
+
+//go:linkname RemoveID C.xmlRemoveID
+func RemoveID(doc DocPtr, attr AttrPtr) c.Int
+
+/* IDREFs */
+//go:linkname AddRef C.xmlAddRef
+func AddRef(ctxt ValidCtxtPtr, doc DocPtr, value *Char, attr AttrPtr) RefPtr
+
+//go:linkname FreeRefTable C.xmlFreeRefTable
+func FreeRefTable(table RefTablePtr)
+
+//go:linkname IsRef C.xmlIsRef
+func IsRef(doc DocPtr, elem NodePtr, attr AttrPtr) c.Int
+
+//go:linkname RemoveRef C.xmlRemoveRef
+func RemoveRef(doc DocPtr, attr AttrPtr) c.Int
+
+//go:linkname GetRefs C.xmlGetRefs
+func GetRefs(doc DocPtr, ID *Char) ListPtr
+
+/* Allocate/Release Validation Contexts */
+//go:linkname NewValidCtxt C.xmlNewValidCtxt
+func NewValidCtxt() ValidCtxtPtr
+
+//go:linkname FreeValidCtxt C.xmlFreeValidCtxt
+func FreeValidCtxt(ValidCtxtPtr)
+
+//go:linkname ValidateRoot C.xmlValidateRoot
+func ValidateRoot(ctxt ValidCtxtPtr, doc DocPtr) c.Int
+
+//go:linkname ValidateElementDecl C.xmlValidateElementDecl
+func ValidateElementDecl(ctxt ValidCtxtPtr, doc DocPtr, elem ElementPtr) c.Int
+
+//go:linkname ValidNormalizeAttributeValue C.xmlValidNormalizeAttributeValue
+func ValidNormalizeAttributeValue(doc DocPtr, elem NodePtr, name *Char, value *Char) *Char
+
+//go:linkname ValidCtxtNormalizeAttributeValue C.xmlValidCtxtNormalizeAttributeValue
+func ValidCtxtNormalizeAttributeValue(ctxt ValidCtxtPtr, doc DocPtr, elem NodePtr, name *Char, value *Char) *Char
+
+//go:linkname ValidateAttributeDecl C.xmlValidateAttributeDecl
+func ValidateAttributeDecl(ctxt ValidCtxtPtr, doc DocPtr, attr AttributePtr) c.Int
+
+// llgo:link AttributeType.ValidateAttributeValue C.xmlValidateAttributeValue
+func (recv_ AttributeType) ValidateAttributeValue(value *Char) c.Int {
 	return 0
 }
-//go:linkname XmlValidateNotationDecl C.xmlValidateNotationDecl
-func XmlValidateNotationDecl(ctxt XmlValidCtxtPtr, doc XmlDocPtr, nota XmlNotationPtr) c.Int
-//go:linkname XmlValidateDtd C.xmlValidateDtd
-func XmlValidateDtd(ctxt XmlValidCtxtPtr, doc XmlDocPtr, dtd XmlDtdPtr) c.Int
-//go:linkname XmlValidateDtdFinal C.xmlValidateDtdFinal
-func XmlValidateDtdFinal(ctxt XmlValidCtxtPtr, doc XmlDocPtr) c.Int
-//go:linkname XmlValidateDocument C.xmlValidateDocument
-func XmlValidateDocument(ctxt XmlValidCtxtPtr, doc XmlDocPtr) c.Int
-//go:linkname XmlValidateElement C.xmlValidateElement
-func XmlValidateElement(ctxt XmlValidCtxtPtr, doc XmlDocPtr, elem XmlNodePtr) c.Int
-//go:linkname XmlValidateOneElement C.xmlValidateOneElement
-func XmlValidateOneElement(ctxt XmlValidCtxtPtr, doc XmlDocPtr, elem XmlNodePtr) c.Int
-//go:linkname XmlValidateOneAttribute C.xmlValidateOneAttribute
-func XmlValidateOneAttribute(ctxt XmlValidCtxtPtr, doc XmlDocPtr, elem XmlNodePtr, attr XmlAttrPtr, value *XmlChar) c.Int
-//go:linkname XmlValidateOneNamespace C.xmlValidateOneNamespace
-func XmlValidateOneNamespace(ctxt XmlValidCtxtPtr, doc XmlDocPtr, elem XmlNodePtr, prefix *XmlChar, ns XmlNsPtr, value *XmlChar) c.Int
-//go:linkname XmlValidateDocumentFinal C.xmlValidateDocumentFinal
-func XmlValidateDocumentFinal(ctxt XmlValidCtxtPtr, doc XmlDocPtr) c.Int
-//go:linkname XmlValidateNotationUse C.xmlValidateNotationUse
-func XmlValidateNotationUse(ctxt XmlValidCtxtPtr, doc XmlDocPtr, notationName *XmlChar) c.Int
-//go:linkname XmlIsMixedElement C.xmlIsMixedElement
-func XmlIsMixedElement(doc XmlDocPtr, name *XmlChar) c.Int
-//go:linkname XmlGetDtdAttrDesc C.xmlGetDtdAttrDesc
-func XmlGetDtdAttrDesc(dtd XmlDtdPtr, elem *XmlChar, name *XmlChar) XmlAttributePtr
-//go:linkname XmlGetDtdQAttrDesc C.xmlGetDtdQAttrDesc
-func XmlGetDtdQAttrDesc(dtd XmlDtdPtr, elem *XmlChar, name *XmlChar, prefix *XmlChar) XmlAttributePtr
-//go:linkname XmlGetDtdNotationDesc C.xmlGetDtdNotationDesc
-func XmlGetDtdNotationDesc(dtd XmlDtdPtr, name *XmlChar) XmlNotationPtr
-//go:linkname XmlGetDtdQElementDesc C.xmlGetDtdQElementDesc
-func XmlGetDtdQElementDesc(dtd XmlDtdPtr, name *XmlChar, prefix *XmlChar) XmlElementPtr
-//go:linkname XmlGetDtdElementDesc C.xmlGetDtdElementDesc
-func XmlGetDtdElementDesc(dtd XmlDtdPtr, name *XmlChar) XmlElementPtr
-// llgo:link (*XmlElementContent).XmlValidGetPotentialChildren C.xmlValidGetPotentialChildren
-func (recv_ *XmlElementContent) XmlValidGetPotentialChildren(names **XmlChar, len *c.Int, max c.Int) c.Int {
+
+//go:linkname ValidateNotationDecl C.xmlValidateNotationDecl
+func ValidateNotationDecl(ctxt ValidCtxtPtr, doc DocPtr, nota NotationPtr) c.Int
+
+//go:linkname ValidateDtd C.xmlValidateDtd
+func ValidateDtd(ctxt ValidCtxtPtr, doc DocPtr, dtd DtdPtr) c.Int
+
+//go:linkname ValidateDtdFinal C.xmlValidateDtdFinal
+func ValidateDtdFinal(ctxt ValidCtxtPtr, doc DocPtr) c.Int
+
+//go:linkname ValidateDocument C.xmlValidateDocument
+func ValidateDocument(ctxt ValidCtxtPtr, doc DocPtr) c.Int
+
+//go:linkname ValidateElement C.xmlValidateElement
+func ValidateElement(ctxt ValidCtxtPtr, doc DocPtr, elem NodePtr) c.Int
+
+//go:linkname ValidateOneElement C.xmlValidateOneElement
+func ValidateOneElement(ctxt ValidCtxtPtr, doc DocPtr, elem NodePtr) c.Int
+
+//go:linkname ValidateOneAttribute C.xmlValidateOneAttribute
+func ValidateOneAttribute(ctxt ValidCtxtPtr, doc DocPtr, elem NodePtr, attr AttrPtr, value *Char) c.Int
+
+//go:linkname ValidateOneNamespace C.xmlValidateOneNamespace
+func ValidateOneNamespace(ctxt ValidCtxtPtr, doc DocPtr, elem NodePtr, prefix *Char, ns NsPtr, value *Char) c.Int
+
+//go:linkname ValidateDocumentFinal C.xmlValidateDocumentFinal
+func ValidateDocumentFinal(ctxt ValidCtxtPtr, doc DocPtr) c.Int
+
+//go:linkname ValidateNotationUse C.xmlValidateNotationUse
+func ValidateNotationUse(ctxt ValidCtxtPtr, doc DocPtr, notationName *Char) c.Int
+
+//go:linkname IsMixedElement C.xmlIsMixedElement
+func IsMixedElement(doc DocPtr, name *Char) c.Int
+
+//go:linkname GetDtdAttrDesc C.xmlGetDtdAttrDesc
+func GetDtdAttrDesc(dtd DtdPtr, elem *Char, name *Char) AttributePtr
+
+//go:linkname GetDtdQAttrDesc C.xmlGetDtdQAttrDesc
+func GetDtdQAttrDesc(dtd DtdPtr, elem *Char, name *Char, prefix *Char) AttributePtr
+
+//go:linkname GetDtdNotationDesc C.xmlGetDtdNotationDesc
+func GetDtdNotationDesc(dtd DtdPtr, name *Char) NotationPtr
+
+//go:linkname GetDtdQElementDesc C.xmlGetDtdQElementDesc
+func GetDtdQElementDesc(dtd DtdPtr, name *Char, prefix *Char) ElementPtr
+
+//go:linkname GetDtdElementDesc C.xmlGetDtdElementDesc
+func GetDtdElementDesc(dtd DtdPtr, name *Char) ElementPtr
+
+// llgo:link (*ElementContent).ValidGetPotentialChildren C.xmlValidGetPotentialChildren
+func (recv_ *ElementContent) ValidGetPotentialChildren(names **Char, len *c.Int, max c.Int) c.Int {
 	return 0
 }
-// llgo:link (*XmlNode).XmlValidGetValidElements C.xmlValidGetValidElements
-func (recv_ *XmlNode) XmlValidGetValidElements(next *XmlNode, names **XmlChar, max c.Int) c.Int {
+
+// llgo:link (*Node).ValidGetValidElements C.xmlValidGetValidElements
+func (recv_ *Node) ValidGetValidElements(next *Node, names **Char, max c.Int) c.Int {
 	return 0
 }
-// llgo:link (*XmlChar).XmlValidateNameValue C.xmlValidateNameValue
-func (recv_ *XmlChar) XmlValidateNameValue() c.Int {
+
+// llgo:link (*Char).ValidateNameValue C.xmlValidateNameValue
+func (recv_ *Char) ValidateNameValue() c.Int {
 	return 0
 }
-// llgo:link (*XmlChar).XmlValidateNamesValue C.xmlValidateNamesValue
-func (recv_ *XmlChar) XmlValidateNamesValue() c.Int {
+
+// llgo:link (*Char).ValidateNamesValue C.xmlValidateNamesValue
+func (recv_ *Char) ValidateNamesValue() c.Int {
 	return 0
 }
-// llgo:link (*XmlChar).XmlValidateNmtokenValue C.xmlValidateNmtokenValue
-func (recv_ *XmlChar) XmlValidateNmtokenValue() c.Int {
+
+// llgo:link (*Char).ValidateNmtokenValue C.xmlValidateNmtokenValue
+func (recv_ *Char) ValidateNmtokenValue() c.Int {
 	return 0
 }
-// llgo:link (*XmlChar).XmlValidateNmtokensValue C.xmlValidateNmtokensValue
-func (recv_ *XmlChar) XmlValidateNmtokensValue() c.Int {
+
+// llgo:link (*Char).ValidateNmtokensValue C.xmlValidateNmtokensValue
+func (recv_ *Char) ValidateNmtokensValue() c.Int {
 	return 0
 }
-//go:linkname XmlValidBuildContentModel C.xmlValidBuildContentModel
-func XmlValidBuildContentModel(ctxt XmlValidCtxtPtr, elem XmlElementPtr) c.Int
-//go:linkname XmlValidatePushElement C.xmlValidatePushElement
-func XmlValidatePushElement(ctxt XmlValidCtxtPtr, doc XmlDocPtr, elem XmlNodePtr, qname *XmlChar) c.Int
-//go:linkname XmlValidatePushCData C.xmlValidatePushCData
-func XmlValidatePushCData(ctxt XmlValidCtxtPtr, data *XmlChar, len c.Int) c.Int
-//go:linkname XmlValidatePopElement C.xmlValidatePopElement
-func XmlValidatePopElement(ctxt XmlValidCtxtPtr, doc XmlDocPtr, elem XmlNodePtr, qname *XmlChar) c.Int
+
+/*
+ * Validation based on the regexp support
+ */
+//go:linkname ValidBuildContentModel C.xmlValidBuildContentModel
+func ValidBuildContentModel(ctxt ValidCtxtPtr, elem ElementPtr) c.Int
+
+//go:linkname ValidatePushElement C.xmlValidatePushElement
+func ValidatePushElement(ctxt ValidCtxtPtr, doc DocPtr, elem NodePtr, qname *Char) c.Int
+
+//go:linkname ValidatePushCData C.xmlValidatePushCData
+func ValidatePushCData(ctxt ValidCtxtPtr, data *Char, len c.Int) c.Int
+
+//go:linkname ValidatePopElement C.xmlValidatePopElement
+func ValidatePopElement(ctxt ValidCtxtPtr, doc DocPtr, elem NodePtr, qname *Char) c.Int

@@ -1,36 +1,54 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
 	"unsafe"
 )
 
-type X_XmlXIncludeCtxt struct {
+type X_xmlXIncludeCtxt struct {
 	Unused [8]uint8
 }
-type XmlXIncludeCtxt X_XmlXIncludeCtxt
-type XmlXIncludeCtxtPtr *XmlXIncludeCtxt
-//go:linkname XmlXIncludeProcess C.xmlXIncludeProcess
-func XmlXIncludeProcess(doc XmlDocPtr) c.Int
-//go:linkname XmlXIncludeProcessFlags C.xmlXIncludeProcessFlags
-func XmlXIncludeProcessFlags(doc XmlDocPtr, flags c.Int) c.Int
-//go:linkname XmlXIncludeProcessFlagsData C.xmlXIncludeProcessFlagsData
-func XmlXIncludeProcessFlagsData(doc XmlDocPtr, flags c.Int, data unsafe.Pointer) c.Int
-//go:linkname XmlXIncludeProcessTreeFlagsData C.xmlXIncludeProcessTreeFlagsData
-func XmlXIncludeProcessTreeFlagsData(tree XmlNodePtr, flags c.Int, data unsafe.Pointer) c.Int
-//go:linkname XmlXIncludeProcessTree C.xmlXIncludeProcessTree
-func XmlXIncludeProcessTree(tree XmlNodePtr) c.Int
-//go:linkname XmlXIncludeProcessTreeFlags C.xmlXIncludeProcessTreeFlags
-func XmlXIncludeProcessTreeFlags(tree XmlNodePtr, flags c.Int) c.Int
-//go:linkname XmlXIncludeNewContext C.xmlXIncludeNewContext
-func XmlXIncludeNewContext(doc XmlDocPtr) XmlXIncludeCtxtPtr
-//go:linkname XmlXIncludeSetFlags C.xmlXIncludeSetFlags
-func XmlXIncludeSetFlags(ctxt XmlXIncludeCtxtPtr, flags c.Int) c.Int
-//go:linkname XmlXIncludeSetErrorHandler C.xmlXIncludeSetErrorHandler
-func XmlXIncludeSetErrorHandler(ctxt XmlXIncludeCtxtPtr, handler XmlStructuredErrorFunc, data unsafe.Pointer)
-//go:linkname XmlXIncludeGetLastError C.xmlXIncludeGetLastError
-func XmlXIncludeGetLastError(ctxt XmlXIncludeCtxtPtr) c.Int
-//go:linkname XmlXIncludeFreeContext C.xmlXIncludeFreeContext
-func XmlXIncludeFreeContext(ctxt XmlXIncludeCtxtPtr)
-//go:linkname XmlXIncludeProcessNode C.xmlXIncludeProcessNode
-func XmlXIncludeProcessNode(ctxt XmlXIncludeCtxtPtr, tree XmlNodePtr) c.Int
+type XIncludeCtxt X_xmlXIncludeCtxt
+type XIncludeCtxtPtr *XIncludeCtxt
+
+/*
+ * standalone processing
+ */
+//go:linkname XIncludeProcess C.xmlXIncludeProcess
+func XIncludeProcess(doc DocPtr) c.Int
+
+//go:linkname XIncludeProcessFlags C.xmlXIncludeProcessFlags
+func XIncludeProcessFlags(doc DocPtr, flags c.Int) c.Int
+
+//go:linkname XIncludeProcessFlagsData C.xmlXIncludeProcessFlagsData
+func XIncludeProcessFlagsData(doc DocPtr, flags c.Int, data unsafe.Pointer) c.Int
+
+//go:linkname XIncludeProcessTreeFlagsData C.xmlXIncludeProcessTreeFlagsData
+func XIncludeProcessTreeFlagsData(tree NodePtr, flags c.Int, data unsafe.Pointer) c.Int
+
+//go:linkname XIncludeProcessTree C.xmlXIncludeProcessTree
+func XIncludeProcessTree(tree NodePtr) c.Int
+
+//go:linkname XIncludeProcessTreeFlags C.xmlXIncludeProcessTreeFlags
+func XIncludeProcessTreeFlags(tree NodePtr, flags c.Int) c.Int
+
+/*
+ * contextual processing
+ */
+//go:linkname XIncludeNewContext C.xmlXIncludeNewContext
+func XIncludeNewContext(doc DocPtr) XIncludeCtxtPtr
+
+//go:linkname XIncludeSetFlags C.xmlXIncludeSetFlags
+func XIncludeSetFlags(ctxt XIncludeCtxtPtr, flags c.Int) c.Int
+
+//go:linkname XIncludeSetErrorHandler C.xmlXIncludeSetErrorHandler
+func XIncludeSetErrorHandler(ctxt XIncludeCtxtPtr, handler StructuredErrorFunc, data unsafe.Pointer)
+
+//go:linkname XIncludeGetLastError C.xmlXIncludeGetLastError
+func XIncludeGetLastError(ctxt XIncludeCtxtPtr) c.Int
+
+//go:linkname XIncludeFreeContext C.xmlXIncludeFreeContext
+func XIncludeFreeContext(ctxt XIncludeCtxtPtr)
+
+//go:linkname XIncludeProcessNode C.xmlXIncludeProcessNode
+func XIncludeProcessNode(ctxt XIncludeCtxtPtr, tree NodePtr) c.Int

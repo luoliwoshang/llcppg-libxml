@@ -1,219 +1,321 @@
-package libxml_2_0
+package libxml2
 
 import (
 	"github.com/goplus/llgo/c"
 	_ "unsafe"
 )
 
-const XMLMAXTEXTLENGTH c.Int = 10000000
-const XMLMAXHUGELENGTH c.Int = 1000000000
-const XMLMAXNAMELENGTH c.Int = 50000
-const XMLMAXDICTIONARYLIMIT c.Int = 10000000
-const XMLMAXLOOKUPLIMIT c.Int = 10000000
-const XMLMAXNAMELEN c.Int = 100
-const INPUTCHUNK c.Int = 250
-const XMLSUBSTITUTENONE c.Int = 0
-const XMLSUBSTITUTEREF c.Int = 1
-const XMLSUBSTITUTEPEREF c.Int = 2
-const XMLSUBSTITUTEBOTH c.Int = 3
-//go:linkname XmlIsLetter C.xmlIsLetter
-func XmlIsLetter(c c.Int) c.Int
+const MAX_TEXT_LENGTH = 10000000
+const MAX_HUGE_LENGTH = 1000000000
+const MAX_NAME_LENGTH = 50000
+const MAX_DICTIONARY_LIMIT = 10000000
+const MAX_LOOKUP_LIMIT = 10000000
+const MAX_NAMELEN = 100
+const INPUT_CHUNK = 250
+const SUBSTITUTE_NONE = 0
+const SUBSTITUTE_REF = 1
+const SUBSTITUTE_PEREF = 2
+const SUBSTITUTE_BOTH = 3
+
+/*
+ * Function to finish the work of the macros where needed.
+ */
+//go:linkname IsLetter C.xmlIsLetter
+func IsLetter(c c.Int) c.Int
+
 /**
  * Parser context.
  */
-//go:linkname XmlCreateFileParserCtxt C.xmlCreateFileParserCtxt
-func XmlCreateFileParserCtxt(filename *int8) XmlParserCtxtPtr
-//go:linkname XmlCreateURLParserCtxt C.xmlCreateURLParserCtxt
-func XmlCreateURLParserCtxt(filename *int8, options c.Int) XmlParserCtxtPtr
-//go:linkname XmlCreateMemoryParserCtxt C.xmlCreateMemoryParserCtxt
-func XmlCreateMemoryParserCtxt(buffer *int8, size c.Int) XmlParserCtxtPtr
-// llgo:link (*XmlChar).XmlCreateEntityParserCtxt C.xmlCreateEntityParserCtxt
-func (recv_ *XmlChar) XmlCreateEntityParserCtxt(ID *XmlChar, base *XmlChar) XmlParserCtxtPtr {
+//go:linkname CreateFileParserCtxt C.xmlCreateFileParserCtxt
+func CreateFileParserCtxt(filename *int8) ParserCtxtPtr
+
+//go:linkname CreateURLParserCtxt C.xmlCreateURLParserCtxt
+func CreateURLParserCtxt(filename *int8, options c.Int) ParserCtxtPtr
+
+//go:linkname CreateMemoryParserCtxt C.xmlCreateMemoryParserCtxt
+func CreateMemoryParserCtxt(buffer *int8, size c.Int) ParserCtxtPtr
+
+// llgo:link (*Char).CreateEntityParserCtxt C.xmlCreateEntityParserCtxt
+func (recv_ *Char) CreateEntityParserCtxt(ID *Char, base *Char) ParserCtxtPtr {
 	return nil
 }
-//go:linkname XmlCtxtErrMemory C.xmlCtxtErrMemory
-func XmlCtxtErrMemory(ctxt XmlParserCtxtPtr)
-//go:linkname XmlSwitchEncoding C.xmlSwitchEncoding
-func XmlSwitchEncoding(ctxt XmlParserCtxtPtr, enc XmlCharEncoding) c.Int
-//go:linkname XmlSwitchEncodingName C.xmlSwitchEncodingName
-func XmlSwitchEncodingName(ctxt XmlParserCtxtPtr, encoding *int8) c.Int
-//go:linkname XmlSwitchToEncoding C.xmlSwitchToEncoding
-func XmlSwitchToEncoding(ctxt XmlParserCtxtPtr, handler XmlCharEncodingHandlerPtr) c.Int
-//go:linkname XmlSwitchInputEncoding C.xmlSwitchInputEncoding
-func XmlSwitchInputEncoding(ctxt XmlParserCtxtPtr, input XmlParserInputPtr, handler XmlCharEncodingHandlerPtr) c.Int
+
+//go:linkname CtxtErrMemory C.xmlCtxtErrMemory
+func CtxtErrMemory(ctxt ParserCtxtPtr)
+
+//go:linkname SwitchEncoding C.xmlSwitchEncoding
+func SwitchEncoding(ctxt ParserCtxtPtr, enc CharEncoding) c.Int
+
+//go:linkname SwitchEncodingName C.xmlSwitchEncodingName
+func SwitchEncodingName(ctxt ParserCtxtPtr, encoding *int8) c.Int
+
+//go:linkname SwitchToEncoding C.xmlSwitchToEncoding
+func SwitchToEncoding(ctxt ParserCtxtPtr, handler CharEncodingHandlerPtr) c.Int
+
+//go:linkname SwitchInputEncoding C.xmlSwitchInputEncoding
+func SwitchInputEncoding(ctxt ParserCtxtPtr, input ParserInputPtr, handler CharEncodingHandlerPtr) c.Int
+
 /**
  * Input Streams.
  */
-//go:linkname XmlNewStringInputStream C.xmlNewStringInputStream
-func XmlNewStringInputStream(ctxt XmlParserCtxtPtr, buffer *XmlChar) XmlParserInputPtr
-//go:linkname XmlNewEntityInputStream C.xmlNewEntityInputStream
-func XmlNewEntityInputStream(ctxt XmlParserCtxtPtr, entity XmlEntityPtr) XmlParserInputPtr
-//go:linkname XmlPushInput C.xmlPushInput
-func XmlPushInput(ctxt XmlParserCtxtPtr, input XmlParserInputPtr) c.Int
-//go:linkname XmlPopInput C.xmlPopInput
-func XmlPopInput(ctxt XmlParserCtxtPtr) XmlChar
-//go:linkname XmlFreeInputStream C.xmlFreeInputStream
-func XmlFreeInputStream(input XmlParserInputPtr)
-//go:linkname XmlNewInputFromFile C.xmlNewInputFromFile
-func XmlNewInputFromFile(ctxt XmlParserCtxtPtr, filename *int8) XmlParserInputPtr
-//go:linkname XmlNewInputStream C.xmlNewInputStream
-func XmlNewInputStream(ctxt XmlParserCtxtPtr) XmlParserInputPtr
+//go:linkname NewStringInputStream C.xmlNewStringInputStream
+func NewStringInputStream(ctxt ParserCtxtPtr, buffer *Char) ParserInputPtr
+
+//go:linkname NewEntityInputStream C.xmlNewEntityInputStream
+func NewEntityInputStream(ctxt ParserCtxtPtr, entity EntityPtr) ParserInputPtr
+
+//go:linkname PushInput C.xmlPushInput
+func PushInput(ctxt ParserCtxtPtr, input ParserInputPtr) c.Int
+
+//go:linkname PopInput C.xmlPopInput
+func PopInput(ctxt ParserCtxtPtr) Char
+
+//go:linkname FreeInputStream C.xmlFreeInputStream
+func FreeInputStream(input ParserInputPtr)
+
+//go:linkname NewInputFromFile C.xmlNewInputFromFile
+func NewInputFromFile(ctxt ParserCtxtPtr, filename *int8) ParserInputPtr
+
+//go:linkname NewInputStream C.xmlNewInputStream
+func NewInputStream(ctxt ParserCtxtPtr) ParserInputPtr
+
 /**
  * Namespaces.
  */
-//go:linkname XmlSplitQName C.xmlSplitQName
-func XmlSplitQName(ctxt XmlParserCtxtPtr, name *XmlChar, prefix **XmlChar) *XmlChar
+//go:linkname SplitQName C.xmlSplitQName
+func SplitQName(ctxt ParserCtxtPtr, name *Char, prefix **Char) *Char
+
 /**
  * Generic production rules.
  */
-//go:linkname XmlParseName C.xmlParseName
-func XmlParseName(ctxt XmlParserCtxtPtr) *XmlChar
-//go:linkname XmlParseNmtoken C.xmlParseNmtoken
-func XmlParseNmtoken(ctxt XmlParserCtxtPtr) *XmlChar
-//go:linkname XmlParseEntityValue C.xmlParseEntityValue
-func XmlParseEntityValue(ctxt XmlParserCtxtPtr, orig **XmlChar) *XmlChar
-//go:linkname XmlParseAttValue C.xmlParseAttValue
-func XmlParseAttValue(ctxt XmlParserCtxtPtr) *XmlChar
-//go:linkname XmlParseSystemLiteral C.xmlParseSystemLiteral
-func XmlParseSystemLiteral(ctxt XmlParserCtxtPtr) *XmlChar
-//go:linkname XmlParsePubidLiteral C.xmlParsePubidLiteral
-func XmlParsePubidLiteral(ctxt XmlParserCtxtPtr) *XmlChar
-//go:linkname XmlParseCharData C.xmlParseCharData
-func XmlParseCharData(ctxt XmlParserCtxtPtr, cdata c.Int)
-//go:linkname XmlParseExternalID C.xmlParseExternalID
-func XmlParseExternalID(ctxt XmlParserCtxtPtr, publicID **XmlChar, strict c.Int) *XmlChar
-//go:linkname XmlParseComment C.xmlParseComment
-func XmlParseComment(ctxt XmlParserCtxtPtr)
-//go:linkname XmlParsePITarget C.xmlParsePITarget
-func XmlParsePITarget(ctxt XmlParserCtxtPtr) *XmlChar
-//go:linkname XmlParsePI C.xmlParsePI
-func XmlParsePI(ctxt XmlParserCtxtPtr)
-//go:linkname XmlParseNotationDecl C.xmlParseNotationDecl
-func XmlParseNotationDecl(ctxt XmlParserCtxtPtr)
-//go:linkname XmlParseEntityDecl C.xmlParseEntityDecl
-func XmlParseEntityDecl(ctxt XmlParserCtxtPtr)
-//go:linkname XmlParseDefaultDecl C.xmlParseDefaultDecl
-func XmlParseDefaultDecl(ctxt XmlParserCtxtPtr, value **XmlChar) c.Int
-//go:linkname XmlParseNotationType C.xmlParseNotationType
-func XmlParseNotationType(ctxt XmlParserCtxtPtr) XmlEnumerationPtr
-//go:linkname XmlParseEnumerationType C.xmlParseEnumerationType
-func XmlParseEnumerationType(ctxt XmlParserCtxtPtr) XmlEnumerationPtr
-//go:linkname XmlParseEnumeratedType C.xmlParseEnumeratedType
-func XmlParseEnumeratedType(ctxt XmlParserCtxtPtr, tree *XmlEnumerationPtr) c.Int
-//go:linkname XmlParseAttributeType C.xmlParseAttributeType
-func XmlParseAttributeType(ctxt XmlParserCtxtPtr, tree *XmlEnumerationPtr) c.Int
-//go:linkname XmlParseAttributeListDecl C.xmlParseAttributeListDecl
-func XmlParseAttributeListDecl(ctxt XmlParserCtxtPtr)
-//go:linkname XmlParseElementMixedContentDecl C.xmlParseElementMixedContentDecl
-func XmlParseElementMixedContentDecl(ctxt XmlParserCtxtPtr, inputchk c.Int) XmlElementContentPtr
-//go:linkname XmlParseElementChildrenContentDecl C.xmlParseElementChildrenContentDecl
-func XmlParseElementChildrenContentDecl(ctxt XmlParserCtxtPtr, inputchk c.Int) XmlElementContentPtr
-//go:linkname XmlParseElementContentDecl C.xmlParseElementContentDecl
-func XmlParseElementContentDecl(ctxt XmlParserCtxtPtr, name *XmlChar, result *XmlElementContentPtr) c.Int
-//go:linkname XmlParseElementDecl C.xmlParseElementDecl
-func XmlParseElementDecl(ctxt XmlParserCtxtPtr) c.Int
-//go:linkname XmlParseMarkupDecl C.xmlParseMarkupDecl
-func XmlParseMarkupDecl(ctxt XmlParserCtxtPtr)
-//go:linkname XmlParseCharRef C.xmlParseCharRef
-func XmlParseCharRef(ctxt XmlParserCtxtPtr) c.Int
-//go:linkname XmlParseEntityRef C.xmlParseEntityRef
-func XmlParseEntityRef(ctxt XmlParserCtxtPtr) XmlEntityPtr
-//go:linkname XmlParseReference C.xmlParseReference
-func XmlParseReference(ctxt XmlParserCtxtPtr)
-//go:linkname XmlParsePEReference C.xmlParsePEReference
-func XmlParsePEReference(ctxt XmlParserCtxtPtr)
-//go:linkname XmlParseDocTypeDecl C.xmlParseDocTypeDecl
-func XmlParseDocTypeDecl(ctxt XmlParserCtxtPtr)
-//go:linkname XmlParseAttribute C.xmlParseAttribute
-func XmlParseAttribute(ctxt XmlParserCtxtPtr, value **XmlChar) *XmlChar
-//go:linkname XmlParseStartTag C.xmlParseStartTag
-func XmlParseStartTag(ctxt XmlParserCtxtPtr) *XmlChar
-//go:linkname XmlParseEndTag C.xmlParseEndTag
-func XmlParseEndTag(ctxt XmlParserCtxtPtr)
-//go:linkname XmlParseCDSect C.xmlParseCDSect
-func XmlParseCDSect(ctxt XmlParserCtxtPtr)
-//go:linkname XmlParseContent C.xmlParseContent
-func XmlParseContent(ctxt XmlParserCtxtPtr)
-//go:linkname XmlParseElement C.xmlParseElement
-func XmlParseElement(ctxt XmlParserCtxtPtr)
-//go:linkname XmlParseVersionNum C.xmlParseVersionNum
-func XmlParseVersionNum(ctxt XmlParserCtxtPtr) *XmlChar
-//go:linkname XmlParseVersionInfo C.xmlParseVersionInfo
-func XmlParseVersionInfo(ctxt XmlParserCtxtPtr) *XmlChar
-//go:linkname XmlParseEncName C.xmlParseEncName
-func XmlParseEncName(ctxt XmlParserCtxtPtr) *XmlChar
-//go:linkname XmlParseEncodingDecl C.xmlParseEncodingDecl
-func XmlParseEncodingDecl(ctxt XmlParserCtxtPtr) *XmlChar
-//go:linkname XmlParseSDDecl C.xmlParseSDDecl
-func XmlParseSDDecl(ctxt XmlParserCtxtPtr) c.Int
-//go:linkname XmlParseXMLDecl C.xmlParseXMLDecl
-func XmlParseXMLDecl(ctxt XmlParserCtxtPtr)
-//go:linkname XmlParseTextDecl C.xmlParseTextDecl
-func XmlParseTextDecl(ctxt XmlParserCtxtPtr)
-//go:linkname XmlParseMisc C.xmlParseMisc
-func XmlParseMisc(ctxt XmlParserCtxtPtr)
-//go:linkname XmlParseExternalSubset C.xmlParseExternalSubset
-func XmlParseExternalSubset(ctxt XmlParserCtxtPtr, ExternalID *XmlChar, SystemID *XmlChar)
-//go:linkname XmlStringDecodeEntities C.xmlStringDecodeEntities
-func XmlStringDecodeEntities(ctxt XmlParserCtxtPtr, str *XmlChar, what c.Int, end XmlChar, end2 XmlChar, end3 XmlChar) *XmlChar
-//go:linkname XmlStringLenDecodeEntities C.xmlStringLenDecodeEntities
-func XmlStringLenDecodeEntities(ctxt XmlParserCtxtPtr, str *XmlChar, len c.Int, what c.Int, end XmlChar, end2 XmlChar, end3 XmlChar) *XmlChar
+//go:linkname ParseName C.xmlParseName
+func ParseName(ctxt ParserCtxtPtr) *Char
+
+//go:linkname ParseNmtoken C.xmlParseNmtoken
+func ParseNmtoken(ctxt ParserCtxtPtr) *Char
+
+//go:linkname ParseEntityValue C.xmlParseEntityValue
+func ParseEntityValue(ctxt ParserCtxtPtr, orig **Char) *Char
+
+//go:linkname ParseAttValue C.xmlParseAttValue
+func ParseAttValue(ctxt ParserCtxtPtr) *Char
+
+//go:linkname ParseSystemLiteral C.xmlParseSystemLiteral
+func ParseSystemLiteral(ctxt ParserCtxtPtr) *Char
+
+//go:linkname ParsePubidLiteral C.xmlParsePubidLiteral
+func ParsePubidLiteral(ctxt ParserCtxtPtr) *Char
+
+//go:linkname ParseCharData C.xmlParseCharData
+func ParseCharData(ctxt ParserCtxtPtr, cdata c.Int)
+
+//go:linkname ParseExternalID C.xmlParseExternalID
+func ParseExternalID(ctxt ParserCtxtPtr, publicID **Char, strict c.Int) *Char
+
+//go:linkname ParseComment C.xmlParseComment
+func ParseComment(ctxt ParserCtxtPtr)
+
+//go:linkname ParsePITarget C.xmlParsePITarget
+func ParsePITarget(ctxt ParserCtxtPtr) *Char
+
+//go:linkname ParsePI C.xmlParsePI
+func ParsePI(ctxt ParserCtxtPtr)
+
+//go:linkname ParseNotationDecl C.xmlParseNotationDecl
+func ParseNotationDecl(ctxt ParserCtxtPtr)
+
+//go:linkname ParseEntityDecl C.xmlParseEntityDecl
+func ParseEntityDecl(ctxt ParserCtxtPtr)
+
+//go:linkname ParseDefaultDecl C.xmlParseDefaultDecl
+func ParseDefaultDecl(ctxt ParserCtxtPtr, value **Char) c.Int
+
+//go:linkname ParseNotationType C.xmlParseNotationType
+func ParseNotationType(ctxt ParserCtxtPtr) EnumerationPtr
+
+//go:linkname ParseEnumerationType C.xmlParseEnumerationType
+func ParseEnumerationType(ctxt ParserCtxtPtr) EnumerationPtr
+
+//go:linkname ParseEnumeratedType C.xmlParseEnumeratedType
+func ParseEnumeratedType(ctxt ParserCtxtPtr, tree *EnumerationPtr) c.Int
+
+//go:linkname ParseAttributeType C.xmlParseAttributeType
+func ParseAttributeType(ctxt ParserCtxtPtr, tree *EnumerationPtr) c.Int
+
+//go:linkname ParseAttributeListDecl C.xmlParseAttributeListDecl
+func ParseAttributeListDecl(ctxt ParserCtxtPtr)
+
+//go:linkname ParseElementMixedContentDecl C.xmlParseElementMixedContentDecl
+func ParseElementMixedContentDecl(ctxt ParserCtxtPtr, inputchk c.Int) ElementContentPtr
+
+//go:linkname ParseElementChildrenContentDecl C.xmlParseElementChildrenContentDecl
+func ParseElementChildrenContentDecl(ctxt ParserCtxtPtr, inputchk c.Int) ElementContentPtr
+
+//go:linkname ParseElementContentDecl C.xmlParseElementContentDecl
+func ParseElementContentDecl(ctxt ParserCtxtPtr, name *Char, result *ElementContentPtr) c.Int
+
+//go:linkname ParseElementDecl C.xmlParseElementDecl
+func ParseElementDecl(ctxt ParserCtxtPtr) c.Int
+
+//go:linkname ParseMarkupDecl C.xmlParseMarkupDecl
+func ParseMarkupDecl(ctxt ParserCtxtPtr)
+
+//go:linkname ParseCharRef C.xmlParseCharRef
+func ParseCharRef(ctxt ParserCtxtPtr) c.Int
+
+//go:linkname ParseEntityRef C.xmlParseEntityRef
+func ParseEntityRef(ctxt ParserCtxtPtr) EntityPtr
+
+//go:linkname ParseReference C.xmlParseReference
+func ParseReference(ctxt ParserCtxtPtr)
+
+//go:linkname ParsePEReference C.xmlParsePEReference
+func ParsePEReference(ctxt ParserCtxtPtr)
+
+//go:linkname ParseDocTypeDecl C.xmlParseDocTypeDecl
+func ParseDocTypeDecl(ctxt ParserCtxtPtr)
+
+//go:linkname ParseAttribute C.xmlParseAttribute
+func ParseAttribute(ctxt ParserCtxtPtr, value **Char) *Char
+
+//go:linkname ParseStartTag C.xmlParseStartTag
+func ParseStartTag(ctxt ParserCtxtPtr) *Char
+
+//go:linkname ParseEndTag C.xmlParseEndTag
+func ParseEndTag(ctxt ParserCtxtPtr)
+
+//go:linkname ParseCDSect C.xmlParseCDSect
+func ParseCDSect(ctxt ParserCtxtPtr)
+
+//go:linkname ParseContent C.xmlParseContent
+func ParseContent(ctxt ParserCtxtPtr)
+
+//go:linkname ParseElement C.xmlParseElement
+func ParseElement(ctxt ParserCtxtPtr)
+
+//go:linkname ParseVersionNum C.xmlParseVersionNum
+func ParseVersionNum(ctxt ParserCtxtPtr) *Char
+
+//go:linkname ParseVersionInfo C.xmlParseVersionInfo
+func ParseVersionInfo(ctxt ParserCtxtPtr) *Char
+
+//go:linkname ParseEncName C.xmlParseEncName
+func ParseEncName(ctxt ParserCtxtPtr) *Char
+
+//go:linkname ParseEncodingDecl C.xmlParseEncodingDecl
+func ParseEncodingDecl(ctxt ParserCtxtPtr) *Char
+
+//go:linkname ParseSDDecl C.xmlParseSDDecl
+func ParseSDDecl(ctxt ParserCtxtPtr) c.Int
+
+//go:linkname ParseXMLDecl C.xmlParseXMLDecl
+func ParseXMLDecl(ctxt ParserCtxtPtr)
+
+//go:linkname ParseTextDecl C.xmlParseTextDecl
+func ParseTextDecl(ctxt ParserCtxtPtr)
+
+//go:linkname ParseMisc C.xmlParseMisc
+func ParseMisc(ctxt ParserCtxtPtr)
+
+//go:linkname ParseExternalSubset C.xmlParseExternalSubset
+func ParseExternalSubset(ctxt ParserCtxtPtr, ExternalID *Char, SystemID *Char)
+
+//go:linkname StringDecodeEntities C.xmlStringDecodeEntities
+func StringDecodeEntities(ctxt ParserCtxtPtr, str *Char, what c.Int, end Char, end2 Char, end3 Char) *Char
+
+//go:linkname StringLenDecodeEntities C.xmlStringLenDecodeEntities
+func StringLenDecodeEntities(ctxt ParserCtxtPtr, str *Char, len c.Int, what c.Int, end Char, end2 Char, end3 Char) *Char
+
+/*
+ * Generated by MACROS on top of parser.c c.f. PUSH_AND_POP.
+ */
 //go:linkname NodePush C.nodePush
-func NodePush(ctxt XmlParserCtxtPtr, value XmlNodePtr) c.Int
+func NodePush(ctxt ParserCtxtPtr, value NodePtr) c.Int
+
 //go:linkname NodePop C.nodePop
-func NodePop(ctxt XmlParserCtxtPtr) XmlNodePtr
+func NodePop(ctxt ParserCtxtPtr) NodePtr
+
 //go:linkname InputPush C.inputPush
-func InputPush(ctxt XmlParserCtxtPtr, value XmlParserInputPtr) c.Int
+func InputPush(ctxt ParserCtxtPtr, value ParserInputPtr) c.Int
+
 //go:linkname InputPop C.inputPop
-func InputPop(ctxt XmlParserCtxtPtr) XmlParserInputPtr
+func InputPop(ctxt ParserCtxtPtr) ParserInputPtr
+
 //go:linkname NamePop C.namePop
-func NamePop(ctxt XmlParserCtxtPtr) *XmlChar
+func NamePop(ctxt ParserCtxtPtr) *Char
+
 //go:linkname NamePush C.namePush
-func NamePush(ctxt XmlParserCtxtPtr, value *XmlChar) c.Int
-//go:linkname XmlSkipBlankChars C.xmlSkipBlankChars
-func XmlSkipBlankChars(ctxt XmlParserCtxtPtr) c.Int
-//go:linkname XmlStringCurrentChar C.xmlStringCurrentChar
-func XmlStringCurrentChar(ctxt XmlParserCtxtPtr, cur *XmlChar, len *c.Int) c.Int
-//go:linkname XmlParserHandlePEReference C.xmlParserHandlePEReference
-func XmlParserHandlePEReference(ctxt XmlParserCtxtPtr)
-// llgo:link (*XmlChar).XmlCheckLanguageID C.xmlCheckLanguageID
-func (recv_ *XmlChar) XmlCheckLanguageID() c.Int {
+func NamePush(ctxt ParserCtxtPtr, value *Char) c.Int
+
+/*
+ * other commodities shared between parser.c and parserInternals.
+ */
+//go:linkname SkipBlankChars C.xmlSkipBlankChars
+func SkipBlankChars(ctxt ParserCtxtPtr) c.Int
+
+//go:linkname StringCurrentChar C.xmlStringCurrentChar
+func StringCurrentChar(ctxt ParserCtxtPtr, cur *Char, len *c.Int) c.Int
+
+//go:linkname ParserHandlePEReference C.xmlParserHandlePEReference
+func ParserHandlePEReference(ctxt ParserCtxtPtr)
+
+// llgo:link (*Char).CheckLanguageID C.xmlCheckLanguageID
+func (recv_ *Char) CheckLanguageID() c.Int {
 	return 0
 }
-//go:linkname XmlCurrentChar C.xmlCurrentChar
-func XmlCurrentChar(ctxt XmlParserCtxtPtr, len *c.Int) c.Int
-// llgo:link (*XmlChar).XmlCopyCharMultiByte C.xmlCopyCharMultiByte
-func (recv_ *XmlChar) XmlCopyCharMultiByte(val c.Int) c.Int {
+
+/*
+ * Really core function shared with HTML parser.
+ */
+//go:linkname CurrentChar C.xmlCurrentChar
+func CurrentChar(ctxt ParserCtxtPtr, len *c.Int) c.Int
+
+// llgo:link (*Char).CopyCharMultiByte C.xmlCopyCharMultiByte
+func (recv_ *Char) CopyCharMultiByte(val c.Int) c.Int {
 	return 0
 }
-//go:linkname XmlCopyChar C.xmlCopyChar
-func XmlCopyChar(len c.Int, out *XmlChar, val c.Int) c.Int
-//go:linkname XmlNextChar C.xmlNextChar
-func XmlNextChar(ctxt XmlParserCtxtPtr)
-//go:linkname XmlParserInputShrink C.xmlParserInputShrink
-func XmlParserInputShrink(in XmlParserInputPtr)
+
+//go:linkname CopyChar C.xmlCopyChar
+func CopyChar(len c.Int, out *Char, val c.Int) c.Int
+
+//go:linkname NextChar C.xmlNextChar
+func NextChar(ctxt ParserCtxtPtr)
+
+//go:linkname ParserInputShrink C.xmlParserInputShrink
+func ParserInputShrink(in ParserInputPtr)
+
 // llgo:type C
-type XmlEntityReferenceFunc func(XmlEntityPtr, XmlNodePtr, XmlNodePtr)
-//go:linkname XmlSetEntityReferenceFunc C.xmlSetEntityReferenceFunc
-func XmlSetEntityReferenceFunc(func_ XmlEntityReferenceFunc)
-//go:linkname XmlParseQuotedString C.xmlParseQuotedString
-func XmlParseQuotedString(ctxt XmlParserCtxtPtr) *XmlChar
-//go:linkname XmlParseNamespace C.xmlParseNamespace
-func XmlParseNamespace(ctxt XmlParserCtxtPtr)
-//go:linkname XmlNamespaceParseNSDef C.xmlNamespaceParseNSDef
-func XmlNamespaceParseNSDef(ctxt XmlParserCtxtPtr) *XmlChar
-//go:linkname XmlScanName C.xmlScanName
-func XmlScanName(ctxt XmlParserCtxtPtr) *XmlChar
-//go:linkname XmlNamespaceParseNCName C.xmlNamespaceParseNCName
-func XmlNamespaceParseNCName(ctxt XmlParserCtxtPtr) *XmlChar
-//go:linkname XmlParserHandleReference C.xmlParserHandleReference
-func XmlParserHandleReference(ctxt XmlParserCtxtPtr)
-//go:linkname XmlNamespaceParseQName C.xmlNamespaceParseQName
-func XmlNamespaceParseQName(ctxt XmlParserCtxtPtr, prefix **XmlChar) *XmlChar
+type EntityReferenceFunc func(EntityPtr, NodePtr, NodePtr)
+
+//go:linkname SetEntityReferenceFunc C.xmlSetEntityReferenceFunc
+func SetEntityReferenceFunc(func_ EntityReferenceFunc)
+
+//go:linkname ParseQuotedString C.xmlParseQuotedString
+func ParseQuotedString(ctxt ParserCtxtPtr) *Char
+
+//go:linkname ParseNamespace C.xmlParseNamespace
+func ParseNamespace(ctxt ParserCtxtPtr)
+
+//go:linkname NamespaceParseNSDef C.xmlNamespaceParseNSDef
+func NamespaceParseNSDef(ctxt ParserCtxtPtr) *Char
+
+//go:linkname ScanName C.xmlScanName
+func ScanName(ctxt ParserCtxtPtr) *Char
+
+//go:linkname NamespaceParseNCName C.xmlNamespaceParseNCName
+func NamespaceParseNCName(ctxt ParserCtxtPtr) *Char
+
+//go:linkname ParserHandleReference C.xmlParserHandleReference
+func ParserHandleReference(ctxt ParserCtxtPtr)
+
+//go:linkname NamespaceParseQName C.xmlNamespaceParseQName
+func NamespaceParseQName(ctxt ParserCtxtPtr, prefix **Char) *Char
+
 /**
  * Entities
  */
-//go:linkname XmlDecodeEntities C.xmlDecodeEntities
-func XmlDecodeEntities(ctxt XmlParserCtxtPtr, len c.Int, what c.Int, end XmlChar, end2 XmlChar, end3 XmlChar) *XmlChar
-//go:linkname XmlHandleEntity C.xmlHandleEntity
-func XmlHandleEntity(ctxt XmlParserCtxtPtr, entity XmlEntityPtr)
+//go:linkname DecodeEntities C.xmlDecodeEntities
+func DecodeEntities(ctxt ParserCtxtPtr, len c.Int, what c.Int, end Char, end2 Char, end3 Char) *Char
+
+//go:linkname HandleEntity C.xmlHandleEntity
+func HandleEntity(ctxt ParserCtxtPtr, entity EntityPtr)
